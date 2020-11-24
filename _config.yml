@@ -1,10 +1,10 @@
 # Site
-name: 'Canarin&apos;s Blog'
-description: 'Canarin&apos;s blog is a personal blog with developer topics.'
+name: 'Canarins Blog'
+description: 'Canarins blog is a personal blog with developer topics.'
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
-disqus: 'canarin&apos;s blog'
+disqus: 'canarins blog'
 email: 'jaksa.tomovic@gmail.com'
 mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 
