@@ -10,13 +10,6 @@ mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a
 
 include: ["_pages"]
 permalink: /:title/
-
-# Plugins
-plugins: 
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-seo-tag
   
 authors:
     jaksa:
@@ -26,6 +19,24 @@ authors:
       bio:            "Hi, I am Jakša, the content creator of Canarin's Blog, the website you're currently previewing. I hope you like it!"
       email:          jaksa.tomovic@gmail.com
       twitter:        
+      
+
+
+# Plugins
+plugins: 
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-archives
+    
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
  
 # Defaults
 defaults:
@@ -46,12 +57,24 @@ defaults:
       
 # Syntax
 markdown: kramdown
-highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
 # Paginate
 paginate: 10
 
+# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
+adsense: "disabled"
+adsense-data-ad-client: "ca-pub-3412143450191416"
+adsense-data-ad-slot: "1363087678"
 
+# Lazy Images ("enabled" or "disabled")
+lazyimages: "disabled"
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
 exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
