@@ -803,4 +803,38 @@ div.a2a_full_footer {display:none;}
 		 height:280px !Important;
 	 }
  }
+
+
+
+.spoiler {
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: all .4s;
+    cursor: pointer;
+    position: relative;
+}
+
+.spoiler:after {
+    position: absolute;
+    opacity: 0;
+    content: 'Click to reveal spoiler';
+    top: 45%;
+    left: calc(50% - 100px);
+    text-shadow: none;
+    background: #222;
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+    padding: 2px 3px;
+    width: 150px;
+    font-family: Arial;
+    text-align: center;
+    border-radius: 3px;
+    transition: all .4s;
+}
+
+.spoiler:hover:after {
+    opacity: 1;
+}
  

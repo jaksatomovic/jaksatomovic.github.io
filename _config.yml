@@ -20,14 +20,21 @@ authors:
       email:          jaksa.tomovic@gmail.com
       twitter:        
       
-
-
 # Plugins
 plugins: 
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
+  - jekyll-archives
+    
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
  
 # Defaults
 defaults:
