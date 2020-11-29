@@ -13,7 +13,7 @@ permalink: "/tags.html"
 {% for post in pages_list %}
 {% if post.title != null %}
 {% if group == null or group == post.group %}
-{% include postbox.html %}
+{% comment %} {% include postbox.html %} {% endcomment %}
 {% endif %}
 {% endif %}
 {% endfor %}
