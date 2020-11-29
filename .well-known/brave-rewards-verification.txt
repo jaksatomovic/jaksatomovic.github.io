@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: jaksatomovic.github.io
+Token: fe25e2d91882291afbf9c8eb2a47a457d040c884e613713a0b08f313ebf8eab1

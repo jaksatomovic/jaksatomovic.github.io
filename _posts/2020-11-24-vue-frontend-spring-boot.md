@@ -150,7 +150,7 @@ Now let's attach a ‘*data'* attribute to the Vue application to hold our array
 
 Our Vue app now looks like this:
 
-```java
+```js
     	<script type="text/babel">
 
     	    var app = new Vue({
