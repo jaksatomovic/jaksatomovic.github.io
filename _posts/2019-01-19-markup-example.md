@@ -4,7 +4,7 @@ title:  "Setup CI/CD with GitLab"
 author: jaksa
 categories: [ Jekyll, tutorial ]
 image: assets/images/6.jpg
-tags: featured
+tags: [sticky,featured]
 ---
 
 # Setup CI / CD with GitLab

@@ -4,7 +4,6 @@ title:  "Using EhCache 3 with Spring boot"
 author: jaksa
 categories: [ tutorial ]
 image: assets/images/home.jpg
-tags: [sticky]
 ---
 
 # Using EhCache 3 with Spring boot
