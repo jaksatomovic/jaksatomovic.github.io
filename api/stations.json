@@ -42,6 +42,13 @@
      "imageURL": "https://www.otvoreni.hr/ea/wp-content/uploads/2019/06/cover_chill.png",
      "desc": "",
      "longDesc": ""
+     },
+     {
+     "name": "Narodni Radio",
+     "streamURL": "http://live.narodni.hr:8059/stream/1/",
+     "imageURL": "https://cdn.webrad.io/images/logos/radios-hr/narodni.png",
+     "desc": "",
+     "longDesc": ""
      }
     ]
 }
