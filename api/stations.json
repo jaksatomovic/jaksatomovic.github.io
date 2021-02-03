@@ -3,7 +3,7 @@
     [
      {
      "name": "Otvoreni LIVE",
-     "streamURL": "https://stream.otvoreni.hr/stream48",
+     "streamURL": "https://stream.otvoreni.hr/otvoreni",
      "imageURL": "https://www.otvoreni.hr/ea/wp-content/uploads/2019/06/cover_live.png",
      "desc": "",
      "longDesc": ""
@@ -33,6 +33,20 @@
      "name": "Otvoreni Chill",
      "streamURL": "https://stream.otvoreni.hr:443/chill",
      "imageURL": "https://www.otvoreni.hr/ea/wp-content/uploads/2019/06/cover_chill.png",
+     "desc": "",
+     "longDesc": ""
+     },
+     {
+     "name": "Antena Zagreb",
+     "streamURL": "http://live.antenazagreb.hr:8000/stream/1/",
+     "imageURL": "https://cdn.webrad.io/images/logos/radios-hr/antena-zagreb.png",
+     "desc": "",
+     "longDesc": ""
+     },
+     {
+     "name": "Narodni Radio",
+     "streamURL": "http://live.narodni.hr:8059/stream/1/",
+     "imageURL": "https://cdn.webrad.io/images/logos/radios-hr/narodni.png",
      "desc": "",
      "longDesc": ""
      }
