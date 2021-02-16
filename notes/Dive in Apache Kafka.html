@@ -60,7 +60,7 @@
 <p>Kafka is a unified platform for handling all the real-time data feeds. Kafka supports low latency message delivery and gives guarantee for fault tolerance in the presence of machine failures. It has the ability to handle a large number of diverse consumers. Kafka is very fast, performs 2 million writes/sec. Kafka persists all data to the disk, which essentially means that all the writes go to the page cache of the OS (RAM). This makes it very efficient to transfer data from page cache to a network socket.</p>
 </div><div class="cell markdown-cell"><h2>Fundamentals</h2>
 <p>Before moving deep into the Kafka, you must aware of the main terminologies such as topics, brokers, producers and consumers. The following diagram illustrates the main terminologies and the table describes the diagram components in detail.</p>
-<p><img src="https://www.tutorialspoint.com/apache_kafka/images/fundamentals.jpg" alt="Publish-Subscribe Messaging system"></p>
+<p><img src="https://www.tutorialspoint.com/apache_kafka/images/fundamentals.jpg" alt="Fundamentals"></p>
 <p>In the above diagram, a topic is configured into three partitions. Partition 1 has two offset factors 0 and 1. Partition 2 has four offset factors 0, 1, 2, and 3. Partition 3 has one offset factor 0. The id of the replica is same as the id of the server that hosts it.</p>
 <p>Assume, if the replication factor of the topic is set to 3, then Kafka will create 3 identical replicas of each partition and place them in the cluster to make available for all its operations. To balance a load in cluster, each broker stores one or more of those partitions. Multiple producers and consumers can publish and retrieve messages at the same time.</p>
 <p><strong>Topics</strong></p>
@@ -88,7 +88,176 @@
 <p>Leader is the node responsible for all reads and writes for the given partition. Every partition has one server acting as a leader.</p>
 <p><strong>Follower</strong></p>
 <p>Node which follows leader instructions are called as follower. If the leader fails, one of the follower will automatically become the new leader. A follower acts as normal consumer, pulls messages and up-dates its own data store.</p>
-</div></div>
+</div><div class="cell markdown-cell"><h2>Instalation</h2>
+<h3>Installation on Mac using Homebrew</h3>
+<p><img src="https://miro.medium.com/max/1224/1*tsXkwb5Q57qUzUhC07ESFQ.png" alt="Kafka Homebrew"></p>
+</div><div class="cell text-cell"><div>1. **Install Java 8**</div></div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ <span class="ace_identifier">brew</span> <span class="ace_identifier">cask</span> <span class="ace_identifier">install</span> <span class="ace_identifier">java</span>
+</div></div></div></div><div class="cell markdown-cell"><p><strong>2. Install Kafka</strong></p>
+</div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> $ brew install kafka
+</div></div></div></div><div class="cell markdown-cell"><p>3. Open <strong>the 1st terminal</strong> to start Zookeeper</p>
+</div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ zookeeper-server-<span class="ace_keyword ace_command ace_dosbatch">start</span> /usr/local/etc/kafka/zookeeper.properties
+</div></div></div></div><div class="cell markdown-cell"><p>4. Open <strong>the 2nd terminal</strong> to start Kafka</p>
+</div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ kafka-server-<span class="ace_keyword ace_command ace_dosbatch">start</span> /usr/local/etc/kafka/server.properties
+</div></div></div></div><div class="cell markdown-cell"><p>5. Open <strong>the 3rd terminal</strong> to create a Kafka topic</p>
+</div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ kafka-topics --bootstrap-server localhost:9092 --topic <span class="ace_keyword ace_operator ace_redirect ace_shell">&lt;</span>enter-a-topic<span class="ace_keyword ace_operator ace_redirect ace_shell">&gt;</span> --create --partitions 1 --replication-factor 1
+</div></div></div></div><div class="cell markdown-cell"><h3>Installation on Mac using Docker</h3>
+</div><div class="cell markdown-cell"><h4>Apache Kafka + Zookeeper docker image selection</h4>
+<p>First, you have to decide on the vendor of the Apache Kafka image for container. The requirements of each specific project differ in the level of security and reliability of the solution, in some cases, of course, you will have to build your own image, but for most projects it will be reasonable to choose one from docker hub. For 2020, there are three main popular image vendors kafka + zookeper:</p>
+<ul>
+<li>images from <a href="https://docs.confluent.io/current/quickstart/ce-docker-quickstart.html"><strong>confluent</strong></a> [subjectively, a big plus — they are supplied by the developers of Apache Kafka itself and are the most reliable in terms of information security]</li>
+<li>images from <a href="https://github.com/bitnami/bitnami-docker-kafka"><strong>bitnami</strong></a> [in comparison with confluent, the images need minimal configuration and start out of the box]</li>
+<li>images from <a href="https://github.com/wurstmeister/kafka-docker"><strong>wurstmeister</strong></a> [in this example I will use them because the project has the most active community on github and hub.docker, as well as excellent documentation]</li>
+</ul>
+</div><div class="cell text-cell">More examples on:&nbsp;<a href="https://github.com/jaksatomovic/kafka-stack-docker-compose">https://github.com/jaksatomovic/kafka-stack-docker-compose</a></div><div class="cell text-cell"></div><div class="cell code-cell"><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">version</span><span class="ace_keyword">: </span><span class="ace_string">'3'</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">services</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  zookeeper</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    image</span><span class="ace_keyword">: </span>zookeeper:<span class="ace_constant ace_numeric">3.4.9</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    hostname</span><span class="ace_keyword">: </span>zookeeper
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    ports</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span><span class="ace_string">"2181:2181"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    environment</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  ZOO_MY_ID</span><span class="ace_keyword">: </span><span class="ace_constant ace_numeric">1</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  ZOO_PORT</span><span class="ace_keyword">: </span><span class="ace_constant ace_numeric">2181</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  ZOO_SERVERS</span><span class="ace_keyword">: </span>server<span class="ace_constant ace_numeric">.1</span>=zookeeper:<span class="ace_constant ace_numeric">2888</span>:<span class="ace_constant ace_numeric">3888</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    volumes</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span>./data/zookeeper/data:/data
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span>./data/zookeeper/datalog:/datalog
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  kafka1</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    image</span><span class="ace_keyword">: </span>confluentinc/cp-kafka:<span class="ace_constant ace_numeric">5.3.0</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    hostname</span><span class="ace_keyword">: </span>kafka1
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    ports</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span><span class="ace_string">"9091:9091"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    environment</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_ADVERTISED_LISTENERS</span><span class="ace_keyword">: </span>LISTENER_DOCKER_INTERNAL://kafka1:<span class="ace_constant ace_numeric">19091</span>,LISTENER_DOCKER_EXTERNAL://$<span class="ace_paren ace_lparen">{</span>DOCKER_HOST_IP:<span class="ace_constant ace_numeric">-127.0.0.1</span><span class="ace_paren ace_rparen">}</span>:<span class="ace_constant ace_numeric">9091</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="ace_keyword">: </span>LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_INTER_BROKER_LISTENER_NAME</span><span class="ace_keyword">: </span>LISTENER_DOCKER_INTERNAL
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_ZOOKEEPER_CONNECT</span><span class="ace_keyword">: </span><span class="ace_string">"zookeeper:2181"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_BROKER_ID</span><span class="ace_keyword">: </span><span class="ace_constant ace_numeric">1</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR</span><span class="ace_keyword">: </span><span class="ace_constant ace_numeric">1</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    volumes</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span>./data/kafka1/data:/var/lib/kafka/data
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    depends_on</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span>zookeeper
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>      
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  kafdrop</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    image</span><span class="ace_keyword">: </span>obsidiandynamics/kafdrop
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    restart</span><span class="ace_keyword">: </span><span class="ace_string">"no"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    ports</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span><span class="ace_string">"9000:9000"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    environment</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  KAFKA_BROKERCONNECT</span><span class="ace_keyword">: </span><span class="ace_string">"kafka1:19091"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">    depends_on</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">  - </span>kafka1
+</div></div></div></div><div class="cell markdown-cell"><h4>Single Zookeeper / Single Kafka</h4>
+<p>This configuration fits most development requirements.</p>
+<ul>
+<li>Zookeeper will be available at <code>$DOCKER_HOST_IP:2181</code></li>
+<li>Kafka will be available at <code>$DOCKER_HOST_IP:9091</code></li>
+</ul>
+<p>Run with:</p>
+<pre><div class="ace-chrome"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>docker-compose -f zk-single-kafka-single.yml up
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>docker-compose -f zk-single-kafka-single.yml down
+</div></div></div></pre>
+</div><div class="cell markdown-cell"><h1><strong>Architecture</strong></h1>
+<h3>Cluster Architecture</h3>
+<p>Take a look at the following illustration. It shows the cluster diagram of Kafka.</p>
+<p><img src="https://www.tutorialspoint.com/apache_kafka/images/cluster_architecture.jpg" alt="Cluster Architecture"></p>
+<h2><strong>Key components of Kafka</strong></h2>
+<ul>
+<li>Broker</li>
+<li>Producers</li>
+<li>Consumers</li>
+<li>Topic</li>
+<li>Partitions</li>
+<li>Offset</li>
+<li>Consumer Group</li>
+<li>Replication</li>
+</ul>
+<p>The following text describes each of the components shown in the above diagram.</p>
+<h4><strong>Broker:</strong></h4>
+<p>Apache Kafka runs as a cluster on one or more servers that can span multiple datacenters. An instance of the cluster is broker.</p>
+<p>Kafka cluster typically consists of multiple brokers to maintain load balance. Kafka brokers are stateless, so they use ZooKeeper for maintaining their cluster state. One Kafka broker instance can handle hundreds of thousands of reads and writes per second and each bro-ker can handle TB of messages without performance impact. Kafka broker leader election can be done by ZooKeeper.</p>
+<p><img src="https://lh3.googleusercontent.com/Z1qnq6-8fTtZ1yHj2giv6WALZ_JYoAKpCXAAb1yv6_qYLNb1o9xq0vWV_xy-bR0yzcYqEycJgT--mOLWKvZZOPUlOrbSeBWMj0ryrho8Npdp0lI1bJ_JHfTX9TydOONIv8xgLQpY" alt=""></p>
+<h4><strong>Producer &amp; Consumer</strong>:</h4>
+<p>Producers push data to brokers. When the new broker is started, all the producers search it and automatically sends a message to that new broker. Kafka producer doesn’t wait for acknowledgements from the broker and sends messages as fast as the broker can handle.</p>
+<p>Since Kafka brokers are stateless, which means that the consumer has to maintain how many messages have been consumed by using partition offset. If the consumer acknowledges a particular message offset, it implies that the consumer has consumed all prior messages. The consumer issues an asynchronous pull request to the broker to have a buffer of bytes ready to consume. The consumers can rewind or skip to any point in a partition simply by supplying an offset value. Consumer offset value is notified by ZooKeeper.</p>
+<p><strong>Producer:</strong> It writes data to the brokers.<br>
+<strong>Consumer:</strong> It consumes data from brokers.</p>
+<p>Apache Kafka clusters can be running in multiple nodes.</p>
+<p><img src="https://lh5.googleusercontent.com/ZtqxguGwGE4pQci-dgy8TH9KBPnM5hG84F7QXj5LYJtI-RaZtbbiLpLHOezitYqlzEKYnZbiFkUvZgjZY9_Tk5WjRTUqK5JdHpa5uzO-kxNMzpf9ZdWX_4fiGA29XEd3FxT__x5O" alt=""></p>
+<h4><strong>Kafka Topic:</strong></h4>
+<ul>
+<li>A Topic is a category/feed name to which messages are stored and published.</li>
+<li>If you wish to send a message you send it to a specific topic and if you wish to read a message you read it from a specific topic.</li>
+<li>Why we need a topic: In the same Kafka Cluster data from many different sources can be coming at the same time. Ex. logs, web activities, metrics etc. So Topics are useful to identify that this data is stored in a particular topic.</li>
+<li>Producer applications write data to topics and consumer applications read from topics.</li>
+</ul>
+<h4><strong>Partitions:</strong></h4>
+<ul>
+<li>Kafka topics are divided into a number of partitions, which contains messages in an unchangeable sequence(immutable).</li>
+<li>Each message in a partition is assigned and identified by its unique offset.</li>
+<li>A topic can also have multiple partition logs.This allows for multiple consumers to read from a topic in parallel.</li>
+<li>Partitions allow you to parallelize a topic by splitting the data in a particular topic across multiple brokers</li>
+</ul>
+<p>Anatomy of a topic:</p>
+<p><img src="https://lh3.googleusercontent.com/C31wRhyg6YDVJLCxwnEHKiBo3dd49iCwFJht40ogRIzwWaaqkpzPTHPU30xH0RjmcJ763DIy3GORyRlTbY6HmmyLidPBw6Z9xHG0U6wYc12W-k8aejGwUkr2in_a_PpvrOadomaG" alt=""></p>
+<h4><strong>Partition Offset:</strong></h4>
+<p>Offset: Messages in the partitions are each assigned a unique (per partition) and sequential id called the offset. Consumers track their pointers via (offset, partition, topic) tuples.</p>
+<p><img src="https://lh3.googleusercontent.com/orv-nK3Gd04C1kErle-BrsU4et0OFS-HgXTFiiu6_3AfSeIeb66eOozx3kY9fXwjo5xPgaJkd3efAgOSpdM-WGvWYlTudp3yDQsogjEpFGxE1QtR5W86c8t_mhzDtHKr18ejqpr7" alt=""></p>
+<h4><strong>Consumer and Consumer Group:</strong></h4>
+<ul>
+<li>Consumers can read messages starting from a specific offset and are allowed to read from any offset point they choose.</li>
+<li>This allows consumers to join the cluster at any point in time.</li>
+<li>Consumers can join a group called a consumer group.</li>
+<li>A consumer group includes the set of consumer processes that are subscribing to a specific topic.</li>
+</ul>
+<p><img src="https://lh3.googleusercontent.com/vi8CNJV2fMeniopaT3bYyDYZQQKz_Awdbrf_g4J6wnTt-C05RvI0D378c39cyvV0iQuEmOZ17e_Tw8Al5UXX7pp34_Z6l3bRkvKZ0KSUvefrZwlZEVdO33cH4A2mCsDP40CBs9lL" alt=""></p>
+<h4><strong>Replication:</strong></h4>
+<ul>
+<li>In Kafka, replication is implemented at the partition level. Helps to prevent data loss.</li>
+<li>The redundant unit of a topic partition is called a replica.</li>
+<li>Each partition usually has one or more replicas meaning that partitions contain messages that are replicated over a few Kafka brokers in the cluster. As we can see in the pictures – the <em>click-topic</em> is replicated to Kafka node 2 and Kafka node 3.</li>
+</ul>
+<p><img src="https://lh3.googleusercontent.com/c8Alx0xKHT9o5DeG2JNS5zTZtzkFyAAbRCRLbzsGsb41aNr7fW2polg6U-UsQ8yM3PQs5vmcZoonKPJOm0_iPUk2iR-DyWY26ADfpbXOH0Zslkd1o3jq-QXYTJPUtj2GjjP9hvUn" alt=""></p>
+<h2><strong>Kafka APIs</strong></h2>
+<p>Kafka has four core APIs:</p>
+<p>● The <strong>Producer API</strong> allows an application to publish a stream of records to one or more Kafka topics.</p>
+<p>● The <strong>Consumer API</strong> allows an application to subscribe to one or more topics and process the stream of records.</p>
+<p>● The <strong>Streams API</strong> allows an application to act as a stream processor, consuming an input stream from one or more topics and producing an output stream to one or more output topics, effectively transforming the input streams to output streams.</p>
+<p>● The <strong>Connector API</strong> allows building and running reusable producers or consumers that connect Kafka topics to existing applications or data systems. For example, a connector to a relational database might capture every change to a table.</p>
+<p><img src="https://lh3.googleusercontent.com/e4c4H76ehoXEPTgH_hSTjMiEyudD56edFzaXwRd6caTZuDB6mj5IZfgTCt286hijfLiKieWquXqxODmWjaaXJLZVc0wwVd94JoSkG7cQkiszCQhQb4MYRw2weWYqzme2f58o89n_" alt=""></p>
+<h2><strong>How Kafka Works?</strong></h2>
+<ul>
+<li>Producers writes data to the topic</li>
+<li>As a message record is written to a partition of the topic, it’s offset is increased by 1.</li>
+<li>Consumers consume data from the topic. Each consumer read data based on the offset value.</li>
+</ul>
+<p><img src="https://lh4.googleusercontent.com/LjDwkRttSeW1wPc-FhEUP_Zl1WTY35AP_7tgDPuW--Finlw2NZSl2WHby1TAJUl0j_fyHruqeya-icdgRoALw5IIbb5nLXT8TzSZKSHAZjNfrrSQawVOIVK48lbUE8uD07wEFwb1" alt=""></p>
+<h4><strong>Real world example</strong></h4>
+<ul>
+<li>Website activity tracking.</li>
+<li>Let’s take an example of Flipkart, when you visit flipkart &amp; perform any action like search, login, click on a product etc all of these events are captured.</li>
+<li>Tracking event will create a message stream for this based on the kind of event it’ll go to a specific topic by Kafka Producer.</li>
+<li>This kind of activity tracking often requires a very high volume of throughput, messages are generated for each action.</li>
+</ul>
+<h4><strong>Steps</strong></h4>
+<ul>
+<li>A user clicks on a button on a website.</li>
+<li>The web application publishes a message to partition 0 in topic “click”.</li>
+<li>The message is appended to its commit log and the message offset is incremented.</li>
+<li>The consumer can pull messages from the click-topic and show monitoring usage in real-time or for any other use case.</li>
+</ul>
+<p><img src="https://lh4.googleusercontent.com/STIEs3vah0pw5ZB98KnrdGGS4H3LRB5UVS0wY6vZX5ShsrrNTKWDMEIFNLCGlzvhuke_lpRZK65LZrLgbD-p1s-f3SYU9VcUhXW4gUX1Xwmk3SwsxJ6Jl2UgSJJhSCRdY74yur9f" alt=""></p>
+<h4><strong>Zookeeper</strong></h4>
+<ul>
+<li>ZooKeeper is used for managing and coordinating Kafka broker.</li>
+<li>ZooKeeper service is mainly used to notify producers and consumers about the presence of any new broker in the Kafka system or failure of the broker in the Kafka system.</li>
+<li>As per the notification received by the Zookeeper regarding presence or failure of the broker then producer and consumer takes decision and starts coordinating their task with some other broker.</li>
+<li>The ZooKeeper framework was originally built at Yahoo!</li>
+</ul>
+</div><div class="cell text-cell"></div></div>
       <script>document.body.onkeyup = function(e) {
 if (e.keyCode === 39) window.location.href = 'Setup CI   CD with GitLab.html';
 }</script>
