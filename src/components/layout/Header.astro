@@ -1,0 +1,35 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/apps", label: "Apps" },
+  { href: "mailto:jaksa.tomovic@gmail.com", label: "Say hi", external: true },
+];
+---
+
+<header class="py-6 sm:py-8">
+  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+    <a href="/" class="flex items-center gap-2 text-lg font-semibold text-primary dark:text-white">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white dark:bg-white dark:text-primary">
+        JT
+      </span>
+      <span>Jakša Tomović</span>
+    </a>
+    <nav>
+      <ul class="flex items-center gap-2 sm:gap-4">
+        {links.map(({ href, label, external }) => (
+          <li>
+            <a
+              href={href}
+              class="rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 hover:text-primary dark:text-white dark:hover:bg-white/10"
+              rel={external ? "noopener noreferrer" : undefined}
+              target={external ? "_blank" : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+

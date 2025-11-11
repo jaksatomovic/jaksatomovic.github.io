@@ -1,5 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
 ---
 
 <html lang="en">
@@ -7,7 +9,13 @@ import BaseHead from "../components/BaseHead.astro";
     <BaseHead />
   </head>
 
-  <body class="dark:bg-primary bg-zinc-200 ">
-    <slot />
+<body class="min-h-screen bg-zinc-200 font-sans text-primary antialiased dark:bg-primary">
+  <div class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </div>
   </body>
 </html>

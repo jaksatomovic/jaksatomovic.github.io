@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const sections = [
+  {
+    title: "1. Data collection",
+    body: [
+      "Snipbox does not collect or store personal data.",
+      "No names, email addresses, browsing history, IP addresses, analytics, or payment details are captured.",
+    ],
+  },
+  {
+    title: "2. Local storage only",
+    body: [
+      "Your snippets and settings stay on your device using Chrome’s `storage.local` API.",
+      "Nothing is transmitted to our servers.",
+    ],
+  },
+  {
+    title: "3. Snippet saving",
+    body: [
+      "Snipbox reads selected text only when you explicitly choose “Save to Snipbox.”",
+      "The extension does not scrape content in the background.",
+    ],
+  },
+  {
+    title: "4. Licensing & payments (DodoPayments)",
+    body: [
+      "When purchasing a license, payments are processed securely by DodoPayments.",
+      "Snipbox never receives or stores your financial data.",
+      "Customer information is handled according to DodoPayments’ policies.",
+      "The extension only checks whether a license key is valid.",
+    ],
+  },
+  {
+    title: "5. No data sharing",
+    body: [
+      "We do not sell, share, or transfer data to third parties.",
+      "We do not use analytics or advertising trackers.",
+    ],
+  },
+  {
+    title: "6. Exports",
+    body: [
+      "When you export snippets (for example to Markdown or JSON), the file is generated locally.",
+      "No data leaves your device during export.",
+    ],
+  },
+  {
+    title: "7. Policy changes",
+    body: [
+      "If Snipbox introduces cloud sync or other online features, this policy will be updated in advance.",
+    ],
+  },
+  {
+    title: "8. Contact",
+    body: [
+      "For questions, reach out at jaksa.tomovic@gmail.com.",
+    ],
+  },
+];
+---
+
+<BaseLayout>
+  <section class="px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto flex w-full max-w-3xl flex-col gap-12">
+      <header class="space-y-3">
+        <p class="text-xs uppercase tracking-[0.4em] text-primary/70 dark:text-white/70">Snipbox</p>
+        <h1 class="text-4xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">Privacy Policy</h1>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+          Last updated 2 November 2025
+        </p>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+          Snipbox respects your privacy. The extension is designed so your data stays on your device.
+        </p>
+      </header>
+
+      <div class="space-y-8 rounded-3xl border border-primary/10 bg-white/80 p-8 shadow-lg shadow-primary/10 dark:border-white/10 dark:bg-secondary/60">
+        {sections.map((section) => (
+          <article class="space-y-3">
+            <h2 class="text-xl font-semibold text-primary dark:text-white">{section.title}</h2>
+            <div class="space-y-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-300 sm:text-base">
+              {section.body.map((paragraph) => (
+                paragraph.includes("`") ? (
+                  <p set:html={paragraph.replace(/`([^`]+)`/g, "<code>$1</code>")} />
+                ) : (
+                  <p>{paragraph}</p>
+                )
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p class="text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/40">
+        © {new Date().getFullYear()} Snipbox · Crafted by Jakša Tomović
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+

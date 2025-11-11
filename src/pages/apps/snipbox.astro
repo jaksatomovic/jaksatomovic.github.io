@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const features = [
+  {
+    title: "Ultra-fast capture",
+    description:
+      "Highlight, right-click, save. Snipbox captures text, code, and quotes instantly—without switching tabs or breaking focus.",
+    icon: "capture",
+  },
+  {
+    title: "Structured vault",
+    description:
+      "Organize snippets with tags, color accents, and pinned collections. Everything stays local, private, and searchable.",
+    icon: "vault",
+  },
+  {
+    title: "Export-ready",
+    description:
+      "Generate Markdown or JSON in one click. Share snippets with teammates or move them into docs without formatting issues.",
+    icon: "export",
+  },
+];
+
+const workflow = [
+  {
+    step: "1",
+    title: "Save from anywhere",
+    description: "Collect snippets from Chrome with a single shortcut or context menu.",
+  },
+  {
+    step: "2",
+    title: "Curate effortlessly",
+    description: "Tag snippets, add notes, and keep collections synced locally for fast recall.",
+  },
+  {
+    step: "3",
+    title: "Ship it",
+    description: "Export to Markdown, copy blocks, or hand off clean code examples to your team.",
+  },
+];
+---
+
+<BaseLayout>
+  <section class="px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto flex w-full max-w-5xl flex-col gap-20">
+      <div class="grid gap-12 lg:grid-cols-[1.3fr,1fr] lg:items-center">
+        <div class="space-y-6">
+          <span class="inline-flex max-w-fit items-center gap-2 rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-primary/60 dark:border-white/10 dark:text-white/70">
+            Snipbox
+          </span>
+          <h1 class="text-4xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
+            The snippet command center for builders who move fast.
+          </h1>
+          <p class="max-w-xl text-base text-zinc-500 dark:text-zinc-400 sm:text-lg">
+            Built for operators who value craft. Snipbox keeps copy, code, and references tidy with a macOS-inspired interface that feels native inside Chrome.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href="https://www.dodopayments.com/checkout/snipbox"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:translate-x-1 hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-white/90"
+            >
+              Get the extension
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="/apps/snipbox/privacy"
+              class="inline-flex items-center gap-2 rounded-full border border-primary/10 px-6 py-3 text-sm font-semibold text-primary transition hover:border-primary/40 hover:text-primary dark:border-white/15 dark:text-white dark:hover:border-white/40"
+            >
+              Privacy policy
+            </a>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-primary/10 bg-white/80 p-6 shadow-2xl shadow-primary/10 dark:border-white/10 dark:bg-secondary/60">
+          <div class="space-y-4">
+            <div class="rounded-2xl bg-primary/90 px-4 py-3 text-sm font-medium text-white dark:bg-white/10 dark:text-white">
+              “Snipbox replaced my messy note system. Clips go in, organized snippets come out.”
+            </div>
+            <div class="flex items-center gap-3">
+              <img src="/images/avatar.jpg" alt="" class="h-12 w-12 rounded-full border border-primary/10 dark:border-white/10" />
+              <div>
+                <p class="text-sm font-semibold text-primary dark:text-white">Jakša Tomović</p>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400">Founder & Builder</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        {features.map((feature) => (
+          <div class="rounded-3xl border border-primary/10 bg-white/70 p-8 shadow-lg shadow-primary/10 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-primary/20 dark:border-white/10 dark:bg-secondary/60">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary dark:bg-white/10 dark:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  {feature.icon === "capture" && (
+                    <>
+                      <rect x="4.5" y="4.5" width="15" height="15" rx="3" />
+                      <path d="M12 8v8" />
+                      <path d="M8 12h8" />
+                    </>
+                  )}
+                  {feature.icon === "vault" && (
+                    <>
+                      <path d="M4 8a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                      <path d="M12 12h4" />
+                      <path d="M10 16h6" />
+                    </>
+                  )}
+                  {feature.icon === "export" && (
+                    <>
+                      <path d="M6 18h12a3.5 3.5 0 0 0 0-7h-.5a5.5 5.5 0 0 0-10.5-2" />
+                      <path d="M12 12v7" />
+                      <path d="M9 16l3 3 3-3" />
+                    </>
+                  )}
+                </svg>
+              </span>
+              <h2 class="text-lg font-semibold text-primary dark:text-white">{feature.title}</h2>
+            </div>
+            <p class="mt-4 text-sm text-zinc-500 dark:text-zinc-400">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="rounded-3xl border border-primary/10 bg-white/80 p-10 shadow-lg shadow-primary/10 dark:border-white/10 dark:bg-secondary/60">
+        <div class="space-y-6">
+          <p class="text-xs uppercase tracking-[0.4em] text-primary/70 dark:text-white/70">Workflow</p>
+          <h2 class="text-3xl font-semibold tracking-tight text-primary dark:text-white sm:text-4xl">
+            Designed to keep flow state intact.
+          </h2>
+          <div class="grid gap-6 md:grid-cols-3">
+            {workflow.map((item) => (
+              <div class="flex flex-col gap-3">
+                <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-base font-semibold text-white dark:bg-white dark:text-primary">
+                  {item.step}
+                </div>
+                <h3 class="text-lg font-semibold text-primary dark:text-white">{item.title}</h3>
+                <p class="text-sm text-zinc-500 dark:text-zinc-400">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-6 text-center">
+        <p class="text-lg font-medium text-primary dark:text-white">Want early access to the next release?</p>
+        <a
+          href="mailto:jaksa.tomovic@gmail.com?subject=Snipbox%20beta"
+          class="inline-flex items-center gap-2 rounded-full border border-primary/10 px-6 py-3 text-sm font-semibold text-primary transition hover:border-primary/40 hover:text-primary dark:border-white/15 dark:text-white dark:hover:border-white/40"
+        >
+          Join the beta list
+        </a>
+        <p class="text-xs uppercase tracking-[0.4em] text-primary/50 dark:text-white/50">
+          Built in Croatia · Crafted for makers
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
