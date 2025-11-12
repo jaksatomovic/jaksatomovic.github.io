@@ -10,12 +10,21 @@ const apps = [
     tech: ["TypeScript", "Chrome Extensions", "Tailwind CSS"],
   },
   {
-    name: "Receptino",
+    name: "Try Airshare",
     description:
-      "Turns messy recipe pages into clean, shareable cooking cards. Auto translates, converts units, and keeps collections synced across devices.",
-    href: "https://receptino.eu",
-    tech: ["PHP", "Python", "Vue"],
+      "Lightning-fast handoffs for designers and engineers. Upload builds, share self-expiring links, and keep clients moving without fiddly storage permissions.",
+    href: "https://tryairshare.com",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     external: true,
+  },
+  {
+    name: "Keero",
+    description:
+      "Decentralized, end-to-end secure chat for product teams. Built on OpenMLS and Iroh so teams keep full ownership over their data—currently in prototype.",
+    href: "https://keero.io",
+    tech: ["OpenMLS", "Rust", "Iroh"],
+    external: true,
+    cta: "Follow progress",
   },
   {
     name: "MonoMod",
@@ -24,6 +33,7 @@ const apps = [
     href: "#",
     tech: ["Web Audio API", "React"],
     disabled: true,
+    status: "Archived",
   },
 ];
 ---
@@ -57,9 +67,9 @@ const apps = [
                 </ul>
               </div>
               <div class="flex items-center gap-3">
-                {app.disabled ? (
+                {app.status ? (
                   <span class="rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50 dark:border-white/15 dark:text-white/50">
-                    In production
+                    {app.status}
                   </span>
                 ) : (
                   <a
@@ -68,7 +78,7 @@ const apps = [
                     rel={app.external ? "noopener noreferrer" : undefined}
                     class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:translate-x-1 hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-white/90"
                   >
-                    {app.external ? "Visit website" : "Explore app"}
+                    {app.cta ?? (app.external ? "Visit website" : "Explore app")}
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M5 12h14" />
                       <path d="M12 5l7 7-7 7" />
