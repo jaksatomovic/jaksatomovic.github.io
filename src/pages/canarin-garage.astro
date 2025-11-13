@@ -15,9 +15,9 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           Honda CX500 Cafe Racer — 1981
         </h1>
         <p class="mt-6 text-lg text-white/85">
-          Canarin Garage is transforming a 1981 Honda CX500 into a bespoke cafe racer. A hand-built subframe, Motogadget control
-          suite, Rae-San programmable ignition, and a full monoshock conversion deliver modern reliability while keeping the
-          V-twin character. Follow each phase—from strip-down to the first fire-up.
+          Canarin Garage is transforming a high-mile (80,000 km) 1981 Honda CX500 into a bespoke cafe racer. A hand-built
+          subframe, Motogadget control suite, Rae-San programmable ignition, and a full monoshock conversion deliver modern
+          reliability while keeping the V-twin character. Follow each phase—from strip-down to the first fire-up.
         </p>
         <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-wide uppercase text-white/70">
           <span class="rounded-full border border-white/20 px-4 py-2">Custom Subframe</span>
@@ -25,6 +25,7 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           <span class="rounded-full border border-white/20 px-4 py-2">Motogadget Suite</span>
           <span class="rounded-full border border-white/20 px-4 py-2">GSXR Front End</span>
           <span class="rounded-full border border-white/20 px-4 py-2">Brembo Rear Setup</span>
+          <span class="rounded-full border border-white/20 px-4 py-2">Seat TBD</span>
         </div>
       </div>
       <div class="flex flex-1 flex-col gap-5 rounded-3xl bg-white/10 p-6 shadow-xl shadow-black/10 backdrop-blur">
@@ -84,7 +85,8 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           <time class="text-xs uppercase tracking-[0.2em] text-primary/60 dark:text-white/60">July 2025</time>
           <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">Acquisition &amp; Baseline</h3>
           <p class="mt-2 text-primary/70 dark:text-white/70">
-            Bike sourced in original condition with 42k km. Compression checked, fluids drained, initial ride recorded.
+            Bike sourced in original condition showing just over 80,000 km. Compression checked, fluids drained, initial ride
+            recorded.
           </p>
           <p class="mt-3 text-sm text-primary/60 dark:text-white/60">
             Notes: catalog OEM parts worth saving; photograph factory wiring; weigh major components before teardown.
@@ -126,6 +128,76 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           </p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section class="bg-zinc-50 py-16 dark:bg-primary/90">
+    <div class="mx-auto max-w-5xl space-y-10 px-4 sm:px-6">
+      <header class="space-y-3 text-primary dark:text-white">
+        <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Build Journal</p>
+        <h2 class="text-3xl font-semibold">Phase-by-phase deep dives</h2>
+        <p class="text-primary/70 dark:text-white/70">
+          Longer-form notes for readers who want to follow every detail. Replace the prompts below with stories, torque values,
+          parts lists, and lessons as each phase comes together.
+        </p>
+      </header>
+      <article class="space-y-4 rounded-3xl border border-primary/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
+            <h3 class="text-2xl font-semibold text-primary dark:text-white">Baseline &amp; First Impressions</h3>
+          </div>
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">July 2025</span>
+        </header>
+        <p class="text-sm text-primary/70 dark:text-white/70">
+          Capture the story of trailering home the 80,000 km CX500, running the first compression checks, and cataloging stock
+          components. Explain why the factory carbs had to go, the switch to Murray&apos;s twin carb kit with K&amp;N filters,
+          and the first impressions that led to a full electrical overhaul plan.
+        </p>
+        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
+          <span class="rounded-full border border-current px-3 py-1">80k km</span>
+          <span class="rounded-full border border-current px-3 py-1">Murray&apos;s Carbs</span>
+          <span class="rounded-full border border-current px-3 py-1">Assessment</span>
+        </footer>
+      </article>
+      <article class="space-y-4 rounded-3xl border border-primary/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
+            <h3 class="text-2xl font-semibold text-primary dark:text-white">Mock-up Lessons</h3>
+          </div>
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">September 2025</span>
+        </header>
+        <p class="text-sm text-primary/70 dark:text-white/70">
+          Write about dialing in the GSXR front end, aligning the Cognito Moto triple tree, and setting preload on the custom YSS
+          monoshock. Share how the Brembo rear setup mates with the custom rearsets and GSXR master, and walk through ideas for
+          the seat while final upholstery decisions remain open.
+        </p>
+        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
+          <span class="rounded-full border border-current px-3 py-1">GSXR Front</span>
+          <span class="rounded-full border border-current px-3 py-1">YSS Mono</span>
+          <span class="rounded-full border border-current px-3 py-1">Seat TBD</span>
+        </footer>
+      </article>
+      <article class="space-y-4 rounded-3xl border border-primary/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
+            <h3 class="text-2xl font-semibold text-primary dark:text-white">Engine Strip &amp; Refresh</h3>
+          </div>
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">November 2025</span>
+        </header>
+        <p class="text-sm text-primary/70 dark:text-white/70">
+          Add teardown notes, bearing clearances, and prep steps for the satin black engine finish. Mention waiting on the
+          brown-code bearings, gasket sourcing, and how the Rae-San ignition integrates with the Motogadget suite once the Murray&apos;s
+          carbs and K&amp;N setup go back on. Reserve space for start-up footage or dyno figures later.
+        </p>
+        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
+          <span class="rounded-full border border-current px-3 py-1">Engine Paint</span>
+          <span class="rounded-full border border-current px-3 py-1">Rae-San</span>
+          <span class="rounded-full border border-current px-3 py-1">Awaiting Bearings</span>
+        </footer>
+      </article>
     </div>
   </section>
 
@@ -202,7 +274,7 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
             <li>• CX500 497cc longitudinal V-twin — full rebuild in progress</li>
             <li>• OEM brown-code connecting rod bearings on order</li>
-            <li>• Carbs rebuilt with DynoJet Stage 2 kit + pod filters</li>
+            <li>• Murray&apos;s twin carb kit with K&amp;N pod filters</li>
             <li>• Custom stainless 2-into-2 exhaust (layout in progress)</li>
             <li>• Upgraded clutch springs, braided oil &amp; brake lines planned</li>
           </ul>
@@ -233,7 +305,7 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
             <li>• Engine: satin black high-temp finish with polished covers</li>
             <li>• Tank: brushed metal + clear coat with brass accent stripe</li>
-            <li>• Seat: Alcantara + perforated leather, hidden stitching</li>
+            <li>• Seat: Concept sketch in progress (upholstery TBD)</li>
             <li>• Wheels: powder-coated satin black hubs and rims</li>
           </ul>
         </div>
