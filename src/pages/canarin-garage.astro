@@ -3,28 +3,66 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
 ---
 
 <CanarinLayout>
-  <section id="overview" class="bg-gradient-to-b from-primary to-primary/90 text-white">
-    <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 sm:flex-row sm:items-center sm:px-6">
+  <section id="overview" class="relative overflow-hidden bg-gradient-to-b from-primary via-primary/95 to-primary/90 text-white">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute -left-20 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl"></div>
+    </div>
+    <div class="relative mx-auto flex max-w-6xl flex-col gap-12 px-4 py-20 sm:flex-row sm:items-center sm:px-6 lg:gap-16">
       <div class="flex-1">
-        <p class="text-xs uppercase tracking-[0.3em] text-white/70">Build Log</p>
-        <h1 class="mt-4 text-4xl font-semibold sm:text-5xl">Honda CX500 Cafe Racer — 1981</h1>
-        <p class="mt-6 text-lg text-white/80">
-          Canarin Garage is transforming a classic 1981 Honda CX500 into a bespoke cafe racer.
-          Follow the process from teardown to final tuning, with detailed notes, specs, and photo documentation.
+        <p class="text-xs uppercase tracking-[0.4em] text-white/70">Build Log</p>
+        <h1 class="mt-5 text-4xl font-semibold leading-tight sm:text-5xl">
+          Honda CX500 Cafe Racer — 1981
+        </h1>
+        <p class="mt-6 text-lg text-white/85">
+          Canarin Garage is transforming a classic 1981 Honda CX500 into a bespoke cafe racer. Follow the process from teardown
+          to final tuning, with detailed notes, material choices, torque sheets, and photo documentation.
         </p>
-        <div class="mt-8 flex flex-wrap gap-4 text-sm font-medium">
-          <span class="rounded-full bg-white/10 px-4 py-2">Custom Frame Mods</span>
-          <span class="rounded-full bg-white/10 px-4 py-2">CX500 V-Twin</span>
-          <span class="rounded-full bg-white/10 px-4 py-2">Cafe Racer Style</span>
+        <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-wide uppercase text-white/70">
+          <span class="rounded-full border border-white/20 px-4 py-2">Custom Frame Mods</span>
+          <span class="rounded-full border border-white/20 px-4 py-2">CX500 V-Twin</span>
+          <span class="rounded-full border border-white/20 px-4 py-2">Cafe Racer Style</span>
+          <span class="rounded-full border border-white/20 px-4 py-2">Analog + Digital Dash</span>
         </div>
       </div>
-      <div class="flex flex-1 flex-col gap-4 rounded-2xl bg-white/10 p-6 backdrop-blur">
-        <span class="text-sm uppercase tracking-[0.25em] text-white/70">Current Phase</span>
-        <h2 class="text-2xl font-semibold">Mock-up &amp; Fabrication Fitment</h2>
-        <p class="text-white/80">
-          Subframe design finalized, custom seat pan in progress, front-end swap test-fitted.
+      <div class="flex flex-1 flex-col gap-5 rounded-3xl bg-white/10 p-6 shadow-xl shadow-black/10 backdrop-blur">
+        <span class="text-xs uppercase tracking-[0.3em] text-white/60">Current Phase</span>
+        <h2 class="text-3xl font-semibold leading-tight">Mock-up &amp; Fabrication Fitment</h2>
+        <p class="text-sm text-white/85">
+          Subframe design finalized, custom seat pan in progress, front-end swap test-fitted, and electrical layout mocked with
+          temporary harness.
         </p>
-        <span class="text-xs uppercase tracking-[0.3em] text-white/60">Last updated: Nov 2025</span>
+        <div class="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm font-medium text-white/80 sm:grid-cols-2">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Focus</p>
+            <p class="mt-1">Battery relocation &amp; exhaust routing</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Next milestone</p>
+            <p class="mt-1">Bench test electrical system</p>
+          </div>
+        </div>
+        <span class="text-xs uppercase tracking-[0.4em] text-white/50">Last updated: Nov 2025</span>
+      </div>
+    </div>
+    <div class="relative mx-auto -mt-10 max-w-5xl px-4 sm:px-6">
+      <div class="grid gap-4 sm:grid-cols-4">
+        <div class="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+          <p class="text-3xl font-semibold text-white">220h</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Hours Logged</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+          <p class="text-3xl font-semibold text-white">18</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Custom Parts</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+          <p class="text-3xl font-semibold text-white">3</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Phases Complete</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+          <p class="text-3xl font-semibold text-white">Q2 ‘26</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Road Test ETA</p>
+        </div>
       </div>
     </div>
   </section>
@@ -73,6 +111,61 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
           </p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section id="workbench" class="bg-white py-16 dark:bg-primary/95">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">Workbench</p>
+          <h2 class="text-3xl font-semibold text-primary dark:text-white">Latest Shop Notes</h2>
+          <p class="mt-3 max-w-2xl text-primary/70 dark:text-white/70">
+            Swap these cards with detailed notes, torque specs, CAD exports, or even short video clips summarizing the week.
+          </p>
+        </div>
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:border-primary/40 hover:text-primary/80 dark:border-white/20 dark:text-white/70 dark:hover:border-white/40 dark:hover:text-white"
+        >
+          Share tips
+        </a>
+      </div>
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30">
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Fabrication Log</span>
+          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Rear Loop Jig</h3>
+          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
+            Document fixture setup for TIG welding the rear loop. Include measurements, tube bending angles, and bracing method.
+          </p>
+          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
+            <span>Tooling: JD2 Model 3</span>
+            <span>Estimated 4h</span>
+          </div>
+        </article>
+        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30">
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Electrical</span>
+          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Harness Mock-up</h3>
+          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
+            Layout the new harness path with labeled connectors and heat-shrink colors. Note integration points with Motogadget m-unit.
+          </p>
+          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
+            <span>Focus: Relay board</span>
+            <span>ETA: 2 sessions</span>
+          </div>
+        </article>
+        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-zinc-50 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30">
+          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Finishing</span>
+          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Paint Study</h3>
+          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
+            Render proposed paint schemes—brushed tank with satin black frame, copper pinstripe. Log supplier contacts for materials.
+          </p>
+          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
+            <span>Palette v2</span>
+            <span>Review: Dec 02</span>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -180,6 +273,23 @@ import CanarinLayout from "../layouts/CanarinLayout.astro";
             </dd>
           </div>
         </dl>
+      </div>
+      <div class="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6">
+        <h3 class="text-lg font-semibold text-white">Subscribe to build drops</h3>
+        <p class="mt-3 text-sm text-white/75">
+          Get notified when new gallery sets, fabrication notes, or tuning insights are published. Weekly max, unsubscribe anytime.
+        </p>
+        <form class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <input
+            type="email"
+            placeholder="you@garagecrew.com"
+            class="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder-white/50 focus:border-white focus:outline-none"
+            required
+          />
+          <button type="submit" class="rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-white/90">
+            Notify Me
+          </button>
+        </form>
       </div>
     </div>
   </section>
