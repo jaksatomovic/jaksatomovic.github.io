@@ -1,0 +1,38 @@
+---
+const links = [
+  { href: "#overview", label: "Overview" },
+  { href: "#timeline", label: "Build Timeline" },
+  { href: "#specs", label: "Specs" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="bg-primary text-white">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <a href="/" class="flex items-center gap-2 text-lg font-semibold">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-sm font-semibold text-primary">
+        JT
+      </span>
+      <div class="flex flex-col leading-tight">
+        <span>Canarin Garage</span>
+        <span class="text-xs font-normal tracking-wide text-white/80">Custom CX500 Build</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="flex flex-wrap items-center justify-start gap-2 sm:justify-end">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
