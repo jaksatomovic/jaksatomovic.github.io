@@ -2,21 +2,22 @@
 const links = [
   { href: "/", label: "Home" },
   { href: "/apps", label: "Apps" },
+  { href: "/hardware", label: "Hardware" },
   { href: "/canarin-garage", label: "Garage" },
   { href: "mailto:jaksa.tomovic@gmail.com", label: "Say hi", external: true },
 ];
 ---
 
 <header class="py-6 sm:py-8">
-  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
     <a href="/" class="flex items-center gap-2 text-lg font-semibold text-primary dark:text-white">
       <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white dark:bg-white dark:text-primary">
         JT
       </span>
       <span>Jakša Tomović</span>
     </a>
-    <nav>
-      <ul class="flex items-center gap-2 sm:gap-4">
+    <nav class="w-full lg:w-auto">
+      <ul class="flex flex-wrap items-center gap-2 sm:gap-3 lg:justify-end">
         {links.map(({ href, label, external }) => (
           <li>
             <a
@@ -33,4 +34,3 @@ const links = [
     </nav>
   </div>
 </header>
-

@@ -3,11 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const apps = [
   {
-    name: "Snipbox",
+    name: "Mako Writer",
     description:
-      "A macOS-inspired snippet hub that lives in your browser. Save, tag, search, and export snippets without leaving the page you’re on.",
-    href: "/apps/snipbox",
-    tech: ["TypeScript", "Chrome Extensions", "Tailwind CSS"],
+      "AI-powered writing studio for fiction and non-fiction book workflows. Plan story arcs, generate drafts, structure chapters, and publish-ready outputs from one workspace.",
+    href: "/apps/mako-writer",
+    tech: ["Tauri", "React", "TypeScript", "AI Workflows"],
   },
   {
     name: "AirShare",
@@ -16,16 +16,6 @@ const apps = [
     href: "https://tryairshare.com",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     external: true,
-  },
-  {
-    name: "Keero",
-    description:
-      "Decentralized, end-to-end secure chat for product teams. Built on OpenMLS and Iroh so teams keep full ownership over their data—currently in prototype.",
-    href: "https://keero.io",
-    tech: ["OpenMLS", "Rust", "Iroh"],
-    external: true,
-    disabled: true,
-    status: "In prototype",
   },
 ];
 ---
@@ -85,4 +75,3 @@ const apps = [
     </div>
   </section>
 </BaseLayout>
-

@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = [
+  {
+    name: "Keero Device",
+    description:
+      "A modular, voice-first robotics platform built on ESP32-S3. Keero combines local audio intelligence, expressive state logic, and extensible hardware modules into one cohesive system.",
+    href: "https://keero.io",
+    tech: ["ESP32-S3", "PlatformIO", "C++", "Audio DSP", "MCP Tools"],
+    external: true,
+    status: "Flagship build",
+  },
+  {
+    name: "Canarin Garage Electronics",
+    description:
+      "Custom moto-electronics systems: harness architecture, ignition integration, and instrument control stacks designed for reliability in real operating conditions.",
+    href: "/canarin-garage",
+    tech: ["Wiring Architecture", "Ignition", "Instrumentation"],
+    status: "Workshop R&D",
+  },
+];
+---
+
+<BaseLayout>
+  <section class="px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-12">
+      <div class="space-y-4 text-center">
+        <p class="text-xs uppercase tracking-[0.4em] text-primary/70 dark:text-white/70">Hardware Lab</p>
+        <h1 class="text-4xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
+          Hardware products in development
+        </h1>
+        <p class="text-base text-zinc-500 dark:text-zinc-400 sm:text-lg">
+          From experimental prototypes to production-minded embedded systems, focused on durability, clarity, and real interaction.
+        </p>
+      </div>
+
+      <article class="rounded-3xl border border-primary/10 bg-white/70 p-8 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/60">
+        <h2 class="text-2xl font-semibold text-primary dark:text-white">Why this lab exists</h2>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+          Most hardware demos look exciting in short clips, but fall apart in daily use. The focus here is different:
+          stable firmware, predictable behavior, maintainable module architecture, and interaction models that still feel good after months.
+          Keero is the primary vehicle for that approach.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2 text-xs font-medium uppercase tracking-wide text-primary/60 dark:text-white/60">
+          <span class="rounded-full border border-primary/10 px-4 py-1 dark:border-white/15">Modular by design</span>
+          <span class="rounded-full border border-primary/10 px-4 py-1 dark:border-white/15">Local-first processing</span>
+          <span class="rounded-full border border-primary/10 px-4 py-1 dark:border-white/15">Behavior + firmware co-design</span>
+        </div>
+      </article>
+
+      <div class="space-y-6">
+        {projects.map((project) => (
+          <article class="rounded-3xl border border-primary/10 bg-white/70 p-8 shadow-lg shadow-primary/5 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-primary/20 dark:border-white/10 dark:bg-secondary/60 dark:hover:border-white/20">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div class="space-y-3">
+                <h2 class="text-2xl font-semibold text-primary dark:text-white">{project.name}</h2>
+                <p class="max-w-2xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">{project.description}</p>
+                <ul class="flex flex-wrap gap-2 text-xs font-medium uppercase tracking-wide text-primary/60 dark:text-white/60">
+                  {project.tech.map((stack) => (
+                    <li class="rounded-full border border-primary/10 px-4 py-1 dark:border-white/15">{stack}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50 dark:border-white/15 dark:text-white/50">
+                  {project.status}
+                </span>
+                <a
+                  href={project.href}
+                  target={project.external ? "_blank" : undefined}
+                  rel={project.external ? "noopener noreferrer" : undefined}
+                  class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:translate-x-1 hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-white/90"
+                >
+                  Open project
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <article class="rounded-3xl border border-primary/10 bg-white/70 p-8 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/60">
+        <h2 class="text-2xl font-semibold text-primary dark:text-white">Keero module strategy</h2>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+          The Keero device line is being built with module-strip compatibility in mind, including ecosystems similar to SparkBot-style expansion.
+          That means easier prototyping, faster replacement cycles, and cleaner upgrades without redesigning the whole robot each iteration.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+          <li>• Core compute + audio board as stable base layer</li>
+          <li>• Emotion and behavior runtime inspired by Clawino brain concepts</li>
+          <li>• Planned WireClaw all-in-one convergence for unified capabilities</li>
+          <li>• Practical module expansion for sensors, motion, and interaction blocks</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

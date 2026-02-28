@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="px-4 py-16 sm:px-6 lg:py-24">
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-10">
+      <header class="space-y-4">
+        <p class="text-xs uppercase tracking-[0.35em] text-primary/60 dark:text-white/60">Writing Studio</p>
+        <h1 class="text-4xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
+          Mako Writer
+        </h1>
+        <p class="max-w-3xl text-base text-zinc-500 dark:text-zinc-400 sm:text-lg">
+          AI-powered desktop app for fiction and non-fiction book workflows. Designed for authors who want structure,
+          speed, and control in one place.
+        </p>
+      </header>
+
+      <article class="rounded-3xl border border-primary/10 bg-white/80 p-8 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/60">
+        <h2 class="text-2xl font-semibold text-primary dark:text-white">What it does</h2>
+        <ul class="mt-5 space-y-3 text-sm text-zinc-600 dark:text-zinc-300 sm:text-base">
+          <li>• Plans books with sections, outlines, story arcs, and structured drafting workflows.</li>
+          <li>• Uses an AI chat panel to generate, rewrite, and expand content in-context.</li>
+          <li>• Supports import/export and publishing-oriented output (including PDF workflows).</li>
+          <li>• Offers dedicated modes for writing, navigation, preview, and project management.</li>
+        </ul>
+      </article>
+
+      <article class="rounded-3xl border border-primary/10 bg-white/80 p-8 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/60">
+        <h2 class="text-2xl font-semibold text-primary dark:text-white">Stack</h2>
+        <div class="mt-5 flex flex-wrap gap-2">
+          {["Tauri", "React", "TypeScript", "Zustand", "CodeMirror", "Paged.js"].map((stack) => (
+            <span class="rounded-full border border-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-primary/70 dark:border-white/15 dark:text-white/70">
+              {stack}
+            </span>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
