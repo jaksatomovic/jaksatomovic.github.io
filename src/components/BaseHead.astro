@@ -1,17 +1,17 @@
 ---
 import "../styles/global.css";
+
+const {
+  title = "Jaksa Tomovic | Product Studio",
+  description = "Developer, product builder, and custom motorcycle tinkerer based in Croatia.",
+} = Astro.props;
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width" />
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="Michael Andreuzza" />
-<meta
-  name="your keywords"
-  content="wallpaper,black wallpaper, gradient wallpaper,aesthetic wallpaper,iphone wallpaper,wallpaper iphone,white wallpaper,pink wallpaper"
-/>
+<meta name="author" content="Jaksa Tomovic" />
+<meta name="description" content={description} />
+<title>{title}</title>
 <!-- Favicon guidelines generated with https://realfavicongenerator.net/ -->
 <link
   rel="apple-touch-icon"
@@ -38,7 +38,6 @@ import "../styles/global.css";
 <link rel="preconnect" href="https://rsms.me/" />
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
-<script src="https://unpkg.com/mailgo@0.12.2/dist/mailgo.min.js"></script>
 <script
   defer
   src="https://cloud.umami.is/script.js"

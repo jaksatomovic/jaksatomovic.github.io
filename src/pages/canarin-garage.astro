@@ -1,16 +1,106 @@
 ---
 import CanarinLayout from "../layouts/CanarinLayout.astro";
 
+const stats = [
+  { value: "220h", label: "Hours Logged" },
+  { value: "24", label: "Custom Components" },
+  { value: "YSS", label: "Monoshock Conversion" },
+  { value: "Q2 '26", label: "Road Test ETA" },
+];
+
+const timelineItems = [
+  {
+    date: "July 2025",
+    title: "Acquisition & Baseline",
+    body: "Bike sourced in original condition showing just over 80,000 km. Compression checked, fluids drained, initial ride recorded, and reusable factory parts cataloged.",
+  },
+  {
+    date: "August 2025",
+    title: "Full Teardown",
+    body: "Frame, engine, and drivetrain separated. Harness labeled, stock airbox removed, and the rear section opened up for redesign.",
+  },
+  {
+    date: "September 2025",
+    title: "Mock-up & Fabrication",
+    body: "Custom rear loop welded, tank re-centered, battery tray relocated under the seat hump, and rearsets mocked in aluminum.",
+  },
+  {
+    date: "November 2025",
+    title: "Engine Rebuild & Wiring Prep",
+    body: "Engine cases stripped and coated. Internals inspected and refreshed before the powerplant returns to the frame with Rae-San ignition and Motogadget wiring.",
+  },
+];
+
+const shopNotes = [
+  {
+    label: "Fabrication Log",
+    title: "Rear Loop Jig",
+    body: "Fixture setup for TIG welding the new rear loop, including tube bend angles, YSS monoshock mount gusseting, and Cognito Moto alignment points.",
+    meta: "Tooling: JD2 Model 3",
+  },
+  {
+    label: "Electrical",
+    title: "Harness Mock-up",
+    body: "Color-coded loom layout for Motogadget m-unit blue, M-Lock keyless ignition, Motoscope Pro, and Rae-San trigger routing before final wrap.",
+    meta: "ETA: 2 sessions",
+  },
+  {
+    label: "Finishing",
+    title: "Paint Study",
+    body: "Matte black, brushed aluminum, and gold accents across suspension hardware, spoke nipples, engine covers, and rearset plates.",
+    meta: "Palette v2",
+  },
+];
+
+const buildSheet = [
+  {
+    title: "Engine & Drivetrain",
+    items: [
+      "CX500 497cc longitudinal V-twin, full rebuild in progress",
+      "OEM brown-code connecting rod bearings on order",
+      "Murray's twin carb kit with K&N pod filters",
+      "Custom stainless 2-into-2 exhaust layout in progress",
+    ],
+  },
+  {
+    title: "Chassis & Suspension",
+    items: [
+      "Hand-built subframe with integrated LED tail and seat pan",
+      "YSS monoshock conversion with bespoke mounting plates",
+      "GSXR forks, Brembo front calipers, and master cylinder",
+      "Cognito Moto triple tree and stem conversion kit",
+    ],
+  },
+  {
+    title: "Electronics",
+    items: [
+      "Motogadget m-unit blue and M-Lock keyless ignition",
+      "Motoscope Pro display with bar-end LED indicators",
+      "Rae-San programmable ignition paired with OEM pickup",
+      "Full new wiring harness with braided sheathing",
+    ],
+  },
+  {
+    title: "Finishing",
+    items: [
+      "Satin black high-temp engine finish with polished covers",
+      "Satin black tank with brushed aluminum panel concept",
+      "Black rims, brushed hubs, and gold anodized spoke nipples",
+      "Seat concept in progress, upholstery still open",
+    ],
+  },
+];
+
 const galleryImages = [
   {
     src: "/images/garage/img-2907.jpg",
     alt: "Honda CX500 cafe racer build in the garage, side profile during teardown",
-    caption: "Day one in the garage with the high-mile CX500 stripped for inspection.",
+    caption: "Day one with the high-mile CX500 stripped for inspection.",
   },
   {
     src: "/images/garage/img-2908.jpg",
     alt: "Close-up of Honda CX500 engine and frame during mock-up phase",
-    caption: "Mock-up session aligning the frame, engine, and new suspension hardware.",
+    caption: "Frame, engine, and suspension hardware aligned during mock-up.",
   },
   {
     src: "/images/garage/img-2909.jpg",
@@ -20,353 +110,145 @@ const galleryImages = [
   {
     src: "/images/garage/img-2948.jpg",
     alt: "Honda CX500 parts laid out on workbench for rebuild",
-    caption: "Parts staging: gold anodized hardware, refreshed components, and new electrics.",
+    caption: "Parts staging with refreshed components and new electrics.",
   },
 ];
 ---
 
 <CanarinLayout>
-  <section id="overview" class="relative overflow-hidden bg-gradient-to-b from-primary via-primary/95 to-primary/90 text-white">
-    <div class="pointer-events-none absolute inset-0">
-      <div class="absolute -left-20 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
-      <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl"></div>
-    </div>
-    <div class="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 py-14 sm:flex-row sm:items-center sm:px-6 lg:gap-16 lg:py-20">
-      <div class="flex-1">
-        <p class="text-xs uppercase tracking-[0.4em] text-white/70">Build Log</p>
-        <h1 class="mt-5 text-3xl font-semibold leading-tight sm:text-5xl">
-          Honda CX500 Cafe Racer — 1981
+  <section id="overview" class="relative isolate min-h-[620px] overflow-hidden bg-primary text-white">
+    <img
+      src="/images/garage/img-2908.jpg"
+      alt="Honda CX500 cafe racer engine and frame in the Canarin Garage workshop"
+      class="absolute inset-0 h-full w-full object-cover"
+      width="1400"
+      height="900"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-primary"></div>
+    <div class="relative mx-auto flex min-h-[620px] max-w-6xl flex-col justify-end px-4 pb-12 pt-28 sm:px-6 lg:pb-16">
+      <div class="max-w-3xl">
+        <p class="text-xs uppercase tracking-[0.24em] text-white/70 sm:tracking-[0.35em]">Build Log</p>
+        <h1 class="mt-5 text-4xl font-semibold leading-tight sm:text-6xl">
+          Honda CX500 Cafe Racer
         </h1>
-        <p class="mt-6 text-base text-white/85 sm:text-lg">
-          Canarin Garage is transforming a high-mile (80,000 km) 1981 Honda CX500 into a bespoke cafe racer finished in matte
-          black with gold and brushed aluminium accents. A hand-built subframe, Motogadget control suite, Rae-San programmable
-          ignition, and a full monoshock conversion deliver modern reliability while keeping the V-twin character. Follow each
-          phase—from strip-down to the first fire-up.
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+          A high-mile 1981 CX500 rebuilt into a matte black cafe racer with a hand-built subframe, Motogadget control suite,
+          Rae-San programmable ignition, and a full monoshock conversion.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-wide uppercase text-white/70">
-          <span class="rounded-full border border-white/20 px-4 py-2">Custom Subframe</span>
-          <span class="rounded-full border border-white/20 px-4 py-2">YSS Monoshock</span>
-          <span class="rounded-full border border-white/20 px-4 py-2">Motogadget Suite</span>
-          <span class="rounded-full border border-white/20 px-4 py-2">GSXR Front End</span>
-          <span class="rounded-full border border-white/20 px-4 py-2">Brembo Rear Setup</span>
-          <span class="rounded-full border border-white/20 px-4 py-2">Seat TBD</span>
-        </div>
       </div>
-      <div class="flex flex-1 flex-col gap-5 rounded-3xl bg-white/10 p-5 shadow-xl shadow-black/10 backdrop-blur sm:p-6">
-        <span class="text-xs uppercase tracking-[0.3em] text-white/60">Current Phase</span>
-        <h2 class="text-2xl font-semibold leading-tight sm:text-3xl">Engine Reassembly &amp; Install Prep</h2>
-        <p class="text-sm text-white/85">
-          Engine stripped, bead-blasted, and ready for final assembly. OEM brown-code bearings are on the bench and reassembly of
-          the bottom end is underway before the refreshed lump returns to the frame.
-        </p>
-        <div class="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm font-medium text-white/80 sm:grid-cols-2">
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Focus</p>
-            <p class="mt-1">Buttoning up engine internals, sealing cases, final monoshock clearances</p>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Next milestone</p>
-            <p class="mt-1">Drop engine back in, reconnect wiring, exhaust, and new coils/solenoid</p>
-          </div>
-        </div>
-        <span class="text-xs uppercase tracking-[0.4em] text-white/50">Last updated: Nov 2025</span>
-      </div>
-    </div>
-    <div class="relative mx-auto -mt-8 max-w-5xl px-4 pb-16 sm:px-6">
-      <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div class="rounded-2xl bg-white/15 p-5 text-center shadow-lg shadow-black/10 backdrop-blur">
-          <p class="text-3xl font-semibold text-white">220h</p>
-          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Hours Logged</p>
-        </div>
-        <div class="rounded-2xl bg-white/15 p-5 text-center shadow-lg shadow-black/10 backdrop-blur">
-          <p class="text-3xl font-semibold text-white">24</p>
-          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Custom Components</p>
-        </div>
-        <div class="rounded-2xl bg-white/15 p-5 text-center shadow-lg shadow-black/10 backdrop-blur">
-          <p class="text-3xl font-semibold text-white">YSS</p>
-          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Monoshock Conversion</p>
-        </div>
-        <div class="rounded-2xl bg-white/15 p-5 text-center shadow-lg shadow-black/10 backdrop-blur">
-          <p class="text-3xl font-semibold text-white">Q2 ‘26</p>
-          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/60">Road Test ETA</p>
-        </div>
+      <div class="mt-8 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-white/75">
+        {["Custom Subframe", "YSS Monoshock", "Motogadget Suite", "GSXR Front End", "Brembo Rear"].map((tag) => (
+          <span class="rounded-lg border border-white/25 bg-white/10 px-3 py-2 backdrop-blur">{tag}</span>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="timeline" class="bg-zinc-100 py-16 dark:bg-primary">
-    <div class="mx-auto grid max-w-5xl gap-12 px-4 sm:px-6">
-      <div class="flex flex-col gap-2">
-        <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/50">Progress</p>
-        <h2 class="text-3xl font-semibold text-primary dark:text-white">Build Timeline</h2>
-        <p class="text-primary/70 dark:text-white/70">
-          Each milestone tracks dates, goals, parts used, and notes. Replace placeholders with detailed logs and images.
+  <section class="bg-primary px-4 pb-12 text-white sm:px-6">
+    <div class="mx-auto grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {stats.map((stat) => (
+        <div class="rounded-lg border border-white/10 bg-white/10 p-5 text-center shadow-lg shadow-black/10 backdrop-blur">
+          <p class="text-3xl font-semibold">{stat.value}</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.22em] text-white/60">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-zinc-100 py-14 dark:bg-primary" id="timeline">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+      <div class="lg:sticky lg:top-8 lg:self-start">
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/60 dark:text-white/50 sm:tracking-[0.3em]">Progress</p>
+        <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Build Timeline</h2>
+        <p class="mt-4 text-primary/70 dark:text-white/70">
+          The project is moving from teardown into engine assembly, wiring prep, and the final fitment loop before road testing.
         </p>
       </div>
-      <ol class="relative border-l border-primary/10 pl-4 sm:pl-6 dark:border-white/10">
-        <li class="mb-10 last:mb-0">
-          <div class="absolute -left-[9px] mt-1 h-4 w-4 rounded-full border-2 border-primary bg-white dark:border-white dark:bg-primary"></div>
-          <div class="rounded-3xl border border-primary/10 bg-white/80 p-5 shadow-sm ring-1 ring-white/40 backdrop-blur sm:p-6 dark:border-white/10 dark:bg-white/5 dark:ring-white/10">
-            <time class="text-xs uppercase tracking-[0.2em] text-primary/60 dark:text-white/60">July 2025</time>
-            <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">Acquisition &amp; Baseline</h3>
-            <p class="mt-2 text-primary/70 dark:text-white/70">
-              Bike sourced in original condition showing just over 80,000 km. Compression checked, fluids drained, initial ride
-              recorded.
-            </p>
-            <p class="mt-3 text-sm text-primary/60 dark:text-white/60">
-              Notes: catalog OEM parts worth saving; photograph factory wiring; weigh major components before teardown.
-            </p>
-          </div>
-        </li>
-        <li class="mb-10 last:mb-0">
-          <div class="absolute -left-[9px] mt-1 h-4 w-4 rounded-full border-2 border-primary bg-white dark:border-white dark:bg-primary"></div>
-          <div class="rounded-3xl border border-primary/10 bg-white/80 p-5 shadow-sm ring-1 ring-white/40 backdrop-blur sm:p-6 dark:border-white/10 dark:bg-white/5 dark:ring-white/10">
-            <time class="text-xs uppercase tracking-[0.2em] text-primary/60 dark:text-white/60">August 2025</time>
-            <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">Full Teardown</h3>
-            <p class="mt-2 text-primary/70 dark:text-white/70">
-              Frame, engine, and drivetrain separated. Harness labeled, stock airbox and subframe removed for redesign.
-            </p>
-            <p class="mt-3 text-sm text-primary/60 dark:text-white/60">
-              Notes: document bearing conditions; record clearances; prepare media library for upcoming photo set.
-            </p>
-          </div>
-        </li>
-        <li class="mb-10 last:mb-0">
-          <div class="absolute -left-[9px] mt-1 h-4 w-4 rounded-full border-2 border-primary bg-white dark:border-white dark:bg-primary"></div>
-          <div class="rounded-3xl border border-primary/10 bg-white/80 p-5 shadow-sm ring-1 ring-white/40 backdrop-blur sm:p-6 dark:border-white/10 dark:bg-white/5 dark:ring-white/10">
-            <time class="text-xs uppercase tracking-[0.2em] text-primary/60 dark:text-white/60">September 2025</time>
-            <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">Mock-up &amp; Fabrication</h3>
-            <p class="mt-2 text-primary/70 dark:text-white/70">
-              Custom rear loop welded, tank re-centered, battery tray relocated under seat hump, rearsets mocked in aluminum.
-            </p>
-            <p class="mt-3 text-sm text-primary/60 dark:text-white/60">
-              Notes: finalize stance targets (ride height, rake); collect measurements for custom stainless exhaust routing.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="absolute -left-[9px] mt-1 h-4 w-4 rounded-full border-2 border-primary bg-white dark:border-white dark:bg-primary"></div>
-          <div class="rounded-3xl border border-primary/10 bg-white/80 p-5 shadow-sm ring-1 ring-white/40 backdrop-blur sm:p-6 dark:border-white/10 dark:bg-white/5 dark:ring-white/10">
-            <time class="text-xs uppercase tracking-[0.2em] text-primary/60 dark:text-white/60">November 2025</time>
-            <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">Engine Rebuild &amp; Wiring Prep</h3>
-            <p class="mt-2 text-primary/70 dark:text-white/70">
-              Engine cases stripped and coated; internals inspected and refurbished. Bottom end is being reassembled with
-              brown-code bearings before the powerplant goes back into the frame.
-            </p>
-            <p class="mt-3 text-sm text-primary/60 dark:text-white/60">
-              Notes: bench-test Rae-San ignition with Motogadget m-unit blue, pre-wire heat-shrink coded loom, confirm YSS
-              monoshock clearances and ready the bike for engine reinstall.
-            </p>
-          </div>
-        </li>
+      <ol class="space-y-4">
+        {timelineItems.map((item) => (
+          <li class="rounded-lg border border-primary/10 bg-white/85 p-5 shadow-sm dark:border-white/10 dark:bg-white/5 sm:p-6">
+            <time class="text-xs uppercase tracking-[0.18em] text-primary/55 dark:text-white/55">{item.date}</time>
+            <h3 class="mt-2 text-xl font-semibold text-primary dark:text-white">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-primary/70 dark:text-white/70 sm:text-base">{item.body}</p>
+          </li>
+        ))}
       </ol>
     </div>
   </section>
 
-  <section class="bg-zinc-50 py-16 dark:bg-primary/90">
-    <div class="mx-auto max-w-5xl space-y-10 px-4 sm:px-6">
-      <header class="space-y-3 text-primary dark:text-white">
-        <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Build Journal</p>
-        <h2 class="text-3xl font-semibold">Phase-by-phase deep dives</h2>
-        <p class="text-primary/70 dark:text-white/70">
-          Longer-form notes for readers who want to follow every detail. Replace the prompts below with stories, torque values,
-          parts lists, and lessons as each phase comes together.
-        </p>
-      </header>
-      <article class="space-y-4 rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 shadow-lg shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:shadow-black/20">
-        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
-            <h3 class="text-2xl font-semibold text-primary dark:text-white">Baseline &amp; First Impressions</h3>
-          </div>
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">July 2025</span>
-        </header>
-        <p class="text-sm text-primary/70 dark:text-white/70">
-          Capture the story of trailering home the 80,000 km CX500, running the first compression checks, and cataloging stock
-          components. Explain why the factory carbs had to go, the switch to Murray&apos;s twin carb kit with K&amp;N filters,
-          and how the matte black + gold + brushed aluminium palette started to take shape while planning the rebuild.
-        </p>
-        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
-          <span class="rounded-full border border-current px-3 py-1">80k km</span>
-          <span class="rounded-full border border-current px-3 py-1">Murray&apos;s Carbs</span>
-          <span class="rounded-full border border-current px-3 py-1">Paint Direction</span>
-        </footer>
-      </article>
-      <article class="space-y-4 rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 shadow-lg shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:shadow-black/20">
-        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
-            <h3 class="text-2xl font-semibold text-primary dark:text-white">Mock-up Lessons</h3>
-          </div>
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">September 2025</span>
-        </header>
-        <p class="text-sm text-primary/70 dark:text-white/70">
-          Write about dialing in the GSXR front end, aligning the Cognito Moto triple tree, and setting preload on the custom YSS
-          monoshock. Share how the Brembo rear setup mates with the custom rearsets and GSXR master, how the gold anodized spoke
-          nipples tie into the shock and fork finishes, and walk through ideas for the seat while final upholstery decisions
-          remain open.
-        </p>
-        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
-          <span class="rounded-full border border-current px-3 py-1">GSXR Front</span>
-          <span class="rounded-full border border-current px-3 py-1">YSS Mono</span>
-          <span class="rounded-full border border-current px-3 py-1">Seat TBD</span>
-        </footer>
-      </article>
-      <article class="space-y-4 rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 shadow-lg shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:shadow-black/20">
-        <header class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Journal Entry</p>
-            <h3 class="text-2xl font-semibold text-primary dark:text-white">Engine Strip &amp; Refresh</h3>
-          </div>
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/40 dark:text-white/40">November 2025</span>
-        </header>
-        <p class="text-sm text-primary/70 dark:text-white/70">
-          Log bearing clearances, torque specs, and assembly order as the refreshed engine comes together. Note the new coils,
-          solenoid, and how the Rae-San ignition integrates with the Motogadget suite before the Murray&apos;s carbs and K&amp;N
-          setup go back on. Leave room for first-fire impressions once the lump is back in the frame.
-        </p>
-        <footer class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">
-          <span class="rounded-full border border-current px-3 py-1">Engine Paint</span>
-          <span class="rounded-full border border-current px-3 py-1">Rae-San</span>
-          <span class="rounded-full border border-current px-3 py-1">Awaiting Bearings</span>
-        </footer>
-      </article>
-    </div>
-  </section>
-
-  <section id="workbench" class="bg-gradient-to-b from-white via-zinc-100 to-white py-16 dark:from-primary dark:via-primary/95 dark:to-primary">
+  <section class="bg-white py-14 dark:bg-primary/95" id="workbench">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p class="text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">Workbench</p>
-          <h2 class="text-3xl font-semibold text-primary dark:text-white">Latest Shop Notes</h2>
+          <p class="text-xs uppercase tracking-[0.24em] text-primary/50 dark:text-white/50 sm:tracking-[0.3em]">Workbench</p>
+          <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Latest Shop Notes</h2>
           <p class="mt-3 max-w-2xl text-primary/70 dark:text-white/70">
-            Swap these cards with detailed notes, torque specs, CAD exports, or even short video clips summarizing the week.
+            A tighter view of what is happening on the bench right now: fabrication, wiring, and finishing decisions.
           </p>
         </div>
         <a
           href="#contact"
-          class="inline-flex items-center gap-2 rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:border-primary/40 hover:text-primary/80 dark:border-white/20 dark:text-white/70 dark:hover:border-white/40 dark:hover:text-white"
+          class="inline-flex w-full items-center justify-center rounded-lg border border-primary/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary transition hover:border-primary/40 hover:text-primary/80 dark:border-white/20 dark:text-white/70 dark:hover:border-white/40 dark:hover:text-white sm:w-auto"
         >
           Share tips
         </a>
       </div>
-      <div class="mt-10 grid gap-6 lg:grid-cols-3">
-        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/10">
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Fabrication Log</span>
-          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Rear Loop Jig</h3>
-          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
-            Document the fixture setup for TIG welding the new rear loop. Capture tube bending angles, gusseting for the YSS
-            monoshock mount, and Cognito Moto alignment points.
-          </p>
-          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
-            <span>Tooling: JD2 Model 3</span>
-            <span>Estimated 4h</span>
-          </div>
-        </article>
-        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/10">
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Electrical</span>
-          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Harness Mock-up</h3>
-          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
-            Lay out the new loom with color-coded heat-shrink. Integrate Motogadget m-unit blue, M-Lock keyless, Motoscope Pro,
-            and Rae-San ignition triggers before final wrap.
-          </p>
-          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
-            <span>Focus: Relay board</span>
-            <span>ETA: 2 sessions</span>
-          </div>
-        </article>
-        <article class="group relative overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-white via-white to-zinc-100 p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/10">
-          <span class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/60">Finishing</span>
-          <h3 class="mt-3 text-xl font-semibold text-primary transition group-hover:text-primary/80 dark:text-white">Paint Study</h3>
-          <p class="mt-3 text-sm text-primary/70 dark:text-white/70">
-            Finalize the matte black + gold + brushed aluminium scheme—satin engine, gold suspension hardware, anodized spoke
-            nipples, and brushed rearset plates. Track suppliers for ceramic coatings and anodised rearsets.
-          </p>
-          <div class="mt-4 flex items-center justify-between text-xs text-primary/50 dark:text-white/50">
-            <span>Palette v2</span>
-            <span>Review: Dec 02</span>
-          </div>
-        </article>
+      <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        {shopNotes.map((note) => (
+          <article class="rounded-lg border border-primary/10 bg-zinc-50 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 sm:p-6">
+            <span class="text-xs uppercase tracking-[0.22em] text-primary/60 dark:text-white/60">{note.label}</span>
+            <h3 class="mt-3 text-xl font-semibold text-primary dark:text-white">{note.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-primary/70 dark:text-white/70">{note.body}</p>
+            <p class="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-primary/50 dark:text-white/50">{note.meta}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="specs" class="bg-white py-16 dark:bg-primary/95">
-    <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:flex-row">
-      <div class="lg:w-1/3">
-        <p class="text-xs uppercase tracking-[0.3em] text-primary/50 dark:text-white/50">Setup</p>
+  <section class="bg-zinc-100 py-14 dark:bg-primary" id="specs">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/50 dark:text-white/50 sm:tracking-[0.3em]">Setup</p>
         <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Build Sheet</h2>
         <p class="mt-4 text-primary/70 dark:text-white/70">
-          Update this checklist as parts arrive and systems get upgraded. Link to product pages or suppliers where possible.
+          The current parts map, grouped by system so the build is easier to scan on desktop and phone.
         </p>
       </div>
-      <div class="grid flex-1 gap-6 sm:grid-cols-2">
-        <div class="rounded-2xl border border-primary/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-white/5">
-          <h3 class="text-lg font-semibold text-primary dark:text-white">Engine &amp; Drivetrain</h3>
-          <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
-            <li>• CX500 497cc longitudinal V-twin — full rebuild in progress</li>
-            <li>• OEM brown-code connecting rod bearings on order</li>
-            <li>• Murray&apos;s twin carb kit with K&amp;N pod filters</li>
-            <li>• Custom stainless 2-into-2 exhaust (layout in progress)</li>
-            <li>• Upgraded clutch springs, braided oil &amp; brake lines planned</li>
-          </ul>
-        </div>
-        <div class="rounded-2xl border border-primary/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-white/5">
-          <h3 class="text-lg font-semibold text-primary dark:text-white">Chassis &amp; Suspension</h3>
-          <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
-            <li>• Hand-built subframe with integrated LED tail + seat pan</li>
-            <li>• YSS monoshock conversion with bespoke mounting plates</li>
-            <li>• GSXR forks, Brembo front calipers &amp; master cylinder</li>
-            <li>• Cognito Moto triple tree &amp; stem conversion kit</li>
-            <li>• Custom spoked wheels, stainless spokes, refreshed hubs</li>
-            <li>• Brembo rear caliper &amp; disc, custom rearsets with GSXR master (installed)</li>
-          </ul>
-        </div>
-        <div class="rounded-2xl border border-primary/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-white/5">
-          <h3 class="text-lg font-semibold text-primary dark:text-white">Electronics</h3>
-          <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
-            <li>• Motogadget m-unit blue, M-Lock keyless ignition</li>
-            <li>• Motogadget Motoscope Pro display + bar-end LED indicators</li>
-            <li>• Rae-San programmable ignition paired with OEM pickup</li>
-            <li>• Lithium battery relocated under the custom seat hump</li>
-            <li>• Full new wiring harness with braided sheathing</li>
-            <li>• High-output coils (non-OEM) &amp; upgraded starter solenoid planned</li>
-          </ul>
-        </div>
-        <div class="rounded-2xl border border-primary/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-white/5">
-          <h3 class="text-lg font-semibold text-primary dark:text-white">Finishing</h3>
-          <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
-            <li>• Engine: satin black high-temp finish with polished covers</li>
-            <li>• Tank: satin black base with brushed aluminium panels (concept)</li>
-            <li>• Wheels: satin black rims, brushed hubs, gold anodized spoke nipples</li>
-            <li>• Suspension: YSS monoshock &amp; GSXR forks refinished with gold accents</li>
-            <li>• Seat: Concept sketch in progress (upholstery TBD)</li>
-          </ul>
-        </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {buildSheet.map((group) => (
+          <article class="rounded-lg border border-primary/10 bg-white/85 p-5 shadow-sm dark:border-white/10 dark:bg-white/5 sm:p-6">
+            <h3 class="text-lg font-semibold text-primary dark:text-white">{group.title}</h3>
+            <ul class="mt-4 space-y-2 text-sm text-primary/70 dark:text-white/70">
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="gallery" class="bg-zinc-100 py-16 dark:bg-primary">
-    <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6">
-      <div class="flex flex-col gap-2">
-        <p class="text-xs uppercase tracking-[0.3em] text-primary/60 dark:text-white/50">Media</p>
-        <h2 class="text-3xl font-semibold text-primary dark:text-white">Photo &amp; Video Log</h2>
-        <p class="text-primary/70 dark:text-white/70">
-          Drop build photos here. Use a grid or carousel component once assets are ready. Include captions for context.
+  <section id="gallery" class="bg-white py-14 dark:bg-primary/95">
+    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:px-6">
+      <div class="max-w-2xl">
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/60 dark:text-white/50 sm:tracking-[0.3em]">Media</p>
+        <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Photo Log</h2>
+        <p class="mt-3 text-primary/70 dark:text-white/70">
+          Build photos with enough context to make the progress easy to follow.
         </p>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {galleryImages.map(({ src, alt, caption }) => (
-          <figure class="group overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-b from-white to-zinc-100 shadow-lg shadow-primary/10 transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:from-white/5 dark:to-white/10 dark:shadow-black/30">
+          <figure class="overflow-hidden rounded-lg border border-primary/10 bg-zinc-50 shadow-md shadow-primary/5 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-white/5">
             <img
               src={src}
               alt={alt}
               loading="lazy"
-              class="h-56 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+              class="aspect-[4/3] w-full object-cover"
               width="600"
-              height="400"
+              height="450"
             />
             <figcaption class="px-4 py-3 text-sm text-primary/70 dark:text-white/70">{caption}</figcaption>
           </figure>
@@ -375,22 +257,17 @@ const galleryImages = [
     </div>
   </section>
 
-  <section id="contact" class="relative overflow-hidden bg-primary text-white">
-    <div class="pointer-events-none absolute inset-0">
-      <div class="absolute -left-24 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
-      <div class="absolute bottom-[-60px] right-[-40px] h-80 w-80 rounded-full bg-amber-400/10 blur-3xl"></div>
-    </div>
-    <div class="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:flex-row lg:items-center">
-      <div class="flex-1">
-        <h2 class="text-3xl font-semibold">Share Feedback or Get Involved</h2>
-        <p class="mt-4 text-white/80">
-          Want to collaborate, sponsor parts, or schedule a shoot of the finished build? Reach out and let&apos;s make it happen.
+  <section id="contact" class="bg-primary py-14 text-white">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_1fr] lg:items-start">
+      <div>
+        <p class="text-xs uppercase tracking-[0.24em] text-white/55 sm:tracking-[0.3em]">Contact</p>
+        <h2 class="mt-3 text-3xl font-semibold">Share Feedback or Get Involved</h2>
+        <p class="mt-4 text-white/78">
+          Want to collaborate, sponsor parts, or schedule a shoot of the finished build? Reach out and let's make it happen.
         </p>
-      </div>
-      <div class="flex-1 rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur">
-        <dl class="space-y-4 text-sm text-white/80">
+        <dl class="mt-8 grid gap-4 text-sm text-white/80 sm:grid-cols-2">
           <div>
-            <dt class="uppercase tracking-[0.3em] text-xs text-white/60">Email</dt>
+            <dt class="text-xs uppercase tracking-[0.22em] text-white/55">Email</dt>
             <dd class="mt-1">
               <a href="mailto:canarin.garage@gmail.com" class="underline decoration-white/40 underline-offset-4 hover:decoration-white">
                 canarin.garage@gmail.com
@@ -398,40 +275,43 @@ const galleryImages = [
             </dd>
           </div>
           <div>
-            <dt class="uppercase tracking-[0.3em] text-xs text-white/60">Location</dt>
+            <dt class="text-xs uppercase tracking-[0.22em] text-white/55">Location</dt>
             <dd class="mt-1">Velika Gorica, Croatia</dd>
           </div>
           <div>
-            <dt class="uppercase tracking-[0.3em] text-xs text-white/60">Instagram</dt>
+            <dt class="text-xs uppercase tracking-[0.22em] text-white/55">Instagram</dt>
             <dd class="mt-1">
-              <a href="https://instagram.com/canarinarage" target="_blank" rel="noopener noreferrer" class="underline decoration-white/40 underline-offset-4 hover:decoration-white">
+              <a href="https://instagram.com/canaringarage" target="_blank" rel="noopener noreferrer" class="underline decoration-white/40 underline-offset-4 hover:decoration-white">
                 @canaringarage
               </a>
             </dd>
           </div>
           <div>
-            <dt class="uppercase tracking-[0.3em] text-xs text-white/60">Ignition</dt>
-            <dd class="mt-1 text-white/80">Rae-San programmable + Motogadget suite</dd>
+            <dt class="text-xs uppercase tracking-[0.22em] text-white/55">Ignition</dt>
+            <dd class="mt-1">Rae-San programmable + Motogadget suite</dd>
           </div>
         </dl>
       </div>
-      <div class="flex-1 rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur">
+
+      <form class="rounded-lg border border-white/10 bg-white/10 p-5 backdrop-blur sm:p-6">
         <h3 class="text-lg font-semibold text-white">Subscribe to build drops</h3>
         <p class="mt-3 text-sm text-white/75">
-          Get notified when new gallery sets, fabrication notes, or tuning insights are published. Weekly max, unsubscribe anytime.
+          Get notified when new gallery sets, fabrication notes, or tuning insights are published.
         </p>
-        <form class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <div class="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">
+          <label for="garage-email" class="sr-only">Email address</label>
           <input
+            id="garage-email"
             type="email"
             placeholder="you@garagecrew.com"
-            class="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder-white/50 focus:border-white focus:outline-none"
+            class="h-12 w-full rounded-lg border border-white/20 bg-white/10 px-4 text-sm text-white placeholder-white/50 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/25"
             required
           />
-          <button type="submit" class="rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-white/90">
+          <button type="submit" class="h-12 rounded-lg bg-white px-6 text-sm font-semibold text-primary transition hover:bg-white/90">
             Notify Me
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </section>
 </CanarinLayout>

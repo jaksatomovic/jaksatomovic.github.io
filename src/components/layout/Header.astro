@@ -8,21 +8,21 @@ const links = [
 ];
 ---
 
-<header class="py-6 sm:py-8">
-  <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
-    <a href="/" class="flex items-center gap-2 text-lg font-semibold text-primary dark:text-white">
-      <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white dark:bg-white dark:text-primary">
+<header class="py-4 sm:py-6">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+    <a href="/" class="flex min-w-0 items-center gap-2 text-base font-semibold text-primary dark:text-white sm:text-lg">
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white dark:bg-white dark:text-primary">
         JT
       </span>
-      <span>Jakša Tomović</span>
+      <span class="truncate">Jakša Tomović</span>
     </a>
-    <nav class="w-full lg:w-auto">
-      <ul class="flex flex-wrap items-center gap-2 sm:gap-3 lg:justify-end">
+    <nav class="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:w-auto lg:overflow-visible lg:px-0" aria-label="Primary navigation">
+      <ul class="flex min-w-max items-center gap-1.5 sm:gap-2 lg:justify-end">
         {links.map(({ href, label, external }) => (
           <li>
             <a
               href={href}
-              class="rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 hover:text-primary dark:text-white dark:hover:bg-white/10"
+              class="block rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-white dark:hover:bg-white/10 dark:focus-visible:outline-white"
               rel={external ? "noopener noreferrer" : undefined}
               target={external ? "_blank" : undefined}
             >

@@ -3,13 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const apps = [
   {
-    name: "Mako Writer",
-    description:
-      "AI-powered writing studio for fiction and non-fiction book workflows. Plan story arcs, generate drafts, structure chapters, and publish-ready outputs from one workspace.",
-    href: "/apps/mako-writer",
-    tech: ["Tauri", "React", "TypeScript", "AI Workflows"],
-  },
-  {
     name: "AirShare",
     description:
       "Peer-to-peer file delivery that uses QUIC, mDNS discovery, and Iroh-powered relays so you can ship massive builds to teammates without ever touching the cloud.",
@@ -20,54 +13,49 @@ const apps = [
 ];
 ---
 
-<BaseLayout>
-  <section class="px-4 py-16 sm:px-6 lg:py-24">
-    <div class="mx-auto flex w-full max-w-4xl flex-col gap-12">
-      <div class="space-y-4 text-center">
-        <p class="text-xs uppercase tracking-[0.4em] text-primary/70 dark:text-white/70">Product Studio</p>
-        <h1 class="text-4xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
-          Applications I’m building
+<BaseLayout
+  title="Apps | Jaksa Tomovic"
+  description="Selected software products and application projects by Jaksa Tomovic."
+>
+  <section class="px-4 py-12 sm:px-6 lg:py-20">
+    <div class="mx-auto flex w-full max-w-5xl flex-col gap-10">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/70 dark:text-white/70 sm:tracking-[0.35em]">Product Studio</p>
+        <h1 class="text-3xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
+          Applications in the wild
         </h1>
-        <p class="text-base text-zinc-500 dark:text-zinc-400 sm:text-lg">
-          Focused, opinionated tools—built hands-on, shipped fast, and iterated with real users.
+        <p class="text-base text-zinc-600 dark:text-zinc-400 sm:text-lg">
+          Focused, opinionated tools built hands-on, shipped fast, and shaped around real workflows.
         </p>
       </div>
 
-      <div class="space-y-6">
+      <div class="grid gap-5">
         {apps.map((app) => (
           <article
-            class={`rounded-3xl border border-primary/10 bg-white/70 p-8 shadow-lg shadow-primary/5 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-primary/20 dark:border-white/10 dark:bg-secondary/60 dark:hover:border-white/20 ${app.disabled ? "opacity-60" : ""}`}
+            class="rounded-lg border border-primary/10 bg-white/80 p-5 shadow-lg shadow-primary/5 transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-primary/15 dark:border-white/10 dark:bg-secondary/70 dark:hover:border-white/20 sm:p-7"
           >
-            <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div class="space-y-3">
                 <h2 class="text-2xl font-semibold text-primary dark:text-white">{app.name}</h2>
-                <p class="max-w-2xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">{app.description}</p>
-                <ul class="flex flex-wrap gap-2 text-xs font-medium uppercase tracking-wide text-primary/60 dark:text-white/60">
+                <p class="max-w-2xl text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">{app.description}</p>
+                <ul class="flex flex-wrap gap-2 text-xs font-medium uppercase tracking-wide text-primary/60 dark:text-white/60" aria-label={`${app.name} stack`}>
                   {app.tech.map((stack) => (
-                    <li class="rounded-full border border-primary/10 px-4 py-1 dark:border-white/15">{stack}</li>
+                    <li class="rounded-lg border border-primary/10 px-3 py-1 dark:border-white/15">{stack}</li>
                   ))}
                 </ul>
               </div>
-              <div class="flex items-center gap-3">
-                {app.status ? (
-                  <span class="rounded-full border border-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50 dark:border-white/15 dark:text-white/50">
-                    {app.status}
-                  </span>
-                ) : (
-                  <a
-                    href={app.href}
-                    target={app.external ? "_blank" : undefined}
-                    rel={app.external ? "noopener noreferrer" : undefined}
-                    class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:translate-x-1 hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-white/90"
-                  >
-                    {app.cta ?? (app.external ? "Visit website" : "Explore app")}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14" />
-                      <path d="M12 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                )}
-              </div>
+              <a
+                href={app.href}
+                target={app.external ? "_blank" : undefined}
+                rel={app.external ? "noopener noreferrer" : undefined}
+                class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:bg-white dark:text-primary dark:hover:bg-white/90 sm:w-auto"
+              >
+                {app.cta ?? (app.external ? "Visit website" : "Explore app")}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
           </article>
         ))}

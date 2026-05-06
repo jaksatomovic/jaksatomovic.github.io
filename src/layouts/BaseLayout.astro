@@ -2,14 +2,16 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+
+const { title, description } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead />
+    <BaseHead title={title} description={description} />
   </head>
 
-<body class="min-h-screen bg-zinc-200 font-sans text-primary antialiased dark:bg-primary">
+<body class="min-h-screen overflow-x-hidden bg-zinc-200 font-sans text-primary antialiased dark:bg-primary">
   <div class="flex min-h-screen flex-col">
     <Header />
     <main class="flex-1">

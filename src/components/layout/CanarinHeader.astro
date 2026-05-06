@@ -9,23 +9,23 @@ const links = [
 ---
 
 <header class="bg-primary text-white">
-  <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-    <a href="/" class="flex items-center gap-2 text-lg font-semibold">
-      <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-sm font-semibold text-primary">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+    <a href="/" class="flex min-w-0 items-center gap-2 text-base font-semibold sm:text-lg">
+      <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-sm font-semibold text-primary">
         JT
       </span>
-      <div class="flex flex-col leading-tight">
+      <div class="flex min-w-0 flex-col leading-tight">
         <span>Canarin Garage</span>
-        <span class="text-xs font-normal tracking-wide text-white/80">Custom CX500 Build</span>
+        <span class="truncate text-xs font-normal tracking-wide text-white/80">Custom CX500 Build</span>
       </div>
     </a>
-    <nav>
-      <ul class="flex flex-wrap items-center justify-start gap-2 sm:justify-end">
+    <nav class="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:overflow-visible lg:px-0" aria-label="Garage navigation">
+      <ul class="flex min-w-max items-center justify-start gap-1.5 sm:gap-2 lg:justify-end">
         {links.map(({ href, label }) => (
           <li>
             <a
               href={href}
-              class="rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10"
+              class="block rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {label}
             </a>
@@ -35,4 +35,3 @@ const links = [
     </nav>
   </div>
 </header>
-
