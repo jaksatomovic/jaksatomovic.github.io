@@ -2,53 +2,74 @@
 import CanarinLayout from "../layouts/CanarinLayout.astro";
 
 const stats = [
-  { value: "220h", label: "Hours Logged" },
-  { value: "24", label: "Custom Components" },
-  { value: "YSS", label: "Monoshock Conversion" },
+  { value: "0.199 mm", label: "ANSYS Max Deflection" },
+  { value: "160 MPa", label: "Peak Stress Check" },
+  { value: "1.56", label: "Minimum Safety Factor" },
   { value: "Q2 '26", label: "Road Test ETA" },
 ];
 
 const timelineItems = [
   {
-    date: "July 2025",
-    title: "Acquisition & Baseline",
-    body: "Bike sourced in original condition showing just over 80,000 km. Compression checked, fluids drained, initial ride recorded, and reusable factory parts cataloged.",
+    date: "Fall 2024",
+    title: "Source Bike & Documentation",
+    body: "CX500 donor bike, import paperwork, parts references, and build documentation were gathered before cutting into the chassis.",
   },
   {
-    date: "August 2025",
-    title: "Full Teardown",
-    body: "Frame, engine, and drivetrain separated. Harness labeled, stock airbox removed, and the rear section opened up for redesign.",
+    date: "November 2024",
+    title: "CAD & Static Analysis",
+    body: "Rear chassis and monoshock conversion modeled in CAD, then checked in ANSYS with documented stress, deformation, and safety-factor outputs.",
   },
   {
-    date: "September 2025",
-    title: "Mock-up & Fabrication",
-    body: "Custom rear loop welded, tank re-centered, battery tray relocated under the seat hump, and rearsets mocked in aluminum.",
+    date: "2025",
+    title: "Teardown & Fabrication",
+    body: "Frame, engine, and drivetrain separated. The rear section was opened up for the custom loop, gussets, shock mounts, and new electronics layout.",
   },
   {
-    date: "November 2025",
-    title: "Engine Rebuild & Wiring Prep",
-    body: "Engine cases stripped and coated. Internals inspected and refreshed before the powerplant returns to the frame with Rae-San ignition and Motogadget wiring.",
+    date: "Current Phase",
+    title: "Coating, Assembly & Wiring Prep",
+    body: "Coated chassis parts, refreshed components, wheels, and electronics are being staged before final engine install, harness routing, and first-fire checks.",
   },
 ];
 
 const shopNotes = [
   {
-    label: "Fabrication Log",
-    title: "Rear Loop Jig",
-    body: "Fixture setup for TIG welding the new rear loop, including tube bend angles, YSS monoshock mount gusseting, and Cognito Moto alignment points.",
-    meta: "Tooling: JD2 Model 3",
+    label: "Engineering",
+    title: "Static Chassis Check",
+    body: "ANSYS static structural review documented a 160 MPa peak equivalent stress, 0.199 mm total deformation, and a 1.56 minimum safety factor for the rear conversion concept.",
+    meta: "Report: Nov 2024",
   },
   {
-    label: "Electrical",
-    title: "Harness Mock-up",
-    body: "Color-coded loom layout for Motogadget m-unit blue, M-Lock keyless ignition, Motoscope Pro, and Rae-San trigger routing before final wrap.",
-    meta: "ETA: 2 sessions",
+    label: "Fabrication",
+    title: "Gusseted Rear Section",
+    body: "The custom rear frame uses welded reinforcement around the shock and seat support area so the cafe tail is structural, not just cosmetic.",
+    meta: "Process: TIG + fit-up",
   },
   {
     label: "Finishing",
-    title: "Paint Study",
-    body: "Matte black, brushed aluminum, and gold accents across suspension hardware, spoke nipples, engine covers, and rearset plates.",
-    meta: "Palette v2",
+    title: "Black + Gold Direction",
+    body: "Black wheel hardware, gold nipples, coated frame parts, and brushed-metal details are being staged toward the final black/gold/aluminum palette.",
+    meta: "Palette: locked direction",
+  },
+];
+
+const engineeringHighlights = [
+  {
+    title: "CAD-modeled rear conversion",
+    image: "/images/garage/cx500-chassis-cad.jpg",
+    alt: "SolidWorks CAD model of the CX500 rear frame and monoshock conversion",
+    body: "The rear chassis conversion was modeled before fabrication so shock position, upper mounts, and tail structure could be evaluated as one system.",
+  },
+  {
+    title: "ANSYS stress review",
+    image: "/images/garage/cx500-ansys-stress.jpg",
+    alt: "ANSYS equivalent stress plot for the CX500 rear chassis conversion",
+    body: "Static structural outputs give the build a paper trail: 160 MPa peak equivalent stress, 0.199 mm max deformation, and a 1.56 minimum safety factor.",
+  },
+  {
+    title: "Welded reinforcement",
+    image: "/images/garage/cx500-weld-gusset.jpg",
+    alt: "Close-up of welded gusset reinforcement on the CX500 frame",
+    body: "The frame work is reinforced with formed plates and careful welds around the load path instead of relying on a simple visual rear hoop.",
   },
 ];
 
@@ -65,10 +86,10 @@ const buildSheet = [
   {
     title: "Chassis & Suspension",
     items: [
-      "Hand-built subframe with integrated LED tail and seat pan",
-      "YSS monoshock conversion with bespoke mounting plates",
-      "GSXR forks, Brembo front calipers, and master cylinder",
-      "Cognito Moto triple tree and stem conversion kit",
+      "CAD-modeled rear frame and monoshock conversion",
+      "ANSYS static structural analysis with 1.56 minimum safety factor",
+      "Welded gussets and bespoke mounting plates for the custom tail",
+      "GSXR 750 front-end direction with custom conversion parts",
     ],
   },
   {
@@ -83,15 +104,35 @@ const buildSheet = [
   {
     title: "Finishing",
     items: [
-      "Satin black high-temp engine finish with polished covers",
-      "Satin black tank with brushed aluminum panel concept",
+      "Coated frame and hubs staged for final assembly",
+      "Satin black tank direction with brushed aluminum panel concept",
       "Black rims, brushed hubs, and gold anodized spoke nipples",
-      "Seat concept in progress, upholstery still open",
+      "Seat concept and upholstery still open",
     ],
   },
 ];
 
 const galleryImages = [
+  {
+    src: "/images/garage/cx500-source-bike.jpg",
+    alt: "Original Honda CX500 donor bike before the cafe racer conversion",
+    caption: "The source bike before the chassis, suspension, and electronics work began.",
+  },
+  {
+    src: "/images/garage/cx500-chassis-cad.jpg",
+    alt: "SolidWorks CAD model of the CX500 custom monoshock rear frame",
+    caption: "CAD stage: rear frame, upper shock mount, and tail structure modeled as one assembly.",
+  },
+  {
+    src: "/images/garage/cx500-ansys-stress.jpg",
+    alt: "ANSYS equivalent stress analysis for the CX500 rear chassis conversion",
+    caption: "ANSYS check showing peak equivalent stress for the rear conversion concept.",
+  },
+  {
+    src: "/images/garage/cx500-weld-gusset.jpg",
+    alt: "Welded gusset reinforcement on the CX500 frame",
+    caption: "Welded reinforcement around the rear chassis load path.",
+  },
   {
     src: "/images/garage/img-2907.jpg",
     alt: "Honda CX500 cafe racer build in the garage, side profile during teardown",
@@ -111,6 +152,16 @@ const galleryImages = [
     src: "/images/garage/img-2948.jpg",
     alt: "Honda CX500 parts laid out on workbench for rebuild",
     caption: "Parts staging with refreshed components and new electrics.",
+  },
+  {
+    src: "/images/garage/cx500-coated-frame.jpg",
+    alt: "Coated CX500 frame and hubs staged for reassembly",
+    caption: "Coated frame pieces and hubs staged before final reassembly.",
+  },
+  {
+    src: "/images/garage/cx500-wheel-detail.jpg",
+    alt: "Black spoked wheel with gold nipples for the CX500 cafe racer",
+    caption: "Black wheel hardware with gold spoke nipples defining the finish direction.",
   },
 ];
 ---
@@ -132,12 +183,12 @@ const galleryImages = [
           Honda CX500 Cafe Racer
         </h1>
         <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-          A high-mile 1981 CX500 rebuilt into a matte black cafe racer with a hand-built subframe, Motogadget control suite,
-          Rae-San programmable ignition, and a full monoshock conversion.
+          A documented 1981 CX500 rebuild with CAD-modeled rear chassis work, ANSYS static analysis, welded reinforcement,
+          GSXR front-end direction, Motogadget controls, Rae-San ignition, and a full monoshock conversion.
         </p>
       </div>
       <div class="mt-8 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-white/75">
-        {["Custom Subframe", "YSS Monoshock", "Motogadget Suite", "GSXR Front End", "Brembo Rear"].map((tag) => (
+        {["CAD + ANSYS", "Welded Rear Frame", "YSS Monoshock", "Motogadget Suite", "GSXR Front End"].map((tag) => (
           <span class="rounded-lg border border-white/25 bg-white/10 px-3 py-2 backdrop-blur">{tag}</span>
         ))}
       </div>
@@ -161,7 +212,7 @@ const galleryImages = [
         <p class="text-xs uppercase tracking-[0.24em] text-primary/60 dark:text-white/50 sm:tracking-[0.3em]">Progress</p>
         <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Build Timeline</h2>
         <p class="mt-4 text-primary/70 dark:text-white/70">
-          The project is moving from teardown into engine assembly, wiring prep, and the final fitment loop before road testing.
+          The project is moving from documented engineering and frame work into coating, assembly, wiring prep, and first-fire checks.
         </p>
       </div>
       <ol class="space-y-4">
@@ -176,7 +227,37 @@ const galleryImages = [
     </div>
   </section>
 
-  <section class="bg-white py-14 dark:bg-primary/95" id="workbench">
+  <section class="bg-white py-14 dark:bg-primary/95" id="engineering">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="max-w-2xl">
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/50 dark:text-white/50 sm:tracking-[0.3em]">Engineering</p>
+        <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">Not just a visual build</h2>
+        <p class="mt-3 text-primary/70 dark:text-white/70">
+          The rear conversion has a paper trail: CAD layout, static structural analysis, and fabricated reinforcement before finishing work.
+        </p>
+      </div>
+      <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        {engineeringHighlights.map((item) => (
+          <article class="overflow-hidden rounded-lg border border-primary/10 bg-zinc-50 shadow-md shadow-primary/5 dark:border-white/10 dark:bg-white/5">
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading="lazy"
+              class="aspect-[4/3] w-full object-cover"
+              width="720"
+              height="540"
+            />
+            <div class="p-5 sm:p-6">
+              <h3 class="text-xl font-semibold text-primary dark:text-white">{item.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-primary/70 dark:text-white/70">{item.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-zinc-100 py-14 dark:bg-primary" id="workbench">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -206,7 +287,7 @@ const galleryImages = [
     </div>
   </section>
 
-  <section class="bg-zinc-100 py-14 dark:bg-primary" id="specs">
+  <section class="bg-white py-14 dark:bg-primary/95" id="specs">
     <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
       <div>
         <p class="text-xs uppercase tracking-[0.24em] text-primary/50 dark:text-white/50 sm:tracking-[0.3em]">Setup</p>
