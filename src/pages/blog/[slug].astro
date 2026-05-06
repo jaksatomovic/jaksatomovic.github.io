@@ -1,0 +1,112 @@
+---
+import BlogPostCard from "../../components/blog/BlogPostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { blogPosts, formatPostDate, getCategoryById, getPostsByCategory } from "../../data/blog";
+import type { BlogPost } from "../../data/blog";
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: BlogPost };
+const category = getCategoryById(post.category);
+const relatedPosts = getPostsByCategory(post.category)
+  .filter((item) => item.slug !== post.slug)
+  .slice(0, 2);
+---
+
+<BaseLayout title={`${post.title} | Jaksa Tomovic`} description={post.excerpt}>
+  <article>
+    <section class="px-4 py-12 sm:px-6 lg:py-20">
+      <div class="mx-auto max-w-4xl">
+        <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-primary/55 dark:text-white/55">
+          <a href="/blog" class="rounded-lg border border-primary/10 bg-white/70 px-3 py-1 transition hover:border-primary/30 dark:border-white/15 dark:bg-secondary/70">
+            Blog
+          </a>
+          <a href={category?.href ?? "/blog"} class="rounded-lg border border-primary/10 bg-white/70 px-3 py-1 transition hover:border-primary/30 dark:border-white/15 dark:bg-secondary/70">
+            {category?.label}
+          </a>
+          <span>{formatPostDate(post.publishedAt)}</span>
+          <span>{post.readTime}</span>
+        </div>
+
+        <h1 class="mt-6 text-3xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
+          {post.title}
+        </h1>
+        <p class="mt-5 text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">{post.excerpt}</p>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10 sm:px-6">
+      <div class="mx-auto max-w-6xl overflow-hidden rounded-lg border border-primary/10 bg-white/80 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/70">
+        <img
+          src={post.image}
+          alt={post.imageAlt}
+          class="max-h-[620px] w-full object-cover"
+          width="1400"
+          height="820"
+        />
+      </div>
+    </section>
+
+    <section class="px-4 py-10 sm:px-6">
+      <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.72fr_0.28fr] lg:items-start">
+        <div class="rounded-lg border border-primary/10 bg-white/85 p-5 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/70 sm:p-8">
+          <div class="space-y-5 text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+            {post.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+
+          <div class="mt-10 space-y-9">
+            {post.sections.map((section) => (
+              <section>
+                <h2 class="text-2xl font-semibold tracking-tight text-primary dark:text-white">{section.heading}</h2>
+                <div class="mt-4 space-y-4 text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+                  {section.body.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
+
+        <aside class="rounded-lg border border-primary/10 bg-white/85 p-5 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/70 sm:p-6 lg:sticky lg:top-8">
+          <p class="text-xs uppercase tracking-[0.22em] text-primary/55 dark:text-white/55">Filed Under</p>
+          <a href={category?.href ?? "/blog"} class="mt-3 inline-flex rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-white/90">
+            {category?.label}
+          </a>
+          <ul class="mt-6 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-primary/60 dark:text-white/60">
+            {post.tags.map((tag) => (
+              <li class="rounded-lg border border-primary/10 px-3 py-1 dark:border-white/15">{tag}</li>
+            ))}
+          </ul>
+          <a
+            href="/blog"
+            class="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary/10 px-5 py-3 text-sm font-semibold text-primary transition hover:border-primary/30 hover:bg-primary/5 dark:border-white/15 dark:text-white dark:hover:bg-white/10"
+          >
+            Back to blog
+          </a>
+        </aside>
+      </div>
+    </section>
+  </article>
+
+  {relatedPosts.length > 0 && (
+    <section class="px-4 py-10 sm:px-6 lg:pb-20">
+      <div class="mx-auto max-w-6xl">
+        <p class="text-xs uppercase tracking-[0.24em] text-primary/60 dark:text-white/60">Related</p>
+        <h2 class="mt-2 text-3xl font-semibold text-primary dark:text-white">More {category?.label} Notes</h2>
+        <div class="mt-7 grid gap-5 lg:grid-cols-2">
+          {relatedPosts.map((item) => (
+            <BlogPostCard post={item} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

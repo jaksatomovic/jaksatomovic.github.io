@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatPostDate, getPostsByCategory } from "../../data/blog";
 
 const apps = [
   {
@@ -11,6 +12,8 @@ const apps = [
     external: true,
   },
 ];
+
+const appPosts = getPostsByCategory("apps").slice(0, 2);
 ---
 
 <BaseLayout
@@ -60,6 +63,30 @@ const apps = [
           </article>
         ))}
       </div>
+
+      <section class="rounded-lg border border-primary/10 bg-white/80 p-5 shadow-lg shadow-primary/5 dark:border-white/10 dark:bg-secondary/70 sm:p-7">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.24em] text-primary/55 dark:text-white/55">Apps Blog</p>
+            <h2 class="mt-2 text-2xl font-semibold text-primary dark:text-white">Product notes</h2>
+          </div>
+          <a
+            href="/blog/apps"
+            class="inline-flex w-full items-center justify-center rounded-lg border border-primary/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary transition hover:border-primary/30 hover:bg-primary/5 dark:border-white/15 dark:text-white dark:hover:bg-white/10 sm:w-auto"
+          >
+            Open apps blog
+          </a>
+        </div>
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          {appPosts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="rounded-lg border border-primary/10 bg-zinc-50 p-4 transition hover:border-primary/25 dark:border-white/10 dark:bg-tertiary">
+              <p class="text-xs uppercase tracking-[0.18em] text-primary/50 dark:text-white/50">{formatPostDate(post.publishedAt)} · {post.readTime}</p>
+              <h3 class="mt-2 text-lg font-semibold text-primary dark:text-white">{post.title}</h3>
+              <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   </section>
 </BaseLayout>

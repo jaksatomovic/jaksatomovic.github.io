@@ -1,4 +1,6 @@
 ---
+import { formatPostDate, sortPosts } from "../../data/blog";
+
 const surfaceBase =
   "rounded-lg border border-primary/10 bg-white/85 p-5 shadow-lg shadow-primary/5 transition duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-primary/15 dark:border-white/10 dark:bg-secondary/70 dark:shadow-thick dark:hover:border-white/20 sm:p-7";
 const quietSurface =
@@ -12,6 +14,8 @@ const stacks = {
   airshare: ["Next.js", "TypeScript", "Tailwind CSS", "Iroh"],
   hardware: ["Moto32", "Keero Bot", "ESP32-S3", "AI Device"],
 };
+
+const latestPosts = sortPosts().slice(0, 3);
 ---
 
 <section class="px-4 py-12 sm:px-6 lg:py-20">
@@ -208,6 +212,34 @@ const stacks = {
           <path d="M12 5l7 7-7 7" />
         </svg>
       </span>
+    </a>
+
+    <a href="/blog" class={`${surfaceBase} group lg:col-span-12`}>
+      <div class="grid gap-6 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+        <div>
+          <span class={badge}>Field notes</span>
+          <h2 class="mt-4 text-3xl font-semibold text-primary dark:text-white sm:text-4xl">Blog</h2>
+          <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">
+            Apps, hardware, and Canarin Garage updates live in one blog, with separate tracks for product notes,
+            ESP32 work, and the CX500 build.
+          </p>
+          <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:translate-x-1 dark:text-white">
+            Open blog
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+        <div class="grid gap-3">
+          {latestPosts.map((post) => (
+            <div class="rounded-lg border border-primary/10 bg-zinc-50 p-4 dark:border-white/10 dark:bg-tertiary">
+              <p class="text-xs uppercase tracking-[0.18em] text-primary/50 dark:text-white/50">{formatPostDate(post.publishedAt)} · {post.category}</p>
+              <h3 class="mt-2 text-base font-semibold text-primary dark:text-white">{post.title}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
     </a>
 
     <a
