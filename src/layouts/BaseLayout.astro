@@ -8,16 +8,18 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  tone?: "default" | "garage";
 }
 
-const { title, description, image, type } = Astro.props;
+const { title, description, image, type, tone = "default" } = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} image={image} type={type} />
+    <slot name="head" />
   </head>
-  <body class="min-h-screen overflow-x-hidden font-sans">
+  <body class:list={["min-h-screen overflow-x-hidden font-sans", tone === "garage" && "tone-garage"]}>
     <div class="site-backdrop" aria-hidden="true"></div>
     <div class="flex min-h-screen flex-col">
       <Header />

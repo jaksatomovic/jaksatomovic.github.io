@@ -1,221 +1,273 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/ui/Icon.astro";
-import SectionHeading from "../components/ui/SectionHeading.astro";
 import BlogPostCard from "../components/blog/BlogPostCard.astro";
 import { getPostsByCategory } from "../data/blog";
 
 const subnav = [
-  { href: "#timeline", label: "Timeline" },
+  { href: "#status", label: "Status" },
   { href: "#engineering", label: "Engineering" },
-  { href: "#specs", label: "Build sheet" },
+  { href: "#specs", label: "Spec sheet" },
+  { href: "#notes", label: "Shop notes" },
   { href: "#gallery", label: "Gallery" },
   { href: "#contact", label: "Contact" },
 ];
 
-const stats = [
-  { value: "0.199 mm", label: "Max deflection, ANSYS" },
-  { value: "160 MPa", label: "Peak equivalent stress" },
-  { value: "1.56", label: "Minimum safety factor" },
-  { value: "17 in", label: "Custom spoked wheels" },
+const plate = [
+  ["Base", "1981 Honda CX500"],
+  ["Engine", "497 cc longitudinal V-twin"],
+  ["Style", "Neo-retro endurance cafe racer"],
+  ["Front", "GSX-R750 K7 USD, 30 mm offset"],
+  ["Rear", "Custom monoshock, YSS shock"],
+  ["Wheels", "17-inch spoked, gold nipples"],
+  ["Electronics", "Motogadget M-Unit + Motoscope Pro"],
+  ["Target", "Road and Grobnik track days"],
 ];
 
-const timeline = [
-  {
-    date: "Fall 2024",
-    title: "Source bike and documentation",
-    body: "The 1981 CX500 donor, import paperwork, parts references and build notes were gathered before the project moved from old bike to full reinterpretation.",
-  },
-  {
-    date: "November 2024",
-    title: "CAD and static analysis",
-    body: "Rear chassis and monoshock conversion modelled in SolidWorks, then checked in ANSYS with documented stress, deformation and safety-factor outputs.",
-  },
-  {
-    date: "2025",
-    title: "Teardown and fabrication",
-    body: "Frame, engine and drivetrain separated. The rear section was opened up for the custom subframe, gussets, shock mounts and a compact Motogadget wiring layout.",
-  },
-  {
-    date: "Now",
-    title: "Coating, assembly and systems prep",
-    body: "Coated chassis parts, custom 17-inch spoked wheels, KTM Duke 390 radiator packaging and electronics are being staged before final assembly.",
-  },
+const analysis = [
+  { value: "160", unit: "MPa", label: "Peak equivalent stress" },
+  { value: "0.199", unit: "mm", label: "Total deformation" },
+  { value: "1.56", unit: "min", label: "Safety factor" },
+  { value: "Nov 2024", unit: "", label: "ANSYS static report" },
 ];
+
+type Status = "done" | "active" | "next";
+const board: { phase: string; detail: string; status: Status; when: string }[] = [
+  { phase: "Donor bike and paperwork", detail: "1981 CX500 sourced, import documents, parts references gathered.", status: "done", when: "Fall 2024" },
+  { phase: "CAD and structural check", detail: "Rear frame and monoshock conversion modelled in SolidWorks, checked in ANSYS.", status: "done", when: "Nov 2024" },
+  { phase: "Teardown", detail: "Frame, engine and drivetrain separated. Everything labelled and photographed.", status: "done", when: "2025" },
+  { phase: "Rear frame fabrication", detail: "Subframe, gussets and shock mounts welded. Test fit with the YSS shock done.", status: "done", when: "2025" },
+  { phase: "Coating", detail: "Frame sections and hubs coated. Remaining brackets going out in the next batch.", status: "active", when: "Now" },
+  { phase: "Wheels and front end", detail: "17-inch spoked wheels laced. GSX-R forks and Cognito Moto triple tree fitted.", status: "active", when: "Now" },
+  { phase: "Engine rebuild", detail: "Bearings, carb kit and pod filters in hand. Exhaust routing still being decided.", status: "active", when: "Now" },
+  { phase: "Electronics and cooling", detail: "Motogadget wiring layout, KTM Duke 390 radiator packaging, Rae-San ignition.", status: "next", when: "Next" },
+  { phase: "Bodywork and finishing", detail: "Short seat, minimal cockpit, matte black with brushed metal details.", status: "next", when: "Next" },
+  { phase: "First fire and shakedown", detail: "Road setup first, then a Grobnik track day.", status: "next", when: "Goal" },
+];
+
+const statusLabel: Record<Status, string> = { done: "Done", active: "In progress", next: "Next" };
 
 const engineering = [
   {
-    title: "CAD-modelled rear conversion",
+    title: "Rear conversion in CAD",
     image: "/images/garage/cx500-chassis-cad.jpg",
     alt: "SolidWorks CAD model of the CX500 rear frame and monoshock conversion",
-    body: "The subframe and monoshock conversion were modelled before fabrication so shock position, upper mounts and tail structure could be evaluated as one system.",
+    body: "Subframe, upper shock mount and tail structure modelled as one assembly, so the shock position and load paths could be checked before cutting steel.",
   },
   {
-    title: "ANSYS stress review",
+    title: "ANSYS static review",
     image: "/images/garage/cx500-ansys-stress.jpg",
     alt: "ANSYS equivalent stress plot for the CX500 rear chassis conversion",
-    body: "Static structural outputs give the build a paper trail: 160 MPa peak equivalent stress, 0.199 mm max deformation and a 1.56 minimum safety factor.",
+    body: "A static structural pass on the rear section. The numbers are a sanity check, not a certificate, but they gave the fabrication a clear starting point.",
   },
   {
     title: "Welded reinforcement",
     image: "/images/garage/cx500-weld-gusset.jpg",
     alt: "Close-up of welded gusset reinforcement on the CX500 frame",
-    body: "Formed plates and careful TIG welds around the load path, instead of treating the rear section as a simple visual hoop.",
+    body: "Formed plates and TIG welds around the shock and seat support area, so the cafe tail is structural rather than cosmetic.",
   },
 ];
 
-const buildSheet = [
+const specSheet = [
   {
-    title: "Engine and drivetrain",
-    items: [
-      "CX500 497 cc longitudinal V-twin, full rebuild in progress",
-      "OEM brown-code connecting rod bearings",
-      "Murray's twin carb kit with K&N pod filters",
-      "Custom stainless 2-into-2 exhaust, raised routing",
+    group: "Engine and drivetrain",
+    rows: [
+      ["Engine", "CX500 497 cc V-twin, full rebuild in progress"],
+      ["Bearings", "OEM brown-code connecting rod bearings"],
+      ["Intake", "Murray's twin carb kit, K&N pod filters"],
+      ["Exhaust", "Custom stainless 2-into-2, raised routing"],
+      ["Ignition", "Rae-San programmable, OEM pickup"],
     ],
   },
   {
-    title: "Chassis and suspension",
-    items: [
-      "CAD-modelled custom subframe and monoshock conversion",
-      "ANSYS static structural analysis, 1.56 minimum safety factor",
-      "YSS TCFX-MZ-366-280-TRL rear shock",
-      "Suzuki GSX-R750 K7 USD forks, Cognito Moto triple tree, 30 mm offset",
-      "Custom 17-inch spoked wheels",
+    group: "Chassis and suspension",
+    rows: [
+      ["Subframe", "Custom, CAD-modelled, ANSYS-checked"],
+      ["Rear shock", "YSS TCFX-MZ-366-280-TRL, monoshock"],
+      ["Forks", "Suzuki GSX-R750 K7 USD"],
+      ["Triple tree", "Cognito Moto, 30 mm offset"],
+      ["Wheels", "Custom 17-inch spoked, black rims, brushed hubs"],
     ],
   },
   {
-    title: "Electronics",
-    items: [
-      "Motogadget M-Unit control system",
-      "Motogadget Motoscope Pro display",
-      "Compact wiring layout, integrated lighting and controls",
-      "Rae-San programmable ignition paired with OEM pickup",
+    group: "Electronics",
+    rows: [
+      ["Control unit", "Motogadget M-Unit"],
+      ["Dash", "Motogadget Motoscope Pro"],
+      ["Wiring", "Compact loom, integrated lighting and controls"],
+      ["Related", "Moto32, my open-source alternative to the M-Unit"],
     ],
   },
   {
-    title: "Cooling, brakes, finishing",
-    items: [
-      "KTM Duke 390 radiator conversion packaged around the USD front end",
-      "Brembo rear caliper and GSX-R K7 rear disc under review",
-      "Matte black surfaces, brushed hubs, gold anodised spoke nipples",
-      "Minimal cockpit, short seat, neo-retro endurance proportions",
+    group: "Cooling, brakes, finish",
+    rows: [
+      ["Radiator", "KTM Duke 390 conversion"],
+      ["Rear brake", "Brembo caliper, GSX-R K7 disc, under review"],
+      ["Finish", "Matte black, brushed metal, gold spoke nipples"],
+      ["Cockpit", "Minimal, short seat, endurance proportions"],
     ],
+  },
+];
+
+const shopNotes = [
+  {
+    label: "Engineering",
+    title: "Static chassis check",
+    body: "The ANSYS pass on the rear conversion came back with a 1.56 minimum safety factor. Good enough to proceed, with real-world checks once the bike is rolling.",
+    meta: "Report: Nov 2024",
+  },
+  {
+    label: "Fabrication",
+    title: "Gusseted rear section",
+    body: "Welded reinforcement around the shock and seat support so the tail carries load properly. TIG, fit-up on the table, then grind and check.",
+    meta: "Process: TIG + fit-up",
+  },
+  {
+    label: "Geometry",
+    title: "Modern front, 17-inch stance",
+    body: "GSX-R750 forks, Cognito Moto triple tree at 30 mm offset and 17-inch wheels move the CX toward a modern stance without losing the spoke-wheel look.",
+    meta: "Direction: road + Grobnik",
   },
 ];
 
 const gallery = [
-  {
-    src: "/images/garage/img-2908.jpg",
-    alt: "Honda CX500 cafe racer mock-up with tank and custom rear frame",
-    caption: "Mock-up stage: longitudinal V-twin character inside a modern chassis direction.",
-    span: "sm:col-span-2",
-  },
-  {
-    src: "/images/garage/cx500-chassis-cad.jpg",
-    alt: "SolidWorks CAD model of the CX500 custom monoshock rear frame",
-    caption: "Rear frame, upper shock mount and tail structure modelled as one assembly.",
-  },
-  {
-    src: "/images/garage/cx500-ansys-stress.jpg",
-    alt: "ANSYS equivalent stress analysis for the CX500 rear chassis conversion",
-    caption: "ANSYS check of peak equivalent stress for the rear conversion.",
-  },
-  {
-    src: "/images/garage/cx500-weld-gusset.jpg",
-    alt: "Welded gusset reinforcement on the CX500 frame",
-    caption: "Welded reinforcement around the rear chassis load path.",
-  },
-  {
-    src: "/images/garage/img-2907.jpg",
-    alt: "Rear three-quarter view of the CX500 with monoshock and spoked wheel",
-    caption: "Monoshock, custom subframe and 17-inch spoked wheel test fit.",
-    span: "sm:col-span-2",
-  },
-  {
-    src: "/images/garage/img-2909.jpg",
-    alt: "Rear view of Honda CX500 custom subframe work in progress",
-    caption: "Custom subframe and rear section before finishing work.",
-  },
-  {
-    src: "/images/garage/img-2948.jpg",
-    alt: "CX500 engine block on the workbench during rebuild",
-    caption: "Engine rebuild: block, bearings and fresh electrics staged.",
-  },
+  { src: "/images/garage/img-2908.jpg", alt: "Honda CX500 cafe racer mock-up with tank and custom rear frame", caption: "Mock-up: V-twin inside the new chassis direction", span: "sm:col-span-2 sm:row-span-2" },
+  { src: "/images/garage/cx500-chassis-cad.jpg", alt: "SolidWorks CAD model of the CX500 custom monoshock rear frame", caption: "Rear frame and shock mount in CAD" },
+  { src: "/images/garage/cx500-ansys-stress.jpg", alt: "ANSYS equivalent stress analysis for the CX500 rear chassis conversion", caption: "ANSYS equivalent stress plot" },
+  { src: "/images/garage/img-2907.jpg", alt: "Rear three-quarter view of the CX500 with monoshock and spoked wheel", caption: "Monoshock and 17-inch wheel test fit", span: "sm:col-span-2" },
+  { src: "/images/garage/cx500-weld-gusset.jpg", alt: "Welded gusset reinforcement on the CX500 frame", caption: "Gusset welds on the rear section" },
+  { src: "/images/garage/img-2909.jpg", alt: "Rear view of Honda CX500 custom subframe work in progress", caption: "Subframe before finishing" },
+  { src: "/images/garage/img-2948.jpg", alt: "CX500 engine block on the workbench during rebuild", caption: "Engine on the bench" },
 ];
 
 const posts = getPostsByCategory("garage").slice(0, 2);
+const marquee = ["Canarin Garage", "Est. 2024", "Honda CX500", "Cafe racer", "CAD + ANSYS", "TIG welded", "Motogadget", "Grobnik"];
 ---
 
 <BaseLayout
+  tone="garage"
   title="Canarin Garage | Honda CX500 custom build"
   description="Canarin Garage rebuilds a 1981 Honda CX500 as a neo-retro endurance cafe racer: CAD and ANSYS-checked monoshock chassis, GSX-R front end, custom 17-inch spoked wheels, Motogadget electronics."
   image="/images/garage/img-2908.jpg"
 >
+  <link slot="head" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
   <!-- Hero -->
-  <section id="overview" class="relative isolate overflow-hidden bg-[#0d0d0e] text-white">
+  <section id="overview" class="relative isolate overflow-hidden">
     <img
       src="/images/garage/img-2908.jpg"
       alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-60"
+      class="absolute inset-0 h-full w-full object-cover opacity-50"
       width="2000"
       height="1500"
       loading="eager"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0e] via-[#0d0d0e]/60 to-[#0d0d0e]/20" aria-hidden="true"></div>
-    <div class="container-site relative flex min-h-[80vh] flex-col justify-end pb-14 pt-24 sm:pb-20">
-      <div class="flex items-center gap-4">
-        <img src="/images/canaringarage.jpg" alt="Canarin Garage badge" width="64" height="64" class="h-14 w-14 rounded-full bg-white object-cover p-1" />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/10" aria-hidden="true"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-accent/40" aria-hidden="true"></div>
+
+    <div class="container-site relative flex min-h-[86vh] flex-col justify-end pb-12 pt-24 sm:pb-16">
+      <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-white/60">Canarin Garage · Est. 2024</p>
-          <p class="text-sm text-white/80">Custom motorcycles, Croatia</p>
+          <div class="flex items-center gap-4">
+            <img src="/images/canaringarage.jpg" alt="Canarin Garage badge" width="64" height="64" class="h-16 w-16 rounded-full bg-white object-cover p-1.5" />
+            <div>
+              <p class="font-mono text-xs uppercase tracking-[0.3em] text-accent">Canarin Garage · Est. 2024</p>
+              <p class="mt-1 text-sm text-muted">Custom motorcycle workshop, Croatia</p>
+            </div>
+          </div>
+          <h1 class="font-display mt-10 text-[clamp(4rem,13vw,11rem)] leading-[0.85] text-ink">
+            Honda<br />
+            <span class="text-accent">CX500</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg text-ink/80 sm:text-xl">
+            A 1981 CX500 rebuilt as a neo-retro endurance cafe racer. The engine stays, everything around it is redesigned: monoshock chassis, sportbike front end, 17-inch spoked wheels, clean electronics.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#status" class="btn-primary">
+              Build status
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+            <a href="https://www.instagram.com/canaringarage/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+              <Icon name="instagram" class="h-4 w-4" />
+              @canaringarage
+            </a>
+          </div>
         </div>
-      </div>
-      <h1 class="mt-8 max-w-3xl text-display-xl font-semibold">
-        Honda CX500, <span class="font-serif italic font-normal text-accent">reinterpreted</span>.
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-white/75 sm:text-xl">
-        A 1981 CX500 rebuilt as a neo-retro, endurance-inspired cafe racer. Old-school longitudinal V-twin, modern sportbike geometry, CAD and ANSYS-backed monoshock chassis, and a clean Motogadget ecosystem.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-2">
-        {["1981 CX500", "CAD + ANSYS", "YSS monoshock", "GSX-R750 K7 front", "17-inch spoked wheels", "Motogadget"].map((t) => (
-          <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/85 backdrop-blur">{t}</span>
-        ))}
+
+        <dl class="plate surface grid grid-cols-2 gap-x-6 gap-y-4 p-6 font-mono text-xs sm:p-8" data-reveal>
+          {plate.map(([k, v]) => (
+            <div class="border-t border-line/10 pt-3">
+              <dt class="uppercase tracking-[0.22em] text-muted">{k}</dt>
+              <dd class="mt-1.5 text-[0.8rem] leading-snug text-ink">{v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- Sub navigation + stats -->
-  <div class="sticky top-16 z-40 border-b border-line/10 bg-bg/80 backdrop-blur-xl sm:top-[4.5rem]">
+  <!-- Marquee + subnav -->
+  <div class="overflow-hidden border-b border-line/10 bg-accent py-2.5 text-bg">
+    <div class="flex w-max animate-marquee gap-10 whitespace-nowrap font-display text-lg tracking-[0.12em]" aria-hidden="true">
+      {[...marquee, ...marquee].map((m) => (
+        <span class="flex items-center gap-10">{m}<span class="h-1.5 w-1.5 rounded-full bg-bg/60"></span></span>
+      ))}
+    </div>
+  </div>
+  <div class="sticky top-16 z-40 border-b border-line/10 bg-bg/85 backdrop-blur-xl sm:top-[4.5rem]">
     <nav class="container-site scroller flex gap-1 overflow-x-auto py-2" aria-label="On this page">
       {subnav.map((s) => (
-        <a href={s.href} class="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-ink/70 transition hover:bg-line/5 hover:text-ink">{s.label}</a>
+        <a href={s.href} class="shrink-0 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-ink/70 transition hover:bg-line/5 hover:text-ink">{s.label}</a>
       ))}
     </nav>
   </div>
 
-  <section class="container-site pt-10">
-    <dl class="grid gap-px overflow-hidden rounded-3xl border border-line/10 bg-line/10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
-      {stats.map((s) => (
-        <div class="bg-surface p-6">
-          <dd class="text-3xl font-semibold tracking-tight text-ink">{s.value}</dd>
-          <dt class="mt-1 text-xs uppercase tracking-[0.18em] text-muted">{s.label}</dt>
-        </div>
-      ))}
-    </dl>
-  </section>
-
-  <!-- Timeline -->
-  <section id="timeline" class="container-site scroll-mt-32 pt-24 sm:pt-32">
-    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-      <SectionHeading eyebrow="Progress" title="Build timeline" description="From documented engineering and frame work into coating, assembly, systems packaging and first-fire checks." class="lg:sticky lg:top-40 lg:self-start" />
-      <ol class="relative border-l border-line/15 pl-8">
-        {timeline.map((item, i) => (
-          <li class="relative pb-10 last:pb-0" data-reveal data-reveal-delay={i * 60}>
-            <span class:list={["absolute -left-[2.35rem] top-1.5 h-3 w-3 rounded-full border-2 border-bg", i === timeline.length - 1 ? "bg-accent" : "bg-ink"]}></span>
-            <time class="text-xs uppercase tracking-[0.18em] text-muted">{item.date}</time>
-            <h3 class="mt-2 text-xl font-semibold tracking-tight text-ink">{item.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted sm:text-base">{item.body}</p>
+  <!-- Status board -->
+  <section id="status" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      <div class="lg:sticky lg:top-40 lg:self-start" data-reveal>
+        <p class="eyebrow">Status board</p>
+        <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">Build status</h2>
+        <p class="mt-4 text-muted">
+          Ten phases from donor bike to first fire. Four are done, three are on the bench right now, three are queued.
+        </p>
+        <ul class="mt-6 flex gap-5 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span>Done</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-accent"></span>In progress</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full border border-line/30"></span>Next</li>
+        </ul>
+      </div>
+      <ol class="surface divide-y divide-line/10" data-reveal>
+        {board.map((item, i) => (
+          <li class="grid gap-3 px-6 py-5 sm:grid-cols-[2.5rem_1fr_auto] sm:items-start sm:gap-5">
+            <span class="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <p class="flex items-center gap-3 font-semibold text-ink">
+                <span
+                  class:list={[
+                    "inline-block h-2 w-2 shrink-0 rounded-full",
+                    item.status === "done" && "bg-emerald-400",
+                    item.status === "active" && "bg-accent",
+                    item.status === "next" && "border border-line/30",
+                  ]}
+                ></span>
+                {item.phase}
+              </p>
+              <p class="mt-1 text-sm text-muted">{item.detail}</p>
+            </div>
+            <div class="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1">
+              <span
+                class:list={[
+                  "font-mono text-[0.65rem] uppercase tracking-[0.2em]",
+                  item.status === "done" && "text-emerald-400",
+                  item.status === "active" && "text-accent",
+                  item.status === "next" && "text-muted",
+                ]}
+              >
+                {statusLabel[item.status]}
+              </span>
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">{item.when}</span>
+            </div>
           </li>
         ))}
       </ol>
@@ -223,18 +275,33 @@ const posts = getPostsByCategory("garage").slice(0, 2);
   </section>
 
   <!-- Engineering -->
-  <section id="engineering" class="container-site scroll-mt-32 pt-24 sm:pt-32">
-    <SectionHeading
-      eyebrow="Engineering"
-      title="Not just a <span class='font-serif italic font-normal text-accent'>visual</span> build"
-      description="This is not a restoration. It is a performance-minded reinterpretation with CAD layout, static structural analysis, fabricated reinforcement and modern suspension geometry."
-    />
-    <div class="mt-10 grid gap-5 lg:grid-cols-3">
+  <section id="engineering" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">Engineering</p>
+      <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">Drawn before it was cut</h2>
+      <p class="mt-4 text-muted">
+        Not a restoration. The rear of the bike is a new structure, so it was modelled and stress-checked before the first weld.
+      </p>
+    </div>
+    <dl class="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line/10 bg-line/10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {analysis.map((a) => (
+        <div class="plate bg-surface p-6">
+          <dd class="font-display text-5xl text-ink">
+            {a.value}<span class="ml-1.5 text-2xl text-accent">{a.unit}</span>
+          </dd>
+          <dt class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted">{a.label}</dt>
+        </div>
+      ))}
+    </dl>
+    <div class="mt-5 grid gap-5 lg:grid-cols-3">
       {engineering.map((item, i) => (
         <article class="surface surface-hover overflow-hidden" data-reveal data-reveal-delay={i * 80}>
-          <img src={item.image} alt={item.alt} loading="lazy" class="aspect-[4/3] w-full object-cover" width="720" height="540" />
+          <div class="aspect-[4/3] overflow-hidden bg-raised">
+            <img src={item.image} alt={item.alt} loading="lazy" class="h-full w-full object-cover" width="720" height="540" />
+          </div>
           <div class="p-6">
-            <h3 class="text-lg font-semibold text-ink">{item.title}</h3>
+            <p class="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-accent">0{i + 1}</p>
+            <h3 class="mt-2 text-lg font-semibold text-ink">{item.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
           </div>
         </article>
@@ -242,49 +309,83 @@ const posts = getPostsByCategory("garage").slice(0, 2);
     </div>
   </section>
 
-  <!-- Build sheet -->
-  <section id="specs" class="container-site scroll-mt-32 pt-24 sm:pt-32">
-    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-      <SectionHeading eyebrow="Setup" title="Build sheet" description="The current parts map, grouped by system." class="lg:sticky lg:top-40 lg:self-start" />
-      <div class="grid gap-5 sm:grid-cols-2">
-        {buildSheet.map((group, i) => (
-          <article class="surface p-6" data-reveal data-reveal-delay={i * 60}>
-            <h3 class="font-semibold text-ink">{group.title}</h3>
-            <ul class="mt-4 space-y-2.5 text-sm text-muted">
-              {group.items.map((item) => (
-                <li class="flex gap-3">
-                  <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
+  <!-- Spec sheet -->
+  <section id="specs" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+      <div class="max-w-2xl">
+        <p class="eyebrow">Spec sheet</p>
+        <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">Parts map</h2>
       </div>
+      <a href="/hardware#moto32" class="link-arrow shrink-0">
+        Moto32, the electronics side
+        <Icon name="arrow" />
+      </a>
+    </div>
+    <div class="mt-10 grid gap-5 lg:grid-cols-2">
+      {specSheet.map((g, i) => (
+        <div class="surface overflow-hidden" data-reveal data-reveal-delay={(i % 2) * 80}>
+          <div class="plate flex items-center justify-between border-b border-line/10 px-6 py-4">
+            <h3 class="font-display text-2xl tracking-wider text-ink">{g.group}</h3>
+            <span class="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted">0{i + 1}</span>
+          </div>
+          <dl class="divide-y divide-line/10">
+            {g.rows.map(([k, v]) => (
+              <div class="grid grid-cols-[7rem_1fr] gap-4 px-6 py-3.5 text-sm">
+                <dt class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">{k}</dt>
+                <dd class="text-ink/90">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Shop notes -->
+  <section id="notes" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">Shop notes</p>
+      <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">On the bench</h2>
+    </div>
+    <div class="mt-10 grid gap-5 lg:grid-cols-3">
+      {shopNotes.map((n, i) => (
+        <article class="surface surface-hover p-6 sm:p-7" data-reveal data-reveal-delay={i * 80}>
+          <p class="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-accent">{n.label}</p>
+          <h3 class="mt-3 text-xl font-semibold text-ink">{n.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{n.body}</p>
+          <p class="mt-5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">{n.meta}</p>
+        </article>
+      ))}
     </div>
   </section>
 
   <!-- Gallery -->
-  <section id="gallery" class="container-site scroll-mt-32 pt-24 sm:pt-32">
-    <SectionHeading eyebrow="Photo log" title="From donor bike to test fit" size="md" />
-    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+  <section id="gallery" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">Gallery</p>
+      <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">Photo log</h2>
+    </div>
+    <div class="mt-10 grid auto-rows-[14rem] gap-3 sm:grid-cols-3 sm:auto-rows-[16rem]">
       {gallery.map((g, i) => (
-        <figure class:list={["surface group overflow-hidden", g.span]} data-reveal data-reveal-delay={(i % 3) * 60}>
-          <div class="aspect-[4/3] overflow-hidden bg-raised">
-            <img src={g.src} alt={g.alt} loading="lazy" class="h-full w-full object-cover transition duration-700 ease-premium group-hover:scale-[1.03]" width="900" height="675" />
-          </div>
-          <figcaption class="px-5 py-4 text-sm text-muted">{g.caption}</figcaption>
+        <figure class:list={["group relative overflow-hidden rounded-2xl border border-line/10 bg-raised", g.span]} data-reveal data-reveal-delay={(i % 3) * 60}>
+          <img src={g.src} alt={g.alt} loading="lazy" class="h-full w-full object-cover transition duration-700 ease-premium group-hover:scale-[1.04]" width="900" height="675" />
+          <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-10 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-white/90">
+            {g.caption}
+          </figcaption>
         </figure>
       ))}
     </div>
   </section>
 
-  <!-- Notes -->
+  <!-- Notes from the blog -->
   {posts.length > 0 && (
-    <section class="container-site pt-24 sm:pt-32">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <SectionHeading eyebrow="Build log" title="Longer notes from the shop" size="md" />
-        <a href="/blog/garage" class="link-arrow shrink-0" data-reveal>
+    <section class="container-site pt-20 sm:pt-28">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow">Build log</p>
+          <h2 class="font-display mt-4 text-6xl text-ink sm:text-7xl">Longer notes</h2>
+        </div>
+        <a href="/blog/garage" class="link-arrow shrink-0">
           All garage notes
           <Icon name="arrow" />
         </a>
@@ -298,22 +399,27 @@ const posts = getPostsByCategory("garage").slice(0, 2);
   )}
 
   <!-- Contact -->
-  <section id="contact" class="container-site scroll-mt-32 pt-24 sm:pt-32">
-    <div class="surface grid gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_1fr] lg:items-center" data-reveal>
-      <div>
-        <p class="eyebrow">Get involved</p>
-        <h2 class="mt-4 text-display-md font-semibold text-ink">Collaborate, sponsor parts, or shoot the finished build</h2>
-        <p class="mt-4 text-muted">Parts partners, photographers and fellow builders welcome. The CX500 will be on the road and at Grobnik.</p>
-      </div>
-      <div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
-        <a href="mailto:canarin.garage@gmail.com" class="btn-primary">
-          canarin.garage@gmail.com
-          <Icon name="arrow" class="h-4 w-4" />
-        </a>
-        <a href="https://www.instagram.com/canaringarage/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-          <Icon name="instagram" class="h-4 w-4" />
-          @canaringarage
-        </a>
+  <section id="contact" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="plate surface relative overflow-hidden p-8 sm:p-12" data-reveal>
+      <div class="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <p class="eyebrow">Get in touch</p>
+          <h2 class="font-display mt-4 text-5xl text-ink sm:text-6xl">Parts, photos, questions</h2>
+          <p class="mt-4 max-w-xl text-muted">
+            Parts partners, photographers and fellow CX builders are welcome. The bike will be on the road first, then at Grobnik.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href="mailto:canarin.garage@gmail.com" class="btn-primary">
+            canarin.garage@gmail.com
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href="https://www.instagram.com/canaringarage/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <Icon name="instagram" class="h-4 w-4" />
+            Instagram
+          </a>
+        </div>
       </div>
     </div>
   </section>

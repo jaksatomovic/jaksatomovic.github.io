@@ -25,6 +25,40 @@
   color-scheme: dark;
 }
 
+/* Garage pages: always dark, warmer brass, industrial display face */
+.tone-garage {
+  --c-bg: 12 12 13;
+  --c-surface: 20 20 21;
+  --c-raised: 28 28 30;
+  --c-ink: 240 236 228;
+  --c-muted: 160 155 145;
+  --c-line: 240 236 228;
+  --c-accent: 214 164 74;
+  color-scheme: dark;
+  background-color: rgb(var(--c-bg));
+  color: rgb(var(--c-ink));
+}
+.tone-garage .site-backdrop::before {
+  background:
+    radial-gradient(50% 40% at 80% 0%, rgb(var(--c-accent) / 0.12), transparent 60%),
+    radial-gradient(40% 40% at 10% 100%, rgb(var(--c-accent) / 0.06), transparent 60%);
+}
+.tone-garage .site-backdrop::after {
+  mix-blend-mode: screen;
+  opacity: 0.07;
+}
+.font-display {
+  font-family: "Bebas Neue", "Oswald", Impact, sans-serif;
+  letter-spacing: 0.02em;
+}
+.plate {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(var(--c-ink) / 0.03) 0 2px,
+    transparent 2px 10px
+  );
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
