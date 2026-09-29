@@ -7,3 +7,7 @@ yarn-error.log
 /.idea
 /.vscode
 
+.claude/
+
+# build output
+dist/

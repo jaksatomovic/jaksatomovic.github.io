@@ -1,0 +1,24 @@
+---
+import { blogCategories } from "../../data/blog";
+import type { BlogCategoryId } from "../../data/blog";
+
+interface Props {
+  active?: BlogCategoryId | "all";
+}
+const { active = "all" } = Astro.props;
+
+const items = [{ id: "all", label: "All", href: "/blog" }, ...blogCategories];
+const base = "rounded-full px-4 py-1.5 text-sm font-medium transition duration-300";
+---
+
+<nav class="mt-8 inline-flex flex-wrap gap-1 rounded-full border border-line/10 bg-surface/60 p-1 backdrop-blur" aria-label="Blog categories" data-reveal>
+  {items.map((item) => (
+    <a
+      href={item.href}
+      aria-current={item.id === active ? "page" : undefined}
+      class:list={[base, item.id === active ? "bg-ink text-bg" : "text-ink/70 hover:bg-line/5 hover:text-ink"]}
+    >
+      {item.label}
+    </a>
+  ))}
+</nav>

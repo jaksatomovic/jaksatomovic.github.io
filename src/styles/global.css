@@ -1,25 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* CSS */
+
+/* ---------- Design tokens ---------- */
+:root {
+  --c-bg: 245 244 240;
+  --c-surface: 255 255 255;
+  --c-raised: 250 249 246;
+  --c-ink: 17 17 18;
+  --c-muted: 98 97 92;
+  --c-line: 17 17 18;
+  --c-accent: 186 131 38;
+  color-scheme: light;
+}
+
+:root.dark {
+  --c-bg: 10 10 11;
+  --c-surface: 20 20 22;
+  --c-raised: 27 27 30;
+  --c-ink: 242 241 237;
+  --c-muted: 160 159 152;
+  --c-line: 242 241 237;
+  --c-accent: 226 178 90;
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 :root {
-  font-family: Inter, sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1,
-    /* Contextual Alternates */ "dlig" 1, /* Discretionary Ligatures */ "ss07" 1,
-    /* fSquare punctuation */ "ss08" 1, /* Square quotes */ "zero" 1,
-    /* Slashed zero */ "tnum" 1, /* Tabular numbers */ "cv03" 1,
-    /* Open six */ "cv04" 1, /* Open nine */ "cv01" 1,
-    /* Alternate one */ "cv09", /* Flat-top three */ "cv02" 1; /* Open 4 */
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "cv11" 1, "tnum" 1;
 }
 @supports (font-variation-settings: normal) {
-  /* Use variable font if supported */
   :root {
-    font-family: InterVariable, sans-serif;
+    font-family: InterVariable, ui-sans-serif, system-ui, sans-serif;
   }
+}
+
+body {
+  background-color: rgb(var(--c-bg));
+  color: rgb(var(--c-ink));
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(var(--c-accent) / 0.35);
 }
 
 img,
@@ -29,6 +71,137 @@ canvas {
   max-width: 100%;
 }
 
-body {
-  text-rendering: optimizeLegibility;
+/* ---------- Background texture ---------- */
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.site-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgb(var(--c-accent) / 0.10), transparent 60%),
+    radial-gradient(50% 40% at 90% 10%, rgb(var(--c-ink) / 0.06), transparent 60%);
+}
+.dark .site-backdrop::before {
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgb(var(--c-accent) / 0.10), transparent 60%),
+    radial-gradient(50% 40% at 90% 10%, rgb(60 120 246 / 0.10), transparent 60%);
+}
+.site-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+.dark .site-backdrop::after {
+  mix-blend-mode: screen;
+  opacity: 0.05;
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-1.5 w-1.5 rounded-full bg-accent;
+  }
+  .surface {
+    @apply rounded-3xl border border-line/10 bg-surface shadow-card;
+  }
+  .surface-hover {
+    @apply transition duration-500 ease-premium hover:-translate-y-1 hover:border-line/20 hover:shadow-lift;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition duration-300 ease-premium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-bg hover:-translate-y-0.5 hover:shadow-lift;
+  }
+  .btn-secondary {
+    @apply btn border border-line/15 bg-surface/60 text-ink backdrop-blur hover:-translate-y-0.5 hover:border-line/30;
+  }
+  .btn-ghost {
+    @apply btn px-3 text-ink/80 hover:bg-line/5 hover:text-ink;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line/10 bg-raised px-3 py-1 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted;
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-ink;
+  }
+  .link-arrow svg {
+    @apply h-4 w-4 transition-transform duration-300 ease-premium;
+  }
+  .group:hover .link-arrow svg,
+  .link-arrow:hover svg {
+    transform: translateX(4px);
+  }
+  .prose-site {
+    @apply prose prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-ink prose-p:text-ink/80 prose-a:text-ink prose-strong:text-ink prose-li:text-ink/80;
+  }
+  .hairline {
+    @apply border-t border-line/10;
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Horizontal scroller ---------- */
+.scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+.scroller > * {
+  scroll-snap-align: start;
+}
+
+/* Full-bleed scroller whose first item lines up with the site container */
+.scroller-bleed {
+  padding-left: max(1.25rem, calc((100vw - 76rem) / 2 + 2rem));
+  padding-right: max(1.25rem, calc((100vw - 76rem) / 2 + 2rem));
+}
+@media (min-width: 640px) {
+  .scroller-bleed {
+    padding-left: max(2rem, calc((100vw - 76rem) / 2 + 2rem));
+    padding-right: max(2rem, calc((100vw - 76rem) / 2 + 2rem));
+  }
+}
+
+/* ---------- Phone frame ---------- */
+.phone {
+  aspect-ratio: 557 / 900;
+  border-radius: 2.4rem 2.4rem 0 0;
+  overflow: hidden;
+  background: #0b1220;
 }

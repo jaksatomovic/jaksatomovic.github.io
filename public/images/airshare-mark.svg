@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="dev" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1c21"/>
+      <stop offset="1" stop-color="#0e0e11"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(70 110)">
+    <rect x="0" y="0" width="150" height="180" rx="18" fill="url(#dev)" stroke="#3a3a42" stroke-width="2"/>
+    <rect x="16" y="18" width="118" height="128" rx="8" fill="#15151a" stroke="#2c2c33"/>
+    <rect x="30" y="34" width="60" height="8" rx="4" fill="#3d3d47"/>
+    <rect x="30" y="52" width="90" height="8" rx="4" fill="#2e2e36"/>
+    <rect x="30" y="70" width="70" height="8" rx="4" fill="#2e2e36"/>
+    <rect x="30" y="108" width="90" height="16" rx="8" fill="url(#g)" opacity="0.9"/>
+    <circle cx="75" cy="162" r="6" fill="#2c2c33"/>
+  </g>
+  <g transform="translate(380 110)">
+    <rect x="0" y="0" width="150" height="180" rx="18" fill="url(#dev)" stroke="#3a3a42" stroke-width="2"/>
+    <rect x="16" y="18" width="118" height="128" rx="8" fill="#15151a" stroke="#2c2c33"/>
+    <rect x="30" y="34" width="60" height="8" rx="4" fill="#3d3d47"/>
+    <rect x="30" y="52" width="90" height="8" rx="4" fill="#2e2e36"/>
+    <rect x="30" y="70" width="70" height="8" rx="4" fill="#2e2e36"/>
+    <rect x="30" y="108" width="60" height="16" rx="8" fill="url(#g)" opacity="0.6"/>
+    <circle cx="75" cy="162" r="6" fill="#2c2c33"/>
+  </g>
+  <path d="M228 200 C 270 140, 330 140, 372 200" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 14"/>
+  <path d="M228 200 C 270 260, 330 260, 372 200" stroke="url(#g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 14" opacity="0.5"/>
+  <circle cx="300" cy="200" r="22" fill="#0e0e11" stroke="url(#g)" stroke-width="3"/>
+  <path d="M291 200h18M303 194l6 6-6 6" stroke="#e5fff7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#7c8a86" letter-spacing="4">QUIC · P2P · ENCRYPTED</text>
+</svg>

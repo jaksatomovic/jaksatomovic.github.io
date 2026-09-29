@@ -1,11 +1,11 @@
 ---
 import BlogCategoryListing from "../../components/blog/BlogCategoryListing.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCategoryById } from "../../data/blog";
+
+const category = getCategoryById("hardware")!;
 ---
 
-<BaseLayout
-  title="Hardware Blog | Jaksa Tomovic"
-  description="Hardware notes on Moto32, Keero Bot, ESP32 systems, firmware, and PCB work by Jaksa Tomovic."
->
+<BaseLayout title={`${category.label} notes | Jakša Tomović`} description={category.description}>
   <BlogCategoryListing categoryId="hardware" />
 </BaseLayout>

@@ -1,0 +1,58 @@
+---
+interface Props {
+  name: keyof typeof icons;
+  class?: string;
+  strokeWidth?: number;
+}
+
+const icons = {
+  arrow: ["M5 12h14", "M12 5l7 7-7 7"],
+  external: ["M7 17L17 7", "M8 7h9v9"],
+  download: ["M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2", "M7 11l5 5 5-5", "M12 4v12"],
+  mail: ["M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z", "M22 6l-10 7L2 6"],
+  github: [
+    "M9 19c-4 1-4-2-6-2",
+    "M15 19v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7a5.44 5.44 0 0 0-1.5-3.75 5.07 5.07 0 0 0-.09-3.79s-1.2-.38-3.95 1.5a13.38 13.38 0 0 0-7 0c-2.75-1.88-3.95-1.5-3.95-1.5a5.07 5.07 0 0 0-.09 3.79 5.44 5.44 0 0 0-1.5 3.75c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.53v3.94",
+  ],
+  linkedin: ["M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z", "M8 11v5", "M8 8v.01", "M12 16v-5", "M16 16v-3a2 2 0 0 0-4 0"],
+  instagram: ["M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z", "M12 12m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0-7 0", "M16.5 7.5v.01"],
+  sun: ["M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0-8 0", "M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m0 11.4l.7.7m-12.1-.7l-.7.7"],
+  moon: ["M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"],
+  menu: ["M4 7h16", "M4 12h16", "M4 17h16"],
+  close: ["M18 6L6 18", "M6 6l12 12"],
+  phone: ["M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z", "M11 18h2"],
+  cpu: ["M5 5h14v14H5z", "M9 9h6v6H9z", "M3 10h2m-2 4h2m14-4h2m-2 4h2M10 3v2m4-2v2m-4 14v2m4-2v2"],
+  wrench: ["M7 10h3v-3l-3.5-3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8z"],
+  layers: ["M12 4l8 4-8 4-8-4 8-4z", "M4 12l8 4 8-4", "M4 16l8 4 8-4"],
+  shield: ["M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z", "M9 12l2 2 4-4"],
+  spark: ["M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"],
+  briefcase: ["M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8z", "M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2", "M4 13h16"],
+  jar: ["M8 3h8", "M7 6h10v11a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V6z", "M7 11h10"],
+  target: ["M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0", "M12 12m-5 0a5 5 0 1 0 10 0a5 5 0 1 0-10 0", "M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0"],
+  trend: ["M3 17l6-6 4 4 8-8", "M14 7h7v7"],
+  clock: ["M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0", "M12 7v5l3 3"],
+  book: ["M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z", "M20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"],
+  smile: ["M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0", "M9 10h.01", "M15 10h.01", "M9.5 15a3.5 3.5 0 0 0 5 0"],
+  play: ["M6 4l14 8-14 8z"],
+  check: ["M5 12l5 5L20 7"],
+  chevronLeft: ["M15 6l-6 6 6 6"],
+  chevronRight: ["M9 6l6 6-6 6"],
+} as const;
+
+const { name, class: className = "h-5 w-5", strokeWidth = 1.6 } = Astro.props;
+const paths = icons[name];
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {paths.map((d) => <path d={d} />)}
+</svg>

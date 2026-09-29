@@ -1,45 +1,65 @@
 ---
 import "../styles/global.css";
 
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const site = "https://jaksatomovic.github.io";
 const {
-  title = "Jaksa Tomovic | Product Studio",
-  description = "Developer, product builder, and custom motorcycle tinkerer based in Croatia.",
+  title = "Jakša Tomović — Developer",
+  description = "Developer based in Croatia. Android and web apps, embedded hardware and a custom Honda CX500 build.",
+  image = "/images/og-default.jpg",
+  type = "website",
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = new URL(image, site).toString();
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="Jaksa Tomovic" />
+<meta name="author" content="Jakša Tomović" />
 <meta name="description" content={description} />
 <title>{title}</title>
-<!-- Favicon guidelines generated with https://realfavicongenerator.net/ -->
-<link
-  rel="apple-touch-icon"
-  sizes="180x180"
-  href="/favicons/apple-touch-icon.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="32x32"
-  href="/favicons/favicon-32x32.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="16x16"
-  href="/favicons/favicon-16x16.png"
-/>
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Jakša Tomović" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#1b1d20" />
-<meta name="msapplication-TileColor" content="#1b1d20" />
-<meta name="theme-color" content="#1b1d20" />
-<!-- Inter Font: https://rsms.me/inter/ -->
+<meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)" />
+
+<!-- Theme: applied before paint to avoid a flash -->
+<script is:inline>
+  (function () {
+    try {
+      var stored = localStorage.getItem("theme");
+      var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    } catch (e) {}
+  })();
+</script>
+
 <link rel="preconnect" href="https://rsms.me/" />
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
-<script
-  defer
-  src="https://cloud.umami.is/script.js"
-  data-website-id="6b92ef57-ceb0-4a7d-8365-a127e9e4913f"
-></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6b92ef57-ceb0-4a7d-8365-a127e9e4913f"></script>

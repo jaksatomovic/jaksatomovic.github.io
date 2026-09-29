@@ -31,7 +31,7 @@ export const blogCategories: BlogCategory[] = [
     label: "Apps",
     href: "/blog/apps",
     eyebrow: "Product Notes",
-    description: "Shipping notes, interface decisions, and lessons from focused software products.",
+    description: "Shipping notes, interface decisions and lessons from TONKO, AirShare and other focused products.",
   },
   {
     id: "hardware",
@@ -50,6 +50,51 @@ export const blogCategories: BlogCategory[] = [
 ];
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "building-tonko-allowance-app-for-families",
+    category: "apps",
+    title: "Building TONKO: A Pocket-Money App Where Parents Approve Everything",
+    excerpt:
+      "TONKO is an Android app for kids' first money habits. Here is why it has no bank card, why prices are hidden from children, and how one app serves a parent, a child, and a shared phone.",
+    publishedAt: "2026-09-20",
+    readTime: "5 min read",
+    image: "/images/tonko/feature.png",
+    imageAlt: "TONKO feature graphic with the Tonko mascot",
+    tags: ["TONKO", "Android", "Kotlin", "Product"],
+    body: [
+      "Most pocket-money apps fall into two camps. One is a bank card with a cartoon on it, which means real money, real fees and a child who is handed a payment instrument before a habit. The other is a chore chart that forgets about the money entirely. TONKO is deliberately neither.",
+      "It is a family record of allowance. A child earns through jobs the family agreed on, splits what they earn into three jars, and watches a savings goal get closer. A parent is beside them the whole way: nothing lands, moves or gets bought without approval.",
+    ],
+    sections: [
+      {
+        heading: "The Constraint That Shaped Everything",
+        body: [
+          "Early on I wrote one rule: a child never sees a price and cannot buy anything. That single constraint removed an entire class of features, and it made the remaining loops obvious. Jobs need a parent to confirm. Wishes go to a parent to consider, not into a basket. Subscriptions and packs are shown on the parent side only.",
+          "It also shaped the tone. The kid side is calm and dark, built around one decision at a time. The parent side is denser and sits behind a family PIN or biometrics.",
+        ],
+      },
+      {
+        heading: "One App, Three Ways",
+        body: [
+          "Families do not all own the same number of phones. TONKO installs once and adapts: it can run on a parent's phone, on a child's phone connected with a code, or be handed over. In hand-off mode the app pins itself to the kid side and only a parent can bring it back.",
+          "Technically that is a shell module that owns the mode, plus separate parent and kid feature modules over shared model, network, data and UI cores. The split keeps the two experiences from leaking into each other.",
+        ],
+      },
+      {
+        heading: "Teaching Waiting",
+        body: [
+          "The features I am proudest of are the quiet ones. The Money Time Machine shows what a small weekly amount becomes over months and years. Buy-or-wait shows two futures side by side before the money is gone. Grow plans let a parent set a family bonus on savings, a tiny interest rate inside the household.",
+          "None of that needs real money to work. That is the point.",
+        ],
+      },
+      {
+        heading: "Stack",
+        body: [
+          "Kotlin on Android with a multi-module Gradle setup, a NestJS and Prisma backend on PostgreSQL, Google Sign-In and Play Billing, and a Next.js landing at tonko.app. Design assets are built from SVG sources through a small pipeline that renders illustrations and converts icons to VectorDrawables, so a rebrand or a new mascot outfit is a script, not a week.",
+        ],
+      },
+    ],
+  },
   {
     slug: "honda-cx500-canarin-garage-build",
     category: "garage",
@@ -210,13 +255,13 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-export const featuredPost = blogPosts[0];
-
 export function sortPosts(posts: BlogPost[] = blogPosts) {
   return [...posts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 }
+
+export const featuredPost = sortPosts()[0];
 
 export function getCategoryById(id: BlogCategoryId) {
   return blogCategories.find((category) => category.id === id);

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f3a2b"/>
+      <stop offset="1" stop-color="#0f1f17"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2b2f"/>
+      <stop offset="1" stop-color="#111114"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(90 60)">
+    <rect x="0" y="0" width="420" height="280" rx="22" fill="url(#b)" stroke="#4a7a5c" stroke-width="2"/>
+    <g stroke="#7fb593" stroke-opacity="0.35" stroke-width="2">
+      <path d="M40 60h120v40h80"/><path d="M40 100h90v60h110"/><path d="M40 140h60v80h140"/>
+      <path d="M380 60h-60v40h-40"/><path d="M380 100h-40v100h-60"/><path d="M380 140h-30v100h-90"/>
+      <path d="M190 40v40"/><path d="M230 40v60"/>
+    </g>
+    <circle cx="24" cy="24" r="7" fill="#0b120e" stroke="#c9a961" stroke-width="2"/>
+    <circle cx="396" cy="24" r="7" fill="#0b120e" stroke="#c9a961" stroke-width="2"/>
+    <circle cx="24" cy="256" r="7" fill="#0b120e" stroke="#c9a961" stroke-width="2"/>
+    <circle cx="396" cy="256" r="7" fill="#0b120e" stroke="#c9a961" stroke-width="2"/>
+    <rect x="160" y="96" width="120" height="96" rx="10" fill="url(#chip)" stroke="#3b3b40" stroke-width="2"/>
+    <rect x="180" y="116" width="80" height="56" rx="6" fill="#0d0d10" stroke="#4d4d55"/>
+    <text x="220" y="151" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#d8d8de" letter-spacing="2">ESP32-S3</text>
+    <g fill="#c9a961">
+      <rect x="6" y="52" width="26" height="12" rx="3"/><rect x="6" y="92" width="26" height="12" rx="3"/><rect x="6" y="132" width="26" height="12" rx="3"/><rect x="6" y="172" width="26" height="12" rx="3"/>
+      <rect x="388" y="52" width="26" height="12" rx="3"/><rect x="388" y="92" width="26" height="12" rx="3"/><rect x="388" y="132" width="26" height="12" rx="3"/><rect x="388" y="172" width="26" height="12" rx="3"/>
+    </g>
+    <g fill="#2a2a2e" stroke="#4d4d55">
+      <rect x="60" y="212" width="40" height="22" rx="4"/><rect x="110" y="212" width="40" height="22" rx="4"/><rect x="270" y="212" width="40" height="22" rx="4"/><rect x="320" y="212" width="40" height="22" rx="4"/>
+      <rect x="60" y="28" width="60" height="18" rx="4"/><rect x="300" y="28" width="60" height="18" rx="4"/>
+    </g>
+    <rect x="180" y="254" width="60" height="26" rx="8" fill="#2a2a2e" stroke="#6a6a72" stroke-width="2"/>
+    <text x="210" y="272" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#bdbdc6">USB-C</text>
+    <text x="210" y="248" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#7fb593" letter-spacing="3">MOTO32</text>
+  </g>
+</svg>

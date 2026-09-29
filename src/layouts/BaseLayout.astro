@@ -3,21 +3,51 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
-const { title, description } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const { title, description, image, type } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} image={image} type={type} />
   </head>
+  <body class="min-h-screen overflow-x-hidden font-sans">
+    <div class="site-backdrop" aria-hidden="true"></div>
+    <div class="flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
 
-<body class="min-h-screen overflow-x-hidden bg-zinc-200 font-sans text-primary antialiased dark:bg-primary">
-  <div class="flex min-h-screen flex-col">
-    <Header />
-    <main class="flex-1">
-      <slot />
-    </main>
-    <Footer />
-  </div>
+    <script>
+      const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      if ("IntersectionObserver" in window && targets.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                const el = entry.target as HTMLElement;
+                const delay = Number(el.dataset.revealDelay ?? 0);
+                el.style.transitionDelay = `${delay}ms`;
+                el.classList.add("is-visible");
+                io.unobserve(el);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
+        );
+        targets.forEach((t) => io.observe(t));
+      } else {
+        targets.forEach((t) => t.classList.add("is-visible"));
+      }
+    </script>
   </body>
 </html>

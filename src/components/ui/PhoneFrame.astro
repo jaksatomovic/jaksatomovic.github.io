@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+}
+const { src, alt, class: className = "", eager = false } = Astro.props;
+---
+
+<div class:list={["phone shadow-phone", className]}>
+  <img
+    src={src}
+    alt={alt}
+    width="557"
+    height="900"
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+    class="h-full w-full object-cover object-top"
+  />
+</div>

@@ -1,42 +1,38 @@
-# Astro & Tailwind CSS Starter Kit
+# jaksatomovic.github.io
 
-## Template Integrations
-- @astrojs/tailwind - https://docs.astro.build/en/guides/integrations-guide/tailwind/
-- @astrojs/sitemap - https://docs.astro.build/en/guides/integrations-guide/sitemap/
+Personal site of Jakša Tomović: apps (TONKO, AirShare), embedded hardware (Keero Bot, Moto32), the Canarin Garage CX500 build, and a small blog.
 
-
-## Template Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+Built with [Astro](https://astro.build) and Tailwind CSS, deployed to GitHub Pages on every push to `main`.
 
 ## Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command           | Action                                   |
+| :---------------- | :--------------------------------------- |
+| `npm install`     | Install dependencies                     |
+| `npm run dev`     | Start the dev server at `localhost:4321` |
+| `npm run build`   | Build the production site to `./dist/`   |
+| `npm run preview` | Preview the production build locally     |
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
+## Structure
 
-## Want to learn more?
+```
+src/
+├── components/
+│   ├── blog/        Post cards, category nav and listing
+│   ├── layout/      Header (with theme toggle) and footer
+│   └── ui/          Icon, SectionHeading, ProjectCard, PhoneFrame
+├── data/
+│   ├── projects.ts  The five featured projects shown on the home page
+│   ├── tonko.ts     TONKO case-study content (screens, features, stack)
+│   └── blog.ts      Blog posts and categories
+├── layouts/         BaseLayout (head, backdrop, reveal animations)
+├── pages/           Routes: /, /apps, /apps/tonko, /hardware, /canarin-garage, /blog/*
+└── styles/          Design tokens and component classes
+```
 
-Feel free to check Astroäs [documentation](https://docs.astro.build)
+## Editing content
+
+- **Add a project**: append to `src/data/projects.ts`. It appears on the home page and on `/apps` or `/hardware` depending on `area`.
+- **Add a post**: append to `blogPosts` in `src/data/blog.ts`. The newest post is featured automatically.
+- **TONKO screens**: drop new phone crops into `public/images/tonko/` and update `tonkoScreens` in `src/data/tonko.ts`.
+- **Theme**: colour tokens live in `src/styles/global.css` (`:root` and `:root.dark`). The header toggle stores the choice in `localStorage`.

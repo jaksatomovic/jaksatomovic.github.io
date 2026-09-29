@@ -1,52 +1,32 @@
 ---
 import BlogPostCard from "./BlogPostCard.astro";
-import { blogCategories, getCategoryById, getPostsByCategory } from "../../data/blog";
+import CategoryNav from "./CategoryNav.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import { getCategoryById, getPostsByCategory } from "../../data/blog";
 import type { BlogCategoryId } from "../../data/blog";
 
-const { categoryId } = Astro.props as { categoryId: BlogCategoryId };
-const category = getCategoryById(categoryId);
+interface Props {
+  categoryId: BlogCategoryId;
+}
+
+const { categoryId } = Astro.props;
+const category = getCategoryById(categoryId)!;
 const posts = getPostsByCategory(categoryId);
 ---
 
-<section class="px-4 py-12 sm:px-6 lg:py-20">
-  <div class="mx-auto max-w-6xl">
-    <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-      <div>
-        <p class="text-xs uppercase tracking-[0.24em] text-primary/70 dark:text-white/70 sm:tracking-[0.35em]">{category?.eyebrow}</p>
-        <h1 class="mt-4 text-3xl font-semibold tracking-tight text-primary dark:text-white sm:text-5xl">
-          {category?.label} Blog
-        </h1>
-      </div>
-      <p class="text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">{category?.description}</p>
-    </div>
-
-    <nav class="mt-8 flex flex-wrap gap-2" aria-label="Blog categories">
-      <a
-        href="/blog"
-        class="rounded-lg border border-primary/10 bg-white/70 px-4 py-2 text-sm font-semibold text-primary transition hover:border-primary/30 hover:bg-white dark:border-white/15 dark:bg-secondary/70 dark:text-white dark:hover:border-white/30"
-      >
-        All
-      </a>
-      {blogCategories.map((item) => (
-        <a
-          href={item.href}
-          class={`rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-            item.id === categoryId
-              ? "border-primary bg-primary text-white dark:border-white dark:bg-white dark:text-primary"
-              : "border-primary/10 bg-white/70 text-primary hover:border-primary/30 hover:bg-white dark:border-white/15 dark:bg-secondary/70 dark:text-white dark:hover:border-white/30"
-          }`}
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
-  </div>
+<section class="container-site pt-12 sm:pt-20">
+  <SectionHeading eyebrow={category.eyebrow} title={category.label} description={category.description} />
+  <CategoryNav active={categoryId} />
 </section>
 
-<section class="px-4 pb-16 sm:px-6 lg:pb-20">
-  <div class="mx-auto grid max-w-6xl gap-5 lg:grid-cols-2">
-    {posts.map((post) => (
-      <BlogPostCard post={post} />
-    ))}
-  </div>
+<section class="container-site pt-12">
+  {posts.length > 0 ? (
+    <div class="grid gap-5 lg:grid-cols-2">
+      {posts.map((post, i) => (
+        <BlogPostCard post={post} delay={(i % 2) * 80} />
+      ))}
+    </div>
+  ) : (
+    <p class="surface p-8 text-muted">Nothing here yet. Notes are on the way.</p>
+  )}
 </section>

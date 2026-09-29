@@ -1,85 +1,133 @@
 ---
+import Icon from "../ui/Icon.astro";
+
 const links = [
-  { href: "/", label: "Home" },
+  { href: "/#work", label: "Work" },
   { href: "/apps", label: "Apps" },
   { href: "/hardware", label: "Hardware" },
   { href: "/canarin-garage", label: "Garage" },
-  { href: "/blog", label: "Blog" },
-  { href: "mailto:jaksa.tomovic@gmail.com", label: "Say hi", external: true },
+  { href: "/blog", label: "Writing" },
 ];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => {
+  const clean = href.split("#")[0];
+  if (clean === "/") return path === "/";
+  return clean !== "" && path.startsWith(clean);
+};
 ---
 
-<header class="py-4 sm:py-6">
-  <div class="mx-auto w-full max-w-6xl px-4 sm:px-6">
-    <div class="flex items-center justify-between gap-3">
-      <a href="/" class="flex min-w-0 items-center gap-2 text-base font-semibold text-primary dark:text-white sm:text-lg">
-        <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white dark:bg-white dark:text-primary">
-          JT
-        </span>
-        <span class="truncate">Jakša Tomović</span>
+<header
+  class="sticky top-0 z-50 border-b border-transparent transition-colors duration-300 data-[scrolled=true]:border-line/10 data-[scrolled=true]:bg-bg/80 data-[scrolled=true]:backdrop-blur-xl"
+  data-header
+>
+  <div class="container-site flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
+    <a href="/" class="group flex min-w-0 items-center gap-3" aria-label="Jakša Tomović, home">
+      <span class="relative inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink text-[0.7rem] font-bold tracking-wider text-bg">
+        JT
+      </span>
+      <span class="hidden text-sm font-semibold tracking-tight sm:block">Jakša Tomović</span>
+    </a>
+
+    <nav class="hidden lg:block" aria-label="Primary">
+      <ul class="flex items-center gap-1 rounded-full border border-line/10 bg-surface/60 p-1 backdrop-blur">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              aria-current={isActive(href) ? "page" : undefined}
+              class:list={[
+                "block rounded-full px-4 py-1.5 text-sm font-medium transition duration-300",
+                isActive(href) ? "bg-ink text-bg" : "text-ink/70 hover:bg-line/5 hover:text-ink",
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line/10 bg-surface/60 text-ink/80 backdrop-blur transition hover:border-line/25 hover:text-ink"
+        data-theme-toggle
+        aria-label="Toggle colour theme"
+      >
+        <span class="dark:hidden"><Icon name="moon" class="h-[1.1rem] w-[1.1rem]" /></span>
+        <span class="hidden dark:inline"><Icon name="sun" class="h-[1.1rem] w-[1.1rem]" /></span>
+      </button>
+
+      <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary hidden !py-2.5 sm:inline-flex">
+        Let's talk
       </a>
 
-      <nav class="hidden lg:block" aria-label="Primary navigation">
-        <ul class="flex items-center justify-end gap-1.5 sm:gap-2">
-          {links.map(({ href, label, external }) => (
-            <li>
-              <a
-                href={href}
-                class="block rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-white dark:hover:bg-white/10 dark:focus-visible:outline-white"
-                rel={external ? "noopener noreferrer" : undefined}
-                target={external ? "_blank" : undefined}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <details class="group relative lg:hidden" data-mobile-menu>
-        <summary
-          class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-primary/15 bg-white/80 text-primary shadow-lg shadow-primary/5 transition hover:bg-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-white/15 dark:bg-secondary/80 dark:text-white dark:hover:bg-white/10 dark:focus-visible:outline-white [&::-webkit-details-marker]:hidden"
-          aria-label="Open navigation"
-        >
-          <span class="sr-only">Open navigation</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 7h16" />
-            <path d="M4 12h16" />
-            <path d="M4 17h16" />
-          </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-          </svg>
-        </summary>
-        <nav
-          class="absolute right-0 top-full z-50 mt-3 w-60 overflow-hidden rounded-lg border border-primary/10 bg-white/95 p-2 shadow-xl shadow-primary/10 backdrop-blur dark:border-white/10 dark:bg-primary/95"
-          aria-label="Mobile primary navigation"
-        >
-          <ul class="grid gap-1">
-            {links.map(({ href, label, external }) => (
-              <li>
-                <a
-                  href={href}
-                  class="block rounded-lg px-4 py-3 text-sm font-medium text-primary transition hover:bg-primary/10 dark:text-white dark:hover:bg-white/10"
-                  rel={external ? "noopener noreferrer" : undefined}
-                  target={external ? "_blank" : undefined}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </details>
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line/10 bg-surface/60 text-ink backdrop-blur transition hover:border-line/25 lg:hidden"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open navigation"
+      >
+        <span data-menu-icon="open"><Icon name="menu" class="h-5 w-5" /></span>
+        <span class="hidden" data-menu-icon="close"><Icon name="close" class="h-5 w-5" /></span>
+      </button>
     </div>
+  </div>
+
+  <div id="mobile-nav" class="hidden border-t border-line/10 bg-bg/95 backdrop-blur-xl lg:hidden" data-mobile-nav>
+    <nav class="container-site py-4" aria-label="Mobile">
+      <ul class="grid gap-1">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class:list={[
+                "block rounded-2xl px-4 py-3 text-base font-medium transition",
+                isActive(href) ? "bg-ink text-bg" : "text-ink hover:bg-line/5",
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+        <li class="pt-2">
+          <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary w-full">Let's talk</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <script>
-  document.querySelectorAll("[data-mobile-menu]").forEach((menu) => {
-    menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => menu.removeAttribute("open"));
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const onScroll = () => header?.setAttribute("data-scrolled", String(window.scrollY > 8));
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const nav = document.querySelector<HTMLElement>("[data-mobile-nav]");
+  const iconOpen = document.querySelector<HTMLElement>('[data-menu-icon="open"]');
+  const iconClose = document.querySelector<HTMLElement>('[data-menu-icon="close"]');
+  const setOpen = (open: boolean) => {
+    nav?.classList.toggle("hidden", !open);
+    iconOpen?.classList.toggle("hidden", open);
+    iconClose?.classList.toggle("hidden", !open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    header?.setAttribute("data-scrolled", String(open || window.scrollY > 8));
+  };
+  toggle?.addEventListener("click", () => setOpen(nav?.classList.contains("hidden") ?? false));
+  nav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const dark = !document.documentElement.classList.contains("dark");
+      document.documentElement.classList.toggle("dark", dark);
+      try {
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      } catch {}
     });
   });
 </script>
