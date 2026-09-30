@@ -4,6 +4,8 @@ Personal site of Jakša Tomović: apps (TONKO, AirShare), embedded hardware (Kee
 
 Built with [Astro](https://astro.build) and Tailwind CSS, deployed to GitHub Pages on every push to `main`.
 
+Bilingual: English at `/`, Croatian at `/hr/...`. Every page has a language switcher and `hreflang` alternates.
+
 ## Commands
 
 | Command           | Action                                   |
@@ -22,17 +24,22 @@ src/
 │   ├── layout/      Header (with theme toggle) and footer
 │   └── ui/          Icon, SectionHeading, ProjectCard, PhoneFrame
 ├── data/
-│   ├── projects.ts  The five featured projects shown on the home page
-│   ├── tonko.ts     TONKO case-study content (screens, features, stack)
-│   └── blog.ts      Blog posts and categories
-├── layouts/         BaseLayout (head, backdrop, reveal animations)
-├── pages/           Routes: /, /apps, /apps/tonko, /hardware, /canarin-garage, /blog/*
+│   ├── projects.ts  The five featured projects, text per locale
+│   ├── tonko.ts     TONKO case-study content per locale
+│   └── blog.ts      Blog posts and categories, text per locale
+├── i18n/
+│   ├── index.ts     Locale helpers (getLocale, localePath, switchLocalePath)
+│   └── ui.ts        All UI strings, `en` and `hr`
+├── layouts/         BaseLayout (head, hreflang, backdrop, reveal animations)
+├── views/           One component per page, shared by both locales
+├── pages/           English routes at the root, Croatian routes under hr/
 └── styles/          Design tokens and component classes
 ```
 
 ## Editing content
 
-- **Add a project**: append to `src/data/projects.ts`. It appears on the home page and on `/apps` or `/hardware` depending on `area`.
-- **Add a post**: append to `blogPosts` in `src/data/blog.ts`. The newest post is featured automatically.
+- **Add a project**: append to `src/data/projects.ts` with `en` and `hr` text. It appears on the home page and on `/apps` or `/hardware` depending on `area`.
+- **Add a post**: append to `posts` in `src/data/blog.ts` with `en` and `hr` text. The newest post is featured automatically and both routes are generated.
+- **Change UI copy**: edit `src/i18n/ui.ts`. The `hr` object is typed against `en`, so a missing key fails the build.
 - **TONKO screens**: drop new phone crops into `public/images/tonko/` and update `tonkoScreens` in `src/data/tonko.ts`.
 - **Theme**: colour tokens live in `src/styles/global.css` (`:root` and `:root.dark`). The header toggle stores the choice in `localStorage`.

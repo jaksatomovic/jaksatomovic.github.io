@@ -1,23 +1,29 @@
 ---
 import Icon from "../ui/Icon.astro";
+import { getLocale, localePath } from "../../i18n";
+import { dict } from "../../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale];
+const p = (path: string) => localePath(path, locale);
 
 const columns = [
   {
-    title: "Work",
+    title: t.footer.work,
     links: [
-      { href: "/apps/tonko", label: "TONKO" },
-      { href: "/apps", label: "Apps" },
-      { href: "/hardware", label: "Hardware" },
-      { href: "/canarin-garage", label: "Canarin Garage" },
+      { href: p("/apps/tonko"), label: "TONKO" },
+      { href: p("/apps"), label: t.nav.apps },
+      { href: p("/hardware"), label: t.nav.hardware },
+      { href: p("/canarin-garage"), label: "Canarin Garage" },
     ],
   },
   {
-    title: "Writing",
+    title: t.footer.writing,
     links: [
-      { href: "/blog", label: "All notes" },
-      { href: "/blog/apps", label: "Product notes" },
-      { href: "/blog/hardware", label: "Bench notes" },
-      { href: "/blog/garage", label: "Build log" },
+      { href: p("/blog"), label: t.common.allNotes },
+      { href: p("/blog/apps"), label: t.footer.productNotes },
+      { href: p("/blog/hardware"), label: t.footer.benchNotes },
+      { href: p("/blog/garage"), label: t.footer.buildLog },
     ],
   },
 ];
@@ -36,13 +42,9 @@ const socials = [
       <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
       <div class="relative grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <div>
-          <p class="eyebrow">Contact</p>
-          <h2 class="mt-5 text-display-lg font-semibold text-ink">
-            Want to talk about a <span class="font-serif italic font-normal text-accent">project</span>?
-          </h2>
-          <p class="mt-5 max-w-xl text-base text-muted sm:text-lg">
-            Apps, web products or embedded hardware. Send me an email and I will get back to you.
-          </p>
+          <p class="eyebrow">{t.footer.eyebrow}</p>
+          <h2 class="mt-5 text-display-lg font-semibold text-ink" set:html={t.footer.title} />
+          <p class="mt-5 max-w-xl text-base text-muted sm:text-lg">{t.footer.body}</p>
         </div>
         <div class="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-end">
           <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary">
@@ -50,7 +52,7 @@ const socials = [
             <Icon name="arrow" class="h-4 w-4" />
           </a>
           <a href="/cv.pdf" download class="btn-secondary">
-            Download CV
+            {t.common.downloadCv}
             <Icon name="download" class="h-4 w-4" />
           </a>
         </div>
@@ -61,13 +63,11 @@ const socials = [
   <div class="container-site mt-16 pb-10">
     <div class="grid gap-10 border-t border-line/10 pt-10 md:grid-cols-[1.4fr_1fr_1fr]">
       <div>
-        <a href="/" class="flex items-center gap-3">
+        <a href={p("/")} class="flex items-center gap-3">
           <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-[0.7rem] font-bold tracking-wider text-bg">JT</span>
           <span class="text-sm font-semibold">Jakša Tomović</span>
         </a>
-        <p class="mt-4 max-w-sm text-sm text-muted">
-          Developer in Croatia. Apps, embedded hardware and a Honda CX500 rebuild.
-        </p>
+        <p class="mt-4 max-w-sm text-sm text-muted">{t.footer.blurb}</p>
         <ul class="mt-6 flex items-center gap-2">
           {socials.map((s) => (
             <li>
@@ -98,8 +98,8 @@ const socials = [
       ))}
     </div>
     <div class="mt-10 flex flex-col gap-2 border-t border-line/10 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-      <p>© {new Date().getFullYear()} Jakša Tomović. All rights reserved.</p>
-      <p>Built with Astro. Hosted on GitHub Pages.</p>
+      <p>© {new Date().getFullYear()} Jakša Tomović. {t.footer.rights}</p>
+      <p>{t.footer.builtWith}</p>
     </div>
   </div>
 </footer>

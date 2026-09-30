@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import ProjectCard from "../components/ui/ProjectCard.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import PhoneFrame from "../components/ui/PhoneFrame.astro";
+import { getProjects } from "../data/projects";
+import { formatPostDate, getCategoryById, getPosts } from "../data/blog";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].home;
+const p = (path: string) => localePath(path, locale);
+
+const projects = getProjects(locale);
+const tonko = projects.find((x) => x.id === "tonko")!;
+const rest = projects.filter((x) => x.id !== "tonko");
+const latestPosts = getPosts(locale).slice(0, 4);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="container-site pb-16 pt-12 sm:pb-24 sm:pt-20 lg:pt-28">
+    <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+      <div>
+        <p class="eyebrow animate-rise">{t.eyebrow}</p>
+        <h1 class="mt-6 text-display-xl font-semibold text-ink animate-rise [animation-delay:80ms]" set:html={t.title} />
+        <p class="mt-7 max-w-xl text-lg text-muted animate-rise [animation-delay:160ms] sm:text-xl">{t.lead}</p>
+        <div class="mt-9 flex flex-wrap items-center gap-3 animate-rise [animation-delay:240ms]">
+          <a href="#work" class="btn-primary">
+            {t.ctaWork}
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href={p("/apps/tonko")} class="btn-secondary">
+            <img src="/images/tonko/icon.png" alt="" width="20" height="20" class="h-5 w-5 rounded-md" />
+            {t.ctaTonko}
+          </a>
+        </div>
+        <div class="mt-12 flex items-center gap-4 animate-rise [animation-delay:320ms]">
+          <img src="/images/avatar.jpg" alt="Jakša Tomović" width="96" height="96" class="h-12 w-12 rounded-full object-cover ring-2 ring-line/10" />
+          <div class="text-sm">
+            <p class="font-semibold text-ink">Jakša Tomović</p>
+            <p class="text-muted">{t.role}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative animate-rise [animation-delay:200ms]">
+        <div class="pointer-events-none absolute -inset-10 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+        <div class="relative grid grid-cols-[1fr_1fr] items-end gap-4">
+          <div class="translate-y-6">
+            <PhoneFrame src="/images/tonko/phone-02.jpg" alt="TONKO" eager />
+          </div>
+          <div class="-translate-y-4">
+            <PhoneFrame src="/images/tonko/phone-01.jpg" alt="TONKO" eager />
+          </div>
+          <img src="/images/tonko/mascot-wave.webp" alt="" width="720" height="738" class="pointer-events-none absolute -bottom-6 -left-10 w-32 animate-float drop-shadow-2xl sm:w-40" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Now strip -->
+  <section class="container-site">
+    <ul class="surface grid divide-y divide-line/10 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x" data-reveal>
+      {t.now.map((item) => (
+        <li>
+          <a
+            href={p(item.href)}
+            target={item.href.startsWith("http") ? "_blank" : undefined}
+            rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            class="group flex items-center justify-between gap-3 px-6 py-5"
+          >
+            <span>
+              <span class="eyebrow">{item.label}</span>
+              <span class="mt-1.5 block text-sm font-semibold text-ink">{item.value}</span>
+            </span>
+            <Icon name="arrow" class="h-4 w-4 shrink-0 text-muted transition group-hover:translate-x-1 group-hover:text-ink" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="container-site scroll-mt-24 pt-24 sm:pt-32">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <SectionHeading eyebrow={t.workEyebrow} title={t.workTitle} description={t.workDescription} />
+      <a href={p("/apps")} class="link-arrow shrink-0" data-reveal>
+        {t.allApps}
+        <Icon name="arrow" />
+      </a>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      <ProjectCard project={tonko} variant="wide" />
+      {rest.map((x, i) => (
+        <ProjectCard project={x} delay={(i % 2) * 90} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Areas -->
+  <section class="container-site pt-24 sm:pt-32">
+    <SectionHeading eyebrow={t.areasEyebrow} title={t.areasTitle} description={t.areasDescription} />
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {t.capabilities.map((c, i) => (
+        <article class="surface surface-hover p-6 sm:p-7" data-reveal data-reveal-delay={i * 80}>
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-ink text-bg">
+            <Icon name={c.icon as any} class="h-5 w-5" />
+          </span>
+          <h3 class="mt-6 text-lg font-semibold text-ink">{c.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{c.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section class="container-site pt-24 sm:pt-32">
+    <div class="surface overflow-hidden" data-reveal>
+      <div class="grid lg:grid-cols-[1fr_1fr]">
+        <div class="p-8 sm:p-12">
+          <p class="eyebrow">{t.howEyebrow}</p>
+          <p class="mt-6 text-display-md font-semibold text-ink">{t.howTitle}</p>
+          <p class="mt-6 text-base text-muted">{t.howBody}</p>
+        </div>
+        <ul class="grid divide-y divide-line/10 border-t border-line/10 lg:border-l lg:border-t-0">
+          {t.principles.map(([title, body], i) => (
+            <li class="flex gap-5 px-8 py-6 sm:px-10">
+              <span class="font-mono text-xs text-accent">0{i + 1}</span>
+              <div>
+                <p class="font-semibold text-ink">{title}</p>
+                <p class="mt-1 text-sm text-muted">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing -->
+  <section class="container-site pt-24 sm:pt-32">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <SectionHeading eyebrow={t.writingEyebrow} title={t.writingTitle} size="md" description={t.writingDescription} />
+      <a href={p("/blog")} class="link-arrow shrink-0" data-reveal>
+        {dict[locale].common.allNotes}
+        <Icon name="arrow" />
+      </a>
+    </div>
+    <ul class="mt-10 divide-y divide-line/10 border-y border-line/10" data-reveal>
+      {latestPosts.map((post) => (
+        <li>
+          <a href={p(`/blog/${post.slug}`)} class="group grid gap-2 py-5 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:gap-6">
+            <time class="text-xs uppercase tracking-[0.18em] text-muted">{formatPostDate(post.publishedAt, locale)}</time>
+            <span class="text-lg font-semibold tracking-tight text-ink transition group-hover:text-accent">{post.title}</span>
+            <span class="chip justify-self-start sm:justify-self-end">{getCategoryById(post.category, locale)?.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

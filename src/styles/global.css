@@ -188,6 +188,15 @@ canvas {
   .hairline {
     @apply border-t border-line/10;
   }
+  .text-display-xl em,
+  .text-display-lg em,
+  .text-display-md em,
+  .em-accent em {
+    @apply font-serif font-normal italic text-accent;
+  }
+  .em-sky em {
+    @apply font-serif font-normal italic text-tonko-sky;
+  }
 }
 
 /* ---------- Scroll reveal ---------- */

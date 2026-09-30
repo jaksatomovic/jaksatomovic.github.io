@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import ProjectCard from "../components/ui/ProjectCard.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import BlogPostCard from "../components/blog/BlogPostCard.astro";
+import { getProjectsByArea } from "../data/projects";
+import { getPostsByCategory } from "../data/blog";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].apps;
+const apps = getProjectsByArea("apps", locale);
+const posts = getPostsByCategory("apps", locale).slice(0, 2);
+---
+
+<BaseLayout title={t.metaTitle} description={t.metaDescription}>
+  <section class="container-site pt-12 sm:pt-20">
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {apps.map((x, i) => (
+        <ProjectCard project={x} variant={i === 0 ? "wide" : "default"} delay={i * 80} />
+      ))}
+      <a href="mailto:jaksa.tomovic@gmail.com" class="surface surface-hover group flex flex-col justify-between p-6 sm:p-8" data-reveal data-reveal-delay={160}>
+        <span class="eyebrow">{t.nextEyebrow}</span>
+        <div>
+          <h3 class="mt-4 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{t.nextTitle}</h3>
+          <p class="mt-3 text-sm text-muted sm:text-base">{t.nextBody}</p>
+        </div>
+        <span class="link-arrow mt-8">
+          {dict[locale].common.getInTouch}
+          <Icon name="arrow" />
+        </span>
+      </a>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="container-site pt-24 sm:pt-32">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <SectionHeading eyebrow={t.notesEyebrow} title={t.notesTitle} size="md" />
+        <a href={localePath("/blog/apps", locale)} class="link-arrow shrink-0" data-reveal>
+          {t.allProductNotes}
+          <Icon name="arrow" />
+        </a>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        {posts.map((post, i) => (
+          <BlogPostCard post={post} delay={i * 80} />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>

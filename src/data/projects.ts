@@ -1,3 +1,5 @@
+import type { Locale } from "../i18n";
+
 export type Project = {
   id: string;
   name: string;
@@ -14,86 +16,158 @@ export type Project = {
   area: "apps" | "hardware" | "garage";
 };
 
-export const projects: Project[] = [
+type Text = Pick<Project, "kicker" | "status" | "summary" | "cta" | "imageAlt">;
+type Base = Omit<Project, keyof Text> & { text: Record<Locale, Text> };
+
+const base: Base[] = [
   {
     id: "tonko",
     name: "TONKO",
-    kicker: "Android app",
-    status: "Launching",
-    summary:
-      "Money habits for kids, with parents in control. Jobs, three jars, savings goals and short lessons, wrapped in one Android app with a parent side behind a PIN and a calm kid side.",
     href: "/apps/tonko",
-    cta: "View case study",
     image: "/images/tonko/feature.png",
-    imageAlt: "TONKO feature graphic with the Tonko mascot and the line Money skills for kids",
     tone: "linear-gradient(135deg, #0f1b2d, #172a45)",
     stack: ["Kotlin", "Android", "NestJS", "PostgreSQL", "Next.js"],
     area: "apps",
+    text: {
+      en: {
+        kicker: "Android app",
+        status: "Launching",
+        summary:
+          "Money habits for kids, with parents in control. Jobs, three jars, savings goals and short lessons, wrapped in one Android app with a parent side behind a PIN and a calm kid side.",
+        cta: "View case study",
+        imageAlt: "TONKO feature graphic with the Tonko mascot and the line Money skills for kids",
+      },
+      hr: {
+        kicker: "Android aplikacija",
+        status: "Lansiranje",
+        summary:
+          "Navike s novcem za djecu, uz roditelja koji sve odobrava. Zadaci, tri staklenke, ciljevi štednje i kratke lekcije u jednoj Android aplikaciji, s roditeljskim dijelom iza PIN-a i mirnim dječjim dijelom.",
+        cta: "Pogledaj studiju",
+        imageAlt: "TONKO grafika s maskotom Tonkom i natpisom Money skills for kids",
+      },
+    },
   },
   {
     id: "airshare",
     name: "AirShare",
-    kicker: "Web product",
-    status: "Live",
-    summary:
-      "Instant, encrypted file delivery over QUIC. Devices find each other locally, relays step in when they are apart, and nothing turns into cloud storage.",
     href: "https://tryairshare.com",
-    cta: "Visit tryairshare.com",
     image: "/images/airshare-mark.svg",
-    imageAlt: "Illustration of two devices exchanging a file over a direct encrypted link",
     imageFit: "cover",
     tone: "linear-gradient(135deg, #0c1512, #101a1e)",
     stack: ["Next.js", "TypeScript", "Iroh", "QUIC"],
     area: "apps",
+    text: {
+      en: {
+        kicker: "Web product",
+        status: "Live",
+        summary:
+          "Instant, encrypted file delivery over QUIC. Devices find each other locally, relays step in when they are apart, and nothing turns into cloud storage.",
+        cta: "Visit tryairshare.com",
+        imageAlt: "Illustration of two devices exchanging a file over a direct encrypted link",
+      },
+      hr: {
+        kicker: "Web proizvod",
+        status: "Uživo",
+        summary:
+          "Trenutni, šifrirani prijenos datoteka preko QUIC-a. Uređaji se pronađu lokalno, releji uskaču kad su udaljeni, i ništa ne završava u cloud pohrani.",
+        cta: "Posjeti tryairshare.com",
+        imageAlt: "Ilustracija dva uređaja koja razmjenjuju datoteku preko izravne šifrirane veze",
+      },
+    },
   },
   {
     id: "keero",
     name: "Keero Bot",
-    kicker: "AI hardware platform",
-    status: "Active prototype",
-    summary:
-      "A modular ESP32-S3 device core for voice-first, interactive hardware: audio in and out, sensing, haptics, display and camera paths, docks and module expansion.",
     href: "/hardware#keero",
-    cta: "Explore the platform",
     image: "/images/keero-hero.jpg",
-    imageAlt: "3D render of the Keero Bot mainboard and modules",
     imageFit: "cover",
     tone: "#ffffff",
     stack: ["ESP32-S3", "C++", "PlatformIO", "Audio DSP"],
     area: "hardware",
+    text: {
+      en: {
+        kicker: "AI hardware platform",
+        status: "Active prototype",
+        summary:
+          "A modular ESP32-S3 device core for voice-first, interactive hardware: audio in and out, sensing, haptics, display and camera paths, docks and module expansion.",
+        cta: "Explore the platform",
+        imageAlt: "3D render of the Keero Bot mainboard and modules",
+      },
+      hr: {
+        kicker: "AI hardverska platforma",
+        status: "Aktivni prototip",
+        summary:
+          "Modularna ESP32-S3 jezgra za interaktivne uređaje s glasovnim sučeljem: audio ulaz i izlaz, senzori, haptika, display i kamera, dockovi i moduli za proširenje.",
+        cta: "Istraži platformu",
+        imageAlt: "3D render Keero Bot mainboarda i modula",
+      },
+    },
   },
   {
     id: "moto32",
     name: "Moto32",
-    kicker: "Open-source hardware",
-    status: "Open source",
-    summary:
-      "An ESP32-S3 motorcycle control unit with eight MOSFET-protected outputs, USB-C programming and full build docs. An open alternative to commercial M-Unit style boxes.",
     href: "https://moto32.vercel.app",
-    cta: "Read the docs",
     image: "/images/moto32-board.svg",
-    imageAlt: "Stylised illustration of the Moto32 control board",
     imageFit: "cover",
     tone: "linear-gradient(135deg, #0e1512, #131a16)",
     stack: ["ESP32-S3", "KiCad", "MIT licence"],
     area: "hardware",
+    text: {
+      en: {
+        kicker: "Open-source hardware",
+        status: "Open source",
+        summary:
+          "An ESP32-S3 motorcycle control unit with eight MOSFET-protected outputs, USB-C programming and full build docs. An open alternative to commercial M-Unit style boxes.",
+        cta: "Read the docs",
+        imageAlt: "Stylised illustration of the Moto32 control board",
+      },
+      hr: {
+        kicker: "Open-source hardver",
+        status: "Open source",
+        summary:
+          "ESP32-S3 upravljačka jedinica za motocikle s osam MOSFET-zaštićenih izlaza, USB-C programiranjem i potpunom dokumentacijom. Otvorena alternativa komercijalnim M-Unit kutijama.",
+        cta: "Otvori dokumentaciju",
+        imageAlt: "Stilizirana ilustracija Moto32 upravljačke pločice",
+      },
+    },
   },
   {
     id: "canarin",
     name: "Canarin Garage",
-    kicker: "Custom motorcycles",
-    status: "In the shop",
-    summary:
-      "A 1981 Honda CX500 rebuilt as a neo-retro endurance cafe racer: CAD and ANSYS-checked monoshock chassis, GSX-R front end, custom 17-inch spoked wheels.",
     href: "/canarin-garage",
-    cta: "Open the build log",
     image: "/images/garage/img-2908.jpg",
-    imageAlt: "Honda CX500 cafe racer mock-up in the Canarin Garage workshop",
     tone: "#1a1a1a",
     stack: ["SolidWorks", "ANSYS", "TIG", "Motogadget"],
     area: "garage",
+    text: {
+      en: {
+        kicker: "Custom motorcycles",
+        status: "In the shop",
+        summary:
+          "A 1981 Honda CX500 rebuilt as a neo-retro endurance cafe racer: CAD and ANSYS-checked monoshock chassis, GSX-R front end, custom 17-inch spoked wheels.",
+        cta: "Open the build log",
+        imageAlt: "Honda CX500 cafe racer mock-up in the Canarin Garage workshop",
+      },
+      hr: {
+        kicker: "Custom motocikli",
+        status: "U radionici",
+        summary:
+          "Honda CX500 iz 1981. pretvorena u neo-retro endurance cafe racer: CAD i ANSYS provjerena monoshock šasija, GSX-R prednji kraj, custom 17-inčni žbičani kotači.",
+        cta: "Otvori dnevnik gradnje",
+        imageAlt: "Mock-up Honde CX500 cafe racera u radionici Canarin Garage",
+      },
+    },
   },
 ];
 
-export const getProject = (id: string) => projects.find((p) => p.id === id)!;
-export const getProjectsByArea = (area: Project["area"]) => projects.filter((p) => p.area === area);
+export function getProjects(locale: Locale): Project[] {
+  return base.map(({ text, ...rest }) => ({ ...rest, ...text[locale] }));
+}
+
+export function getProject(id: string, locale: Locale): Project {
+  return getProjects(locale).find((p) => p.id === id)!;
+}
+
+export function getProjectsByArea(area: Project["area"], locale: Locale) {
+  return getProjects(locale).filter((p) => p.area === area);
+}

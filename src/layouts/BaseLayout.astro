@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import { getLocale, localePath, stripLocale } from "../i18n";
 
 interface Props {
   title?: string;
@@ -12,11 +13,21 @@ interface Props {
 }
 
 const { title, description, image, type, tone = "default" } = Astro.props;
+const locale = getLocale(Astro.url);
+const site = "https://jaksatomovic.github.io";
+const canonicalPath = stripLocale(Astro.url.pathname);
+const alternates = {
+  en: new URL(localePath(canonicalPath, "en"), site).toString(),
+  hr: new URL(localePath(canonicalPath, "hr"), site).toString(),
+};
 ---
 
-<html lang="en">
+<html lang={locale}>
   <head>
     <BaseHead title={title} description={description} image={image} type={type} />
+    <link rel="alternate" hreflang="en" href={alternates.en} />
+    <link rel="alternate" hreflang="hr" href={alternates.hr} />
+    <link rel="alternate" hreflang="x-default" href={alternates.en} />
     <slot name="head" />
   </head>
   <body class:list={["min-h-screen overflow-x-hidden font-sans", tone === "garage" && "tone-garage"]}>

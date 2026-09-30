@@ -1,6 +1,6 @@
 ---
-import BlogPostView from "../../views/BlogPostView.astro";
-import { postSlugs } from "../../data/blog";
+import BlogPostView from "../../../views/BlogPostView.astro";
+import { postSlugs } from "../../../data/blog";
 
 export function getStaticPaths() {
   return postSlugs.map((slug) => ({ params: { slug } }));

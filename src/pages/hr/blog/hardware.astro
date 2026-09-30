@@ -1,9 +1,9 @@
 ---
-import BlogCategoryListing from "../../components/blog/BlogCategoryListing.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCategoryById } from "../../data/blog";
-import { getLocale } from "../../i18n";
-import { dict } from "../../i18n/ui";
+import BlogCategoryListing from "../../../components/blog/BlogCategoryListing.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCategoryById } from "../../../data/blog";
+import { getLocale } from "../../../i18n";
+import { dict } from "../../../i18n/ui";
 
 const locale = getLocale(Astro.url);
 const category = getCategoryById("hardware", locale)!;

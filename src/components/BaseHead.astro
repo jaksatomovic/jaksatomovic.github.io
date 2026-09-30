@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import { getLocale } from "../i18n";
+import { dict } from "../i18n/ui";
 
 interface Props {
   title?: string;
@@ -9,9 +11,10 @@ interface Props {
 }
 
 const site = "https://jaksatomovic.github.io";
+const locale = getLocale(Astro.url);
 const {
-  title = "Jakša Tomović — Developer",
-  description = "Developer based in Croatia. Android and web apps, embedded hardware and a custom Honda CX500 build.",
+  title = dict[locale].meta.siteTitle,
+  description = dict[locale].meta.siteDescription,
   image = "/images/og-default.jpg",
   type = "website",
 } = Astro.props;
@@ -29,6 +32,7 @@ const ogImage = new URL(image, site).toString();
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content="Jakša Tomović" />
+<meta property="og:locale" content={locale === "hr" ? "hr_HR" : "en_US"} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />

@@ -1,0 +1,287 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import BlogPostCard from "../components/blog/BlogPostCard.astro";
+import { getPostsByCategory } from "../data/blog";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].garage;
+const p = (path: string) => localePath(path, locale);
+
+type Status = "done" | "active" | "next";
+
+const engineeringImages = [
+  "/images/garage/cx500-chassis-cad.jpg",
+  "/images/garage/cx500-ansys-stress.jpg",
+  "/images/garage/cx500-weld-gusset.jpg",
+];
+
+const galleryImages = [
+  { src: "/images/garage/img-2908.jpg", span: "sm:col-span-2 sm:row-span-2" },
+  { src: "/images/garage/cx500-chassis-cad.jpg" },
+  { src: "/images/garage/cx500-ansys-stress.jpg" },
+  { src: "/images/garage/img-2907.jpg", span: "sm:col-span-2" },
+  { src: "/images/garage/cx500-weld-gusset.jpg" },
+  { src: "/images/garage/img-2909.jpg" },
+  { src: "/images/garage/img-2948.jpg" },
+];
+
+const posts = getPostsByCategory("garage", locale).slice(0, 2);
+const h2 = "font-display mt-4 text-6xl text-ink sm:text-7xl";
+const mono = "font-mono text-[0.65rem] uppercase tracking-[0.22em]";
+---
+
+<BaseLayout tone="garage" title={t.metaTitle} description={t.metaDescription} image="/images/garage/img-2908.jpg">
+  <link slot="head" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <!-- Hero -->
+  <section id="overview" class="relative isolate overflow-hidden">
+    <img src="/images/garage/img-2908.jpg" alt="" class="absolute inset-0 h-full w-full object-cover opacity-50" width="2000" height="1500" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/10" aria-hidden="true"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-accent/40" aria-hidden="true"></div>
+
+    <div class="container-site relative flex min-h-[86vh] flex-col justify-end pb-12 pt-24 sm:pb-16">
+      <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div>
+          <div class="flex items-center gap-4">
+            <img src="/images/canaringarage.jpg" alt="Canarin Garage" width="64" height="64" class="h-16 w-16 rounded-full bg-white object-cover p-1.5" />
+            <div>
+              <p class="font-mono text-xs uppercase tracking-[0.3em] text-accent">{t.badge}</p>
+              <p class="mt-1 text-sm text-muted">{t.badgeSub}</p>
+            </div>
+          </div>
+          <h1 class="font-display mt-10 text-[clamp(4rem,13vw,11rem)] leading-[0.85] text-ink">
+            Honda<br />
+            <span class="text-accent">CX500</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg text-ink/80 sm:text-xl">{t.lead}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#status" class="btn-primary">
+              {t.ctaStatus}
+              <Icon name="arrow" class="h-4 w-4" />
+            </a>
+            <a href="https://www.instagram.com/canaringarage/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+              <Icon name="instagram" class="h-4 w-4" />
+              @canaringarage
+            </a>
+          </div>
+        </div>
+
+        <dl class="plate surface grid grid-cols-2 gap-x-6 gap-y-4 p-6 font-mono text-xs sm:p-8" data-reveal>
+          {t.plate.map(([k, v]) => (
+            <div class="border-t border-line/10 pt-3">
+              <dt class="uppercase tracking-[0.22em] text-muted">{k}</dt>
+              <dd class="mt-1.5 text-[0.8rem] leading-snug text-ink">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee + subnav -->
+  <div class="overflow-hidden border-b border-line/10 bg-accent py-2.5 text-bg">
+    <div class="flex w-max animate-marquee gap-10 whitespace-nowrap font-display text-lg tracking-[0.12em]" aria-hidden="true">
+      {[...t.marquee, ...t.marquee].map((m) => (
+        <span class="flex items-center gap-10">{m}<span class="h-1.5 w-1.5 rounded-full bg-bg/60"></span></span>
+      ))}
+    </div>
+  </div>
+  <div class="sticky top-16 z-40 border-b border-line/10 bg-bg/85 backdrop-blur-xl sm:top-[4.5rem]">
+    <nav class="container-site scroller flex gap-1 overflow-x-auto py-2">
+      {t.subnav.map(([href, label]) => (
+        <a href={href} class="shrink-0 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-ink/70 transition hover:bg-line/5 hover:text-ink">{label}</a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- Status board -->
+  <section id="status" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      <div class="lg:sticky lg:top-40 lg:self-start" data-reveal>
+        <p class="eyebrow">{t.statusEyebrow}</p>
+        <h2 class={h2}>{t.statusTitle}</h2>
+        <p class="mt-4 text-muted">{t.statusDescription}</p>
+        <ul class="mt-6 flex gap-5 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span>{t.statusLabels.done}</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-accent"></span>{t.statusLabels.active}</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full border border-line/30"></span>{t.statusLabels.next}</li>
+        </ul>
+      </div>
+      <ol class="surface divide-y divide-line/10" data-reveal>
+        {t.board.map(([phase, detail, status, when], i) => (
+          <li class="grid gap-3 px-6 py-5 sm:grid-cols-[2.5rem_1fr_auto] sm:items-start sm:gap-5">
+            <span class="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <p class="flex items-center gap-3 font-semibold text-ink">
+                <span
+                  class:list={[
+                    "inline-block h-2 w-2 shrink-0 rounded-full",
+                    status === "done" && "bg-emerald-400",
+                    status === "active" && "bg-accent",
+                    status === "next" && "border border-line/30",
+                  ]}
+                ></span>
+                {phase}
+              </p>
+              <p class="mt-1 text-sm text-muted">{detail}</p>
+            </div>
+            <div class="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1">
+              <span class:list={[mono, status === "done" && "text-emerald-400", status === "active" && "text-accent", status === "next" && "text-muted"]}>
+                {t.statusLabels[status as Status]}
+              </span>
+              <span class:list={[mono, "text-muted"]}>{when}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Engineering -->
+  <section id="engineering" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{t.engEyebrow}</p>
+      <h2 class={h2}>{t.engTitle}</h2>
+      <p class="mt-4 text-muted">{t.engDescription}</p>
+    </div>
+    <dl class="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line/10 bg-line/10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {t.analysis.map(([value, unit, label]) => (
+        <div class="plate bg-surface p-6">
+          <dd class="font-display text-5xl text-ink">
+            {value}<span class="ml-1.5 text-2xl text-accent">{unit}</span>
+          </dd>
+          <dt class:list={["mt-2 text-muted", mono]}>{label}</dt>
+        </div>
+      ))}
+    </dl>
+    <div class="mt-5 grid gap-5 lg:grid-cols-3">
+      {t.engineering.map(([title, body], i) => (
+        <article class="surface surface-hover overflow-hidden" data-reveal data-reveal-delay={i * 80}>
+          <div class="aspect-[4/3] overflow-hidden bg-raised">
+            <img src={engineeringImages[i]} alt={title} loading="lazy" class="h-full w-full object-cover" width="720" height="540" />
+          </div>
+          <div class="p-6">
+            <p class:list={[mono, "text-accent"]}>0{i + 1}</p>
+            <h3 class="mt-2 text-lg font-semibold text-ink">{title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Spec sheet -->
+  <section id="specs" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+      <div class="max-w-2xl">
+        <p class="eyebrow">{t.specEyebrow}</p>
+        <h2 class={h2}>{t.specTitle}</h2>
+      </div>
+      <a href={p("/hardware#moto32")} class="link-arrow shrink-0">
+        {t.specMoto32}
+        <Icon name="arrow" />
+      </a>
+    </div>
+    <div class="mt-10 grid gap-5 lg:grid-cols-2">
+      {t.specSheet.map(([group, rows], i) => (
+        <div class="surface overflow-hidden" data-reveal data-reveal-delay={(i % 2) * 80}>
+          <div class="plate flex items-center justify-between border-b border-line/10 px-6 py-4">
+            <h3 class="font-display text-2xl tracking-wider text-ink">{group}</h3>
+            <span class:list={[mono, "text-muted"]}>0{i + 1}</span>
+          </div>
+          <dl class="divide-y divide-line/10">
+            {(rows as string[][]).map(([k, v]) => (
+              <div class="grid grid-cols-[7rem_1fr] gap-4 px-6 py-3.5 text-sm">
+                <dt class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">{k}</dt>
+                <dd class="text-ink/90">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Shop notes -->
+  <section id="notes" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{t.notesEyebrow}</p>
+      <h2 class={h2}>{t.notesTitle}</h2>
+    </div>
+    <div class="mt-10 grid gap-5 lg:grid-cols-3">
+      {t.shopNotes.map(([label, title, body, meta], i) => (
+        <article class="surface surface-hover p-6 sm:p-7" data-reveal data-reveal-delay={i * 80}>
+          <p class:list={[mono, "text-accent"]}>{label}</p>
+          <h3 class="mt-3 text-xl font-semibold text-ink">{title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{body}</p>
+          <p class:list={["mt-5 text-muted", mono]}>{meta}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{t.galleryEyebrow}</p>
+      <h2 class={h2}>{t.galleryTitle}</h2>
+    </div>
+    <div class="mt-10 grid auto-rows-[14rem] gap-3 sm:grid-cols-3 sm:auto-rows-[16rem]">
+      {galleryImages.map((g, i) => (
+        <figure class:list={["group relative overflow-hidden rounded-2xl border border-line/10 bg-raised", g.span]} data-reveal data-reveal-delay={(i % 3) * 60}>
+          <img src={g.src} alt={t.gallery[i]} loading="lazy" class="h-full w-full object-cover transition duration-700 ease-premium group-hover:scale-[1.04]" width="900" height="675" />
+          <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-10 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-white/90">
+            {t.gallery[i]}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="container-site pt-20 sm:pt-28">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow">{t.logEyebrow}</p>
+          <h2 class={h2}>{t.logTitle}</h2>
+        </div>
+        <a href={p("/blog/garage")} class="link-arrow shrink-0">
+          {t.allGarageNotes}
+          <Icon name="arrow" />
+        </a>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        {posts.map((post, i) => (
+          <BlogPostCard post={post} delay={i * 80} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Contact -->
+  <section id="contact" class="container-site scroll-mt-32 pt-20 sm:pt-28">
+    <div class="plate surface relative overflow-hidden p-8 sm:p-12" data-reveal>
+      <div class="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <p class="eyebrow">{t.contactEyebrow}</p>
+          <h2 class="font-display mt-4 text-5xl text-ink sm:text-6xl">{t.contactTitle}</h2>
+          <p class="mt-4 max-w-xl text-muted">{t.contactBody}</p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href="mailto:canarin.garage@gmail.com" class="btn-primary">
+            canarin.garage@gmail.com
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href="https://www.instagram.com/canaringarage/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <Icon name="instagram" class="h-4 w-4" />
+            Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -4,14 +4,17 @@ import CategoryNav from "./CategoryNav.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import { getCategoryById, getPostsByCategory } from "../../data/blog";
 import type { BlogCategoryId } from "../../data/blog";
+import { getLocale } from "../../i18n";
+import { dict } from "../../i18n/ui";
 
 interface Props {
   categoryId: BlogCategoryId;
 }
 
 const { categoryId } = Astro.props;
-const category = getCategoryById(categoryId)!;
-const posts = getPostsByCategory(categoryId);
+const locale = getLocale(Astro.url);
+const category = getCategoryById(categoryId, locale)!;
+const posts = getPostsByCategory(categoryId, locale);
 ---
 
 <section class="container-site pt-12 sm:pt-20">
@@ -27,6 +30,6 @@ const posts = getPostsByCategory(categoryId);
       ))}
     </div>
   ) : (
-    <p class="surface p-8 text-muted">Nothing here yet. Notes are on the way.</p>
+    <p class="surface p-8 text-muted">{dict[locale].common.nothingYet}</p>
   )}
 </section>

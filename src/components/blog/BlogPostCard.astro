@@ -2,6 +2,8 @@
 import Icon from "../ui/Icon.astro";
 import { formatPostDate, getCategoryById } from "../../data/blog";
 import type { BlogPost } from "../../data/blog";
+import { getLocale, localePath } from "../../i18n";
+import { dict } from "../../i18n/ui";
 
 interface Props {
   post: BlogPost;
@@ -10,11 +12,13 @@ interface Props {
 }
 
 const { post, featured = false, delay = 0 } = Astro.props;
-const category = getCategoryById(post.category);
+const locale = getLocale(Astro.url);
+const t = dict[locale].common;
+const category = getCategoryById(post.category, locale);
 ---
 
 <a
-  href={`/blog/${post.slug}`}
+  href={localePath(`/blog/${post.slug}`, locale)}
   class:list={[
     "surface surface-hover group flex overflow-hidden",
     featured ? "flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr]" : "flex-col",
@@ -35,7 +39,7 @@ const category = getCategoryById(post.category);
   <div class:list={["flex flex-1 flex-col", featured ? "p-7 sm:p-10" : "p-6 sm:p-7"]}>
     <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted">
       <span class="chip">{category?.label}</span>
-      <time>{formatPostDate(post.publishedAt)}</time>
+      <time>{formatPostDate(post.publishedAt, locale)}</time>
       <span>{post.readTime}</span>
     </div>
     <h2 class:list={["mt-4 font-semibold tracking-tight text-ink transition group-hover:text-accent", featured ? "text-display-md" : "text-2xl"]}>
@@ -43,7 +47,7 @@ const category = getCategoryById(post.category);
     </h2>
     <p class="mt-3 text-sm leading-relaxed text-muted sm:text-base">{post.excerpt}</p>
     <span class="link-arrow mt-auto pt-6">
-      Read note
+      {t.readNote}
       <Icon name="arrow" />
     </span>
   </div>

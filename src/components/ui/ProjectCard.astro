@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import type { Project } from "../../data/projects";
+import { getLocale, localePath } from "../../i18n";
 
 interface Props {
   project: Project;
@@ -10,10 +11,11 @@ interface Props {
 
 const { project, variant = "default", delay = 0 } = Astro.props;
 const external = project.href.startsWith("http");
+const href = localePath(project.href, getLocale(Astro.url));
 ---
 
 <a
-  href={project.href}
+  href={href}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
   class:list={[

@@ -1,0 +1,212 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import PhoneFrame from "../components/ui/PhoneFrame.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import { getTonko } from "../data/tonko";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].tonko;
+const tonko = getTonko(locale);
+---
+
+<BaseLayout title={t.metaTitle} description={t.metaDescription} image="/images/tonko/feature.png">
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-tonko-navy text-white">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="absolute -left-32 top-0 h-96 w-96 rounded-full bg-tonko-blue/30 blur-3xl"></div>
+      <div class="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-tonko-sky/20 blur-3xl"></div>
+    </div>
+    <div class="container-site relative grid gap-12 pb-0 pt-16 lg:grid-cols-[1fr_1fr] lg:items-end lg:pt-24">
+      <div class="pb-16 lg:pb-24">
+        <a href={localePath("/apps", locale)} class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60 transition hover:text-white">
+          <Icon name="chevronLeft" class="h-4 w-4" />
+          {t.back}
+        </a>
+        <div class="mt-8 flex items-center gap-4">
+          <img src="/images/tonko/icon.png" alt="TONKO" width="64" height="64" class="h-14 w-14 rounded-2xl shadow-lg" />
+          <img src="/images/tonko/wordmark-light.svg" alt="TONKO" width="140" height="40" class="h-8 w-auto" />
+        </div>
+        <h1 class="em-sky mt-8 text-display-xl font-semibold" set:html={t.title} />
+        <p class="mt-6 max-w-xl text-lg text-white/75 sm:text-xl">{t.lead}</p>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href={tonko.playStore} target="_blank" rel="noopener noreferrer" class="btn bg-white text-tonko-navy hover:-translate-y-0.5 hover:shadow-lift">
+            {t.ctaPlay}
+            <Icon name="external" class="h-4 w-4" />
+          </a>
+          <a href={tonko.website} target="_blank" rel="noopener noreferrer" class="btn border border-white/20 text-white hover:border-white/50">
+            {t.ctaSite}
+            <Icon name="external" class="h-4 w-4" />
+          </a>
+        </div>
+        <dl class="mt-12 grid grid-cols-2 gap-6 text-sm sm:grid-cols-4">
+          {t.facts.map(([k, v]) => (
+            <div>
+              <dt class="text-[0.7rem] uppercase tracking-[0.2em] text-white/50">{k}</dt>
+              <dd class="mt-1 font-semibold">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+        <img src="/images/tonko/mascot-wave.webp" alt="Tonko" width="720" height="738" class="absolute bottom-6 left-0 z-10 w-32 animate-float drop-shadow-2xl sm:-left-4 sm:bottom-10 sm:w-44 lg:-left-10" />
+        <div class="grid grid-cols-1 items-end gap-4 pl-28 sm:grid-cols-2 sm:pl-24 lg:pl-20">
+          <div class="hidden translate-y-10 sm:block">
+            <PhoneFrame src="/images/tonko/phone-04.jpg" alt="TONKO" eager />
+          </div>
+          <PhoneFrame src="/images/tonko/phone-01.jpg" alt="TONKO" eager />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role strip -->
+  <section class="border-b border-line/10 bg-surface/60 backdrop-blur">
+    <div class="container-site flex flex-wrap items-center gap-x-8 gap-y-3 py-5 text-sm">
+      <span class="eyebrow">{t.roleLabel}</span>
+      {tonko.roles.map((r) => (
+        <span class="font-medium text-ink/80">{r}</span>
+      ))}
+      <span class="ml-auto text-muted">{t.roleNote}</span>
+    </div>
+  </section>
+
+  <!-- Idea -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <SectionHeading eyebrow={t.ideaEyebrow} title={t.ideaTitle} />
+      <div class="space-y-5 text-base text-ink/80 sm:text-lg" data-reveal>
+        <p>{t.ideaP1}</p>
+        <p>{t.ideaP2}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screens -->
+  <section class="pt-20 sm:pt-28">
+    <div class="container-site flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <SectionHeading eyebrow={t.screensEyebrow} title={t.screensTitle} size="md" description={t.screensDescription} />
+      <div class="hidden gap-2 sm:flex" data-reveal>
+        <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-ink transition hover:border-line/40" data-scroll="-1" aria-label={t.prev}>
+          <Icon name="chevronLeft" class="h-5 w-5" />
+        </button>
+        <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-ink transition hover:border-line/40" data-scroll="1" aria-label={t.next}>
+          <Icon name="chevronRight" class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+    <div class="scroller scroller-bleed mt-10 flex gap-5 overflow-x-auto pb-6" data-screens>
+      {tonko.screens.map((s, i) => (
+        <figure class="w-[16rem] shrink-0 sm:w-[18rem]" data-reveal data-reveal-delay={i * 60}>
+          <PhoneFrame src={s.src} alt={`TONKO: ${s.title}`} />
+          <figcaption class="mt-4">
+            <p class="font-semibold text-ink">{s.title}</p>
+            <p class="mt-1 text-sm text-muted">{s.caption}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="container-site pt-20 sm:pt-28">
+    <SectionHeading eyebrow={t.howEyebrow} title={t.howTitle} description={t.howDescription} />
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {tonko.features.map((f, i) => (
+        <article class="surface surface-hover p-6 sm:p-7" data-reveal data-reveal-delay={(i % 3) * 80}>
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-tonko-navy text-tonko-sky">
+            <Icon name={f.icon} class="h-5 w-5" />
+          </span>
+          <h3 class="mt-6 text-lg font-semibold text-ink">{f.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{f.body}</p>
+        </article>
+      ))}
+      <article class="surface flex flex-col justify-between overflow-hidden bg-tonko-navy p-6 text-white sm:p-7" data-reveal data-reveal-delay={80}>
+        <p class="eyebrow !text-white/60">{t.familyEyebrow}</p>
+        <p class="mt-6 text-2xl font-semibold tracking-tight">{t.familyTitle}</p>
+        <p class="mt-4 text-sm text-white/60">{t.familyBody}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Modes + Safety -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="surface p-8 sm:p-10" data-reveal>
+        <p class="eyebrow">{t.modesEyebrow}</p>
+        <h2 class="mt-4 text-display-md font-semibold text-ink">{t.modesTitle}</h2>
+        <ul class="mt-8 divide-y divide-line/10">
+          {tonko.modes.map((m, i) => (
+            <li class="flex gap-5 py-5">
+              <span class="font-mono text-xs text-accent">0{i + 1}</span>
+              <div>
+                <p class="font-semibold text-ink">{m.title}</p>
+                <p class="mt-1 text-sm text-muted">{m.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="surface p-8 sm:p-10" data-reveal data-reveal-delay={100}>
+        <p class="eyebrow">{t.safetyEyebrow}</p>
+        <h2 class="mt-4 text-display-md font-semibold text-ink">{t.safetyTitle}</h2>
+        <ul class="mt-8 space-y-4">
+          {tonko.safety.map((s) => (
+            <li class="flex gap-3 text-sm text-ink/80 sm:text-base">
+              <span class="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tonko-teal/15 text-tonko-teal">
+                <Icon name="check" class="h-3.5 w-3.5" strokeWidth={2.2} />
+              </span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section class="container-site pt-20 sm:pt-28">
+    <SectionHeading eyebrow={t.stackEyebrow} title={t.stackTitle} size="md" />
+    <dl class="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line/10 bg-line/10 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+      {tonko.stack.map((s) => (
+        <div class="bg-surface p-6 sm:p-7">
+          <dt class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">{s.label}</dt>
+          <dd class="mt-3 text-sm font-medium leading-relaxed text-ink sm:text-base">{s.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="relative overflow-hidden rounded-3xl bg-tonko-navy px-8 py-14 text-white sm:px-12 sm:py-20" data-reveal>
+      <img src="/images/tonko/mascot.webp" alt="" width="720" height="738" class="pointer-events-none absolute -bottom-10 right-6 w-48 opacity-90 sm:w-64" />
+      <div class="relative max-w-xl">
+        <p class="eyebrow !text-white/60">{t.ctaEyebrow}</p>
+        <h2 class="mt-4 text-display-lg font-semibold">{t.ctaTitle}</h2>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={tonko.playStore} target="_blank" rel="noopener noreferrer" class="btn bg-white text-tonko-navy hover:-translate-y-0.5 hover:shadow-lift">
+            {t.ctaPlay}
+            <Icon name="external" class="h-4 w-4" />
+          </a>
+          <a href={tonko.website} target="_blank" rel="noopener noreferrer" class="btn border border-white/20 text-white hover:border-white/50">
+            {t.ctaSite2}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const scroller = document.querySelector<HTMLElement>("[data-screens]");
+    document.querySelectorAll<HTMLButtonElement>("[data-scroll]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const dir = Number(btn.dataset.scroll);
+        scroller?.scrollBy({ left: dir * 320, behavior: "smooth" });
+      });
+    });
+  </script>
+</BaseLayout>

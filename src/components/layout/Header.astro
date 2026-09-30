@@ -1,20 +1,27 @@
 ---
 import Icon from "../ui/Icon.astro";
+import { getLocale, localePath, stripLocale, switchLocalePath } from "../../i18n";
+import { dict } from "../../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].nav;
+const other = locale === "en" ? "hr" : "en";
 
 const links = [
-  { href: "/#work", label: "Work" },
-  { href: "/apps", label: "Apps" },
-  { href: "/hardware", label: "Hardware" },
-  { href: "/canarin-garage", label: "Garage" },
-  { href: "/blog", label: "Writing" },
-];
+  { href: "/#work", label: t.work },
+  { href: "/apps", label: t.apps },
+  { href: "/hardware", label: t.hardware },
+  { href: "/canarin-garage", label: t.garage },
+  { href: "/blog", label: t.writing },
+].map((l) => ({ ...l, href: localePath(l.href, locale) }));
 
-const path = Astro.url.pathname;
+const path = stripLocale(Astro.url.pathname);
 const isActive = (href: string) => {
-  const clean = href.split("#")[0];
+  const clean = stripLocale(href.split("#")[0]);
   if (clean === "/") return path === "/";
   return clean !== "" && path.startsWith(clean);
 };
+const switchHref = switchLocalePath(Astro.url, other);
 ---
 
 <header
@@ -22,7 +29,7 @@ const isActive = (href: string) => {
   data-header
 >
   <div class="container-site flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
-    <a href="/" class="group flex min-w-0 items-center gap-3" aria-label="Jakša Tomović, home">
+    <a href={localePath("/", locale)} class="group flex min-w-0 items-center gap-3" aria-label="Jakša Tomović">
       <span class="relative inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ink text-[0.7rem] font-bold tracking-wider text-bg">
         JT
       </span>
@@ -49,18 +56,29 @@ const isActive = (href: string) => {
     </nav>
 
     <div class="flex items-center gap-2">
+      <a
+        href={switchHref}
+        hreflang={other}
+        lang={other}
+        class="inline-flex h-10 items-center justify-center rounded-full border border-line/10 bg-surface/60 px-3 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink/80 backdrop-blur transition hover:border-line/25 hover:text-ink"
+        aria-label={t.switchLabel}
+        title={t.switchTo}
+      >
+        {other}
+      </a>
+
       <button
         type="button"
         class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line/10 bg-surface/60 text-ink/80 backdrop-blur transition hover:border-line/25 hover:text-ink"
         data-theme-toggle
-        aria-label="Toggle colour theme"
+        aria-label={t.toggleTheme}
       >
         <span class="dark:hidden"><Icon name="moon" class="h-[1.1rem] w-[1.1rem]" /></span>
         <span class="hidden dark:inline"><Icon name="sun" class="h-[1.1rem] w-[1.1rem]" /></span>
       </button>
 
       <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary hidden !py-2.5 sm:inline-flex">
-        Let's talk
+        {t.talk}
       </a>
 
       <button
@@ -69,7 +87,7 @@ const isActive = (href: string) => {
         data-menu-toggle
         aria-expanded="false"
         aria-controls="mobile-nav"
-        aria-label="Open navigation"
+        aria-label={t.openNav}
       >
         <span data-menu-icon="open"><Icon name="menu" class="h-5 w-5" /></span>
         <span class="hidden" data-menu-icon="close"><Icon name="close" class="h-5 w-5" /></span>
@@ -94,7 +112,7 @@ const isActive = (href: string) => {
           </li>
         ))}
         <li class="pt-2">
-          <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary w-full">Let's talk</a>
+          <a href="mailto:jaksa.tomovic@gmail.com" class="btn-primary w-full">{t.talk}</a>
         </li>
       </ul>
     </nav>
