@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].about;
+const p = (path: string) => localePath(path, locale);
+---
+
+<BaseLayout title={t.metaTitle} description={t.metaDescription}>
+  <!-- Hero -->
+  <section class="container-site pt-12 sm:pt-20">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+      <div>
+        <p class="eyebrow animate-rise">{t.eyebrow}</p>
+        <h1 class="mt-6 text-display-lg font-semibold text-ink animate-rise [animation-delay:80ms]" set:html={t.title} />
+        <p class="mt-6 max-w-2xl text-lg text-muted animate-rise [animation-delay:160ms] sm:text-xl">{t.lead}</p>
+        <div class="mt-8 flex flex-wrap gap-3 animate-rise [animation-delay:240ms]">
+          <a href="/cv.pdf" download class="btn-primary">
+            {t.ctaCv}
+            <Icon name="download" class="h-4 w-4" />
+          </a>
+          <a href="https://www.linkedin.com/in/jaksatomovic/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <Icon name="linkedin" class="h-4 w-4" />
+            {t.ctaLinkedIn}
+          </a>
+          <a href="https://github.com/jaksatomovic" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <Icon name="github" class="h-4 w-4" />
+            GitHub
+          </a>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-sm animate-rise [animation-delay:200ms]">
+        <div class="pointer-events-none absolute -inset-8 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+        <img src="/images/avatar.jpg" alt="Jakša Tomović" width="800" height="800" class="relative aspect-square w-full rounded-3xl object-cover shadow-lift ring-1 ring-line/10" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Now -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="surface overflow-hidden" data-reveal>
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="p-8 sm:p-12">
+          <p class="eyebrow">{t.nowEyebrow}</p>
+          <h2 class="mt-4 text-display-md font-semibold text-ink">{t.nowTitle}</h2>
+          <p class="mt-5 text-base text-muted sm:text-lg">{t.nowBody}</p>
+        </div>
+        <dl class="grid grid-cols-2 gap-px border-t border-line/10 bg-line/10 lg:border-l lg:border-t-0">
+          {t.nowFacts.map(([k, v]) => (
+            <div class="bg-surface p-6">
+              <dt class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">{k}</dt>
+              <dd class="mt-2 text-sm font-medium text-ink">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      <SectionHeading eyebrow={t.experienceEyebrow} title={t.experienceTitle} class="lg:sticky lg:top-28 lg:self-start" />
+      <ol class="relative border-l border-line/15 pl-8">
+        {t.experience.map((job, i) => (
+          <li class="relative pb-12 last:pb-0" data-reveal data-reveal-delay={i * 60}>
+            <span class:list={["absolute -left-[2.35rem] top-2 h-3 w-3 rounded-full border-2 border-bg", i === 0 ? "bg-accent" : "bg-ink"]}></span>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-xl font-semibold tracking-tight text-ink">{job.role}</h3>
+              <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">{job.period}</span>
+            </div>
+            <p class="mt-1 text-sm font-medium text-ink/80">{job.company} · {job.place}</p>
+            <ul class="mt-4 space-y-2 text-sm leading-relaxed text-muted sm:text-base">
+              {job.points.map((pt) => (
+                <li class="flex gap-3">
+                  <span class="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent"></span>
+                  {pt}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="container-site pt-20 sm:pt-28">
+    <SectionHeading eyebrow={t.skillsEyebrow} title={t.skillsTitle} size="md" />
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {t.skills.map(([group, items], i) => (
+        <div class="surface p-6" data-reveal data-reveal-delay={(i % 3) * 60}>
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">{group}</p>
+          <ul class="mt-4 flex flex-wrap gap-1.5">
+            {(items as string[]).map((s) => (
+              <li class="rounded-full bg-line/5 px-3 py-1 text-sm text-ink/80">{s}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div class="surface p-6 lg:col-span-1" data-reveal data-reveal-delay={60}>
+        <p class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">{t.certsEyebrow}</p>
+        <ul class="mt-4 divide-y divide-line/10">
+          {t.certs.map(([name, issuer]) => (
+            <li class="py-2.5">
+              <p class="text-sm font-medium text-ink">{name}</p>
+              <p class="text-xs text-muted">{issuer}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education + side projects -->
+  <section class="container-site pt-20 sm:pt-28">
+    <div class="grid gap-5 lg:grid-cols-2">
+      <div class="surface p-8 sm:p-10" data-reveal>
+        <p class="eyebrow">{t.educationEyebrow}</p>
+        <h2 class="mt-4 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{t.educationTitle}</h2>
+        <p class="mt-4 text-muted">{t.educationBody}</p>
+      </div>
+      <div class="surface relative overflow-hidden p-8 sm:p-10" data-reveal data-reveal-delay={80}>
+        <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
+        <p class="eyebrow">{t.sideEyebrow}</p>
+        <h2 class="mt-4 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{t.sideTitle}</h2>
+        <p class="mt-4 text-muted">{t.sideBody}</p>
+        <a href={p("/#work")} class="link-arrow mt-6">
+          {t.sideCta}
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

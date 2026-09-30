@@ -50,7 +50,7 @@ const base: Base[] = [
   {
     id: "airshare",
     name: "AirShare",
-    href: "https://tryairshare.com",
+    href: "https://github.com/airsharehq",
     image: "/images/airshare-mark.svg",
     imageFit: "cover",
     tone: "linear-gradient(135deg, #0c1512, #101a1e)",
@@ -59,18 +59,18 @@ const base: Base[] = [
     text: {
       en: {
         kicker: "Web product",
-        status: "Live",
+        status: "Open source",
         summary:
           "Instant, encrypted file delivery over QUIC. Devices find each other locally, relays step in when they are apart, and nothing turns into cloud storage.",
-        cta: "Visit tryairshare.com",
+        cta: "View on GitHub",
         imageAlt: "Illustration of two devices exchanging a file over a direct encrypted link",
       },
       hr: {
         kicker: "Web proizvod",
-        status: "Uživo",
+        status: "Open source",
         summary:
           "Trenutni, šifrirani prijenos datoteka preko QUIC-a. Uređaji se pronađu lokalno, releji uskaču kad su udaljeni, i ništa ne završava u cloud pohrani.",
-        cta: "Posjeti tryairshare.com",
+        cta: "Pogledaj na GitHubu",
         imageAlt: "Ilustracija dva uređaja koja razmjenjuju datoteku preko izravne šifrirane veze",
       },
     },

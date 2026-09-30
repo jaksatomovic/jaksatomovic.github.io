@@ -140,6 +140,34 @@ const latestPosts = getPosts(locale).slice(0, 4);
     </div>
   </section>
 
+  <!-- About teaser -->
+  <section class="container-site pt-24 sm:pt-32">
+    <div class="surface overflow-hidden" data-reveal>
+      <div class="grid lg:grid-cols-[0.8fr_1.2fr]">
+        <div class="relative min-h-[16rem] bg-raised">
+          <img src="/images/avatar.jpg" alt="Jakša Tomović" width="800" height="800" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-8 sm:p-12">
+          <p class="eyebrow">{t.aboutEyebrow}</p>
+          <h2 class="mt-4 text-display-md font-semibold text-ink" set:html={t.aboutTitle} />
+          <p class="mt-5 text-base text-muted sm:text-lg">{t.aboutBody}</p>
+          <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-4">
+            {t.aboutFacts.map(([k, v]) => (
+              <div class="border-t border-line/10 pt-3">
+                <dt class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted">{k}</dt>
+                <dd class="mt-1 text-sm text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <a href={p("/about")} class="link-arrow mt-8">
+            {t.aboutCta}
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Writing -->
   <section class="container-site pt-24 sm:pt-32">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
