@@ -19,6 +19,11 @@ module.exports = {
         muted: withAlpha("--c-muted"),
         line: withAlpha("--c-line"),
         accent: withAlpha("--c-accent"),
+        cleave: {
+          blue: "#2E4BE0",
+          sky: "#5A75FF",
+          coral: "#FF5A3C",
+        },
         tonko: {
           navy: "#0f1b2d",
           sky: "#3cc6e2",

@@ -248,3 +248,47 @@ canvas {
   overflow: hidden;
   background: #0b1220;
 }
+
+/* ---------- Cleave challenge page ---------- */
+.em-cleave em {
+  @apply font-serif font-normal italic text-cleave-blue dark:text-cleave-sky;
+}
+.cleave-board {
+  --board: 251 251 252;
+  --grid: 213 217 225;
+  background-color: rgb(var(--board));
+  background-image: radial-gradient(rgb(var(--grid)) 1.4px, transparent 1.6px);
+  background-size: 22px 22px;
+  background-position: 11px 11px;
+}
+.dark .cleave-board {
+  --board: 24 27 33;
+  --grid: 43 48 57;
+}
+.cleave-blade {
+  stroke: rgb(var(--c-ink));
+  stroke-dasharray: 330;
+  stroke-dashoffset: 330;
+  animation: cleave-blade 0.8s 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.cleave-piece {
+  animation: 0.9s 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: drop-shadow(0 10px 14px rgb(20 22 27 / 0.12));
+}
+.cleave-piece-l { animation-name: cleave-split-l; }
+.cleave-piece-r { animation-name: cleave-split-r; }
+.cleave-tint {
+  fill: #2e4be0;
+  animation: cleave-tint 0.6s 1.15s ease forwards;
+}
+.cleave-pill {
+  opacity: 0;
+  animation: cleave-pill 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.cleave-pill-bg { fill: rgb(var(--c-surface)); filter: drop-shadow(0 6px 10px rgb(20 22 27 / 0.14)); }
+.cleave-pill-text { fill: rgb(var(--c-ink)); font-size: 15px; font-weight: 600; font-feature-settings: "tnum" 1; }
+@keyframes cleave-blade { to { stroke-dashoffset: 0; opacity: 0.18; } }
+@keyframes cleave-split-l { to { transform: translate(-7px, -1.6px); } }
+@keyframes cleave-split-r { to { transform: translate(7px, 1.6px); } }
+@keyframes cleave-tint { to { fill: #ff5a3c; } }
+@keyframes cleave-pill { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }

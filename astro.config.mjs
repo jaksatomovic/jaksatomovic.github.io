@@ -9,5 +9,5 @@ export default defineConfig({
     locales: ["en", "hr"],
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [tailwind(), sitemap()],
+  integrations: [tailwind(), sitemap({ filter: (page) => !page.includes("/cleave/c/") })],
 });

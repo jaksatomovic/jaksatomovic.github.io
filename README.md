@@ -43,3 +43,11 @@ src/
 - **Change UI copy**: edit `src/i18n/ui.ts`. The `hr` object is typed against `en`, so a missing key fails the build.
 - **TONKO screens**: drop new phone crops into `public/images/tonko/` and update `tonkoScreens` in `src/data/tonko.ts`.
 - **Theme**: colour tokens live in `src/styles/global.css` (`:root` and `:root.dark`). The header toggle stores the choice in `localStorage`.
+
+## Cleave challenge links
+
+`/cleave/c/` (and `/hr/cleave/c/`) is the page behind the links the Cleave app shares, e.g.
+`https://jaksatomovic.github.io/cleave/c/#CLV1-T3-E12`. The code lives in the URL fragment, so one static page serves
+every challenge. On Android it opens the app (`intent://challenge/<code>` with a Play fallback); everywhere else it
+shows the code and a Play link that carries the code through install. The page is `noindex` and left out of the sitemap.
+Package name and code format are in `src/data/cleave.ts` and must match the app.

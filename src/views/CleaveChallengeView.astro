@@ -1,0 +1,244 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import { cleave, challengeCodePattern, demoCut } from "../data/cleave";
+import { getLocale, localePath } from "../i18n";
+import { dict } from "../i18n/ui";
+
+const locale = getLocale(Astro.url);
+const t = dict[locale].cleave;
+const other = locale === "en" ? "hr" : "en";
+
+// Everything the browser needs to render the code from the URL fragment.
+const client = {
+  locale,
+  pkg: cleave.packageId,
+  scheme: cleave.scheme,
+  pattern: challengeCodePattern,
+  otherPath: localePath("/cleave/c/", other),
+  title: t.title,
+  titleNoCode: t.titleNoCode,
+  lead: t.lead,
+  leadNoCode: t.leadNoCode,
+  rival: t.rival,
+  copy: t.copy,
+  copied: t.copied,
+  opening: t.opening,
+  open: t.open,
+};
+---
+
+<BaseLayout title={t.metaTitle} description={t.metaDescription} image={`/images/cleave/og-${locale}.png`}>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <section class="container-site pt-10 sm:pt-16" id="cleave-challenge" data-client={JSON.stringify(client)}>
+    <div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
+      <div class="animate-rise">
+        <div class="flex items-center gap-3">
+          <img src="/images/cleave/icon.svg" alt="" width="48" height="48" class="h-12 w-12 rounded-[0.9rem] shadow-card" />
+          <div class="leading-tight">
+            <p class="text-base font-semibold tracking-tight text-ink">Cleave</p>
+            <p class="text-xs text-muted">{t.kicker}</p>
+          </div>
+        </div>
+
+        <h1 class="em-cleave mt-8 text-display-lg font-semibold text-ink" data-title set:html={t.title} />
+        <p class="mt-5 max-w-xl text-lg text-muted sm:text-xl" data-lead>{t.lead}</p>
+
+        <div class="mt-9 max-w-md" data-code-box>
+          <div class="surface flex items-center justify-between gap-4 p-2 pl-5">
+            <div class="min-w-0 py-1.5">
+              <p class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">{t.codeLabel}</p>
+              <p class="mt-1 truncate font-mono text-lg font-semibold tracking-wide text-ink" data-code>CLV1-······</p>
+            </div>
+            <button type="button" class="btn-secondary shrink-0 !px-4 !py-2.5" data-copy>
+              <Icon name="copy" class="h-4 w-4" />
+              <span data-copy-label>{t.copy}</span>
+            </button>
+          </div>
+          <p class="mt-4 hidden items-center gap-2 text-sm font-semibold text-cleave-blue dark:text-cleave-sky" data-rival>
+            <Icon name="target" class="h-4 w-4 shrink-0" />
+            <span data-rival-text></span>
+          </p>
+        </div>
+
+        <p class="mt-9 hidden max-w-md rounded-2xl border border-line/10 bg-raised px-5 py-4 text-sm text-muted" data-invalid>{t.invalid}</p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href={cleave.playStore} class="btn hidden bg-cleave-blue text-white shadow-[0_14px_30px_-14px_rgb(46_75_224/0.9)] hover:-translate-y-0.5 dark:bg-cleave-sky" data-open>
+            <span data-open-label>{t.open}</span>
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <a href={cleave.playStore} target="_blank" rel="noopener noreferrer" class="btn-secondary" data-play>
+            <Icon name="play" class="h-4 w-4" />
+            {t.play}
+          </a>
+        </div>
+        <p class="mt-5 max-w-md text-sm text-muted" data-fine>{t.fine}</p>
+        <p class="mt-5 hidden max-w-md text-sm text-muted" data-elsewhere>{t.elsewhere}</p>
+      </div>
+
+      <!-- One shape, one cut: the game in a single picture -->
+      <div class="animate-rise [animation-delay:120ms]">
+        <div class="cleave-board relative mx-auto aspect-square w-full max-w-[30rem] overflow-hidden rounded-4xl border border-line/10 shadow-lift">
+          <svg viewBox="0 0 400 400" class="absolute inset-0 h-full w-full" role="img" aria-label={t.illustration}>
+            <g class="cleave-piece cleave-piece-l">
+              <polygon points={demoCut.left} fill="#2E4BE0" />
+            </g>
+            <g class="cleave-piece cleave-piece-r">
+              <polygon points={demoCut.right} class="cleave-tint" />
+            </g>
+            <line
+              x1={demoCut.blade.x1}
+              y1={demoCut.blade.y1}
+              x2={demoCut.blade.x2}
+              y2={demoCut.blade.y2}
+              class="cleave-blade"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+            <g class="cleave-pill" style="animation-delay:1.55s">
+              <rect x="101" y="211" width="76" height="34" rx="17" class="cleave-pill-bg" />
+              <text x="139" y="233" text-anchor="middle" class="cleave-pill-text">{t.pctLeft}</text>
+            </g>
+            <g class="cleave-pill" style="animation-delay:1.7s">
+              <rect x="217" y="179" width="76" height="34" rx="17" class="cleave-pill-bg" />
+              <text x="255" y="201" text-anchor="middle" class="cleave-pill-text">{t.pctRight}</text>
+            </g>
+          </svg>
+          <p class="absolute inset-x-0 bottom-5 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted">{t.boardCaption}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site pt-20 sm:pt-28">
+    <p class="eyebrow" data-reveal>{t.stepsEyebrow}</p>
+    <ol class="mt-8 grid gap-5 md:grid-cols-3">
+      {t.steps.map((s, i) => (
+        <li class="surface p-6 sm:p-7" data-reveal data-reveal-delay={i * 80}>
+          <span class="font-mono text-xs text-cleave-blue dark:text-cleave-sky">0{i + 1}</span>
+          <h2 class="mt-5 text-lg font-semibold text-ink">{s.title}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <script>
+    type Client = {
+      locale: "en" | "hr";
+      pkg: string;
+      scheme: string;
+      pattern: string;
+      otherPath: string;
+      title: string;
+      titleNoCode: string;
+      lead: string;
+      leadNoCode: string;
+      rival: string;
+      copy: string;
+      copied: string;
+      opening: string;
+      open: string;
+    };
+
+    const root = document.getElementById("cleave-challenge");
+    if (root) {
+      const c = JSON.parse(root.dataset.client ?? "{}") as Client;
+      const $ = <T extends HTMLElement>(name: string) => root.querySelector<T>(`[data-${name}]`)!;
+      const show = (el: HTMLElement, on: boolean, display = "") => {
+        el.classList.toggle("hidden", !on);
+        if (display) el.classList.toggle(display, on);
+      };
+      const android = /android/i.test(navigator.userAgent);
+      const store = `https://play.google.com/store/apps/details?id=${c.pkg}`;
+      const re = new RegExp(c.pattern);
+
+      const readCode = () => {
+        const raw = decodeURIComponent(location.hash.slice(1) || new URLSearchParams(location.search).get("c") || "")
+          .toUpperCase()
+          .replace(/\s+/g, "");
+        const m = raw.match(re);
+        return { raw, code: m ? `CLV1-${m[1]}` : null, rival: m?.[2] ? Number(m[2]) / 10 : null };
+      };
+
+      const render = (autoOpen: boolean) => {
+        const { raw, code, rival } = readCode();
+        const sent = code && rival != null ? `${code}-E${Math.round(rival * 10)}` : code;
+
+        $("title").innerHTML = code ? c.title : c.titleNoCode;
+        $("lead").textContent = code ? c.lead : c.leadNoCode;
+        show($("code-box"), !!code);
+        show($("invalid"), !code && raw.length > 0);
+        show($("fine"), !!code && android);
+        show($("elsewhere"), !!code && !android);
+
+        // Language switch keeps the code.
+        document.querySelectorAll<HTMLAnchorElement>(`a[href^="${c.otherPath}"]`).forEach((a) => {
+          a.href = c.otherPath + location.hash;
+        });
+
+        const open = $<HTMLAnchorElement>("open");
+        const play = $<HTMLAnchorElement>("play");
+        if (!code || !sent) {
+          show(open, false);
+          play.href = store;
+          return;
+        }
+
+        $("code").textContent = sent;
+        const fmt = (n: number) => n.toLocaleString(c.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        show($("rival"), rival != null, "flex");
+        if (rival != null) $("rival-text").textContent = c.rival.replace("{e}", fmt(rival));
+
+        // New players: Play carries the code through install (install referrer) straight into this challenge.
+        const playWithCode = `${store}&referrer=${encodeURIComponent(`challenge=${sent}`)}`;
+        play.href = playWithCode;
+
+        // Installed players on Android: open the app directly; without it, Chrome falls back to Play.
+        const intent =
+          `intent://challenge/${sent}#Intent;scheme=${c.scheme};package=${c.pkg};` +
+          `S.browser_fallback_url=${encodeURIComponent(playWithCode)};end`;
+        open.href = intent;
+        show(open, android);
+
+        if (android && autoOpen) {
+          let seen = false;
+          try {
+            seen = sessionStorage.getItem(`cleave:${sent}`) === "1";
+            sessionStorage.setItem(`cleave:${sent}`, "1");
+          } catch {}
+          if (!seen) {
+            $("open-label").textContent = c.opening;
+            setTimeout(() => {
+              location.href = intent;
+              setTimeout(() => ($("open-label").textContent = c.open), 1500);
+            }, 350);
+          }
+        }
+      };
+
+      $("copy").addEventListener("click", async () => {
+        const text = $("code").textContent ?? "";
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const r = document.createRange();
+          r.selectNodeContents($("code"));
+          getSelection()?.removeAllRanges();
+          getSelection()?.addRange(r);
+          return;
+        }
+        const label = $("copy-label");
+        label.textContent = c.copied;
+        setTimeout(() => (label.textContent = c.copy), 1600);
+      });
+
+      render(true);
+      window.addEventListener("hashchange", () => render(true));
+    }
+  </script>
+</BaseLayout>
