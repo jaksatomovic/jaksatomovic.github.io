@@ -4,6 +4,8 @@ import Icon from "../components/ui/Icon.astro";
 import ProjectCard from "../components/ui/ProjectCard.astro";
 import SectionHeading from "../components/ui/SectionHeading.astro";
 import PhoneFrame from "../components/ui/PhoneFrame.astro";
+import StudioCard from "../components/ui/StudioCard.astro";
+import { getStudio } from "../data/studio";
 import { getProjects } from "../data/projects";
 import { formatPostDate, getCategoryById, getPosts } from "../data/blog";
 import { getLocale, localePath } from "../i18n";
@@ -11,6 +13,7 @@ import { dict } from "../i18n/ui";
 
 const locale = getLocale(Astro.url);
 const t = dict[locale].home;
+const studio = getStudio(locale);
 const p = (path: string) => localePath(path, locale);
 
 const projects = getProjects(locale);
@@ -87,13 +90,14 @@ const latestPosts = getPosts(locale).slice(0, 4);
   <section id="work" class="container-site scroll-mt-24 pt-24 sm:pt-32">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <SectionHeading eyebrow={t.workEyebrow} title={t.workTitle} description={t.workDescription} />
-      <a href={p("/apps")} class="link-arrow shrink-0" data-reveal>
+      <a href={studio.href} class="link-arrow shrink-0" data-reveal>
         {t.allApps}
         <Icon name="arrow" />
       </a>
     </div>
     <div class="mt-10 grid gap-5 md:grid-cols-2">
       <ProjectCard project={tonko} variant="wide" />
+      <StudioCard />
       {rest.map((x, i) => (
         <ProjectCard project={x} delay={(i % 2) * 90} />
       ))}

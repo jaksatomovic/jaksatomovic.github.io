@@ -3,10 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/ui/Icon.astro";
 import SectionHeading from "../components/ui/SectionHeading.astro";
 import { getLocale, localePath } from "../i18n";
+import { getStudio } from "../data/studio";
 import { dict } from "../i18n/ui";
 
 const locale = getLocale(Astro.url);
 const t = dict[locale].about;
+const studio = getStudio(locale);
 const p = (path: string) => localePath(path, locale);
 ---
 
@@ -129,7 +131,7 @@ const p = (path: string) => localePath(path, locale);
         <p class="eyebrow">{t.sideEyebrow}</p>
         <h2 class="mt-4 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{t.sideTitle}</h2>
         <p class="mt-4 text-muted">{t.sideBody}</p>
-        <a href={p("/#work")} class="link-arrow mt-6">
+        <a href={studio.href} class="link-arrow mt-6">
           {t.sideCta}
           <Icon name="arrow" />
         </a>

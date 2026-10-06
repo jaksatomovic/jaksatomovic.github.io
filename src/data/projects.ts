@@ -48,34 +48,6 @@ const base: Base[] = [
     },
   },
   {
-    id: "airshare",
-    name: "AirShare",
-    href: "https://github.com/airsharehq",
-    image: "/images/airshare-mark.svg",
-    imageFit: "cover",
-    tone: "linear-gradient(135deg, #0c1512, #101a1e)",
-    stack: ["Next.js", "TypeScript", "Iroh", "QUIC"],
-    area: "apps",
-    text: {
-      en: {
-        kicker: "Web product",
-        status: "Open source",
-        summary:
-          "Instant, encrypted file delivery over QUIC. Devices find each other locally, relays step in when they are apart, and nothing turns into cloud storage.",
-        cta: "View on GitHub",
-        imageAlt: "Illustration of two devices exchanging a file over a direct encrypted link",
-      },
-      hr: {
-        kicker: "Web proizvod",
-        status: "Open source",
-        summary:
-          "Trenutni, šifrirani prijenos datoteka preko QUIC-a. Uređaji se pronađu lokalno, releji uskaču kad su udaljeni, i ništa ne završava u cloud pohrani.",
-        cta: "Pogledaj na GitHubu",
-        imageAlt: "Ilustracija dva uređaja koja razmjenjuju datoteku preko izravne šifrirane veze",
-      },
-    },
-  },
-  {
     id: "keero",
     name: "Keero Bot",
     href: "/hardware#keero",

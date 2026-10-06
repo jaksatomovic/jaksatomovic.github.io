@@ -1,10 +1,12 @@
 ---
 import Icon from "../ui/Icon.astro";
 import { getLocale, localePath } from "../../i18n";
+import { getStudio } from "../../data/studio";
 import { dict } from "../../i18n/ui";
 
 const locale = getLocale(Astro.url);
 const t = dict[locale];
+const studio = getStudio(locale);
 const p = (path: string) => localePath(path, locale);
 
 const columns = [
@@ -13,7 +15,7 @@ const columns = [
     links: [
       { href: p("/about"), label: t.nav.about },
       { href: p("/apps/tonko"), label: "TONKO" },
-      { href: p("/apps"), label: t.nav.apps },
+      { href: studio.href, label: "Boiled Eggs Studio" },
       { href: p("/hardware"), label: t.nav.hardware },
       { href: p("/canarin-garage"), label: "Canarin Garage" },
     ],

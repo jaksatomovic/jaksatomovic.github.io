@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/ui/Icon.astro";
 import PhoneFrame from "../components/ui/PhoneFrame.astro";
 import SectionHeading from "../components/ui/SectionHeading.astro";
+import { getStudio } from "../data/studio";
 import { getTonko } from "../data/tonko";
 import { getLocale, localePath } from "../i18n";
 import { dict } from "../i18n/ui";
@@ -10,6 +11,7 @@ import { dict } from "../i18n/ui";
 const locale = getLocale(Astro.url);
 const t = dict[locale].tonko;
 const tonko = getTonko(locale);
+const studio = getStudio(locale);
 ---
 
 <BaseLayout title={t.metaTitle} description={t.metaDescription} image="/images/tonko/feature.png">
@@ -73,6 +75,13 @@ const tonko = getTonko(locale);
       <span class="ml-auto text-muted">{t.roleNote}</span>
     </div>
   </section>
+
+  <aside class="container-site pt-10">
+    <div class="surface flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+      <div><p class="eyebrow">Boiled Eggs Studio</p><p class="mt-2 max-w-2xl text-sm text-muted">{studio.tonkoNote}</p></div>
+      <a href={studio.tonkoHref} class="link-arrow shrink-0">{studio.tonkoCta}<Icon name="external" /></a>
+    </div>
+  </aside>
 
   <!-- Idea -->
   <section class="container-site pt-20 sm:pt-28">

@@ -1,0 +1,23 @@
+---
+import Icon from "./Icon.astro";
+import { getLocale } from "../../i18n";
+import { getStudio } from "../../data/studio";
+const studio = getStudio(getLocale(Astro.url));
+---
+
+<article class="surface overflow-hidden md:col-span-2" data-reveal>
+  <div class="grid md:grid-cols-[0.7fr_1.3fr]">
+    <a href={studio.href} class="flex items-center justify-center bg-[#ffdc36] p-6 sm:p-8" aria-label={studio.cta}>
+      <img src="/images/boiled-eggs-mascot.webp" alt="" width="900" height="900" class="h-48 w-48 object-contain sm:h-56 sm:w-56" loading="lazy" />
+    </a>
+    <div class="p-6 sm:p-8 lg:p-10">
+      <p class="eyebrow">{studio.eyebrow}</p>
+      <h2 class="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">{studio.title}</h2>
+      <p class="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">{studio.body}</p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <a href={studio.href} class="btn-primary">{studio.cta}<Icon name="external" class="h-4 w-4" /></a>
+        <a href={`mailto:${studio.email}`} class="text-sm text-muted underline underline-offset-4 hover:text-ink">{studio.email}</a>
+      </div>
+    </div>
+  </div>
+</article>
