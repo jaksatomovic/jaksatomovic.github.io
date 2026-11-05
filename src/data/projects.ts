@@ -48,40 +48,12 @@ const base: Base[] = [
     },
   },
   {
-    id: "keero",
-    name: "Keero Bot",
-    href: "/hardware#keero",
-    image: "/images/keero-hero.jpg",
-    imageFit: "cover",
-    tone: "#ffffff",
-    stack: ["ESP32-S3", "C++", "PlatformIO", "Audio DSP"],
-    area: "hardware",
-    text: {
-      en: {
-        kicker: "AI hardware platform",
-        status: "Active prototype",
-        summary:
-          "A modular ESP32-S3 device core for voice-first, interactive hardware: audio in and out, sensing, haptics, display and camera paths, docks and module expansion.",
-        cta: "Explore the platform",
-        imageAlt: "3D render of the Keero Bot mainboard and modules",
-      },
-      hr: {
-        kicker: "AI hardverska platforma",
-        status: "Aktivni prototip",
-        summary:
-          "Modularna ESP32-S3 jezgra za interaktivne uređaje s glasovnim sučeljem: audio ulaz i izlaz, senzori, haptika, display i kamera, dockovi i moduli za proširenje.",
-        cta: "Istraži platformu",
-        imageAlt: "3D render Keero Bot mainboarda i modula",
-      },
-    },
-  },
-  {
     id: "moto32",
     name: "Moto32",
     href: "https://moto32.vercel.app",
-    image: "/images/moto32-board.svg",
-    imageFit: "cover",
-    tone: "linear-gradient(135deg, #0e1512, #131a16)",
+    image: "/images/moto32-board.png",
+    imageFit: "contain",
+    tone: "#000000",
     stack: ["ESP32-S3", "KiCad", "MIT licence"],
     area: "hardware",
     text: {
@@ -91,7 +63,7 @@ const base: Base[] = [
         summary:
           "An ESP32-S3 motorcycle control unit with eight MOSFET-protected outputs, USB-C programming and full build docs. An open alternative to commercial M-Unit style boxes.",
         cta: "Read the docs",
-        imageAlt: "Stylised illustration of the Moto32 control board",
+        imageAlt: "3D render of the Moto32 control board",
       },
       hr: {
         kicker: "Open-source hardver",
@@ -99,7 +71,7 @@ const base: Base[] = [
         summary:
           "ESP32-S3 upravljačka jedinica za motocikle s osam MOSFET-zaštićenih izlaza, USB-C programiranjem i potpunom dokumentacijom. Otvorena alternativa komercijalnim M-Unit kutijama.",
         cta: "Otvori dokumentaciju",
-        imageAlt: "Stilizirana ilustracija Moto32 upravljačke pločice",
+        imageAlt: "3D prikaz Moto32 upravljačke pločice",
       },
     },
   },

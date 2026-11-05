@@ -40,8 +40,8 @@ const p = (path: string) => localePath(path, locale);
     </header>
 
     <figure class="container-site mt-12">
-      <div class="surface overflow-hidden">
-        <img src={post.image} alt={post.imageAlt} class="max-h-[640px] w-full object-cover" width="1400" height="820" />
+      <div class:list={["surface overflow-hidden", post.imageFit === "contain" && "bg-black"]}>
+        <img src={post.image} alt={post.imageAlt} class:list={["max-h-[640px] w-full", post.imageFit === "contain" ? "object-contain p-6" : "object-cover"]} width="1400" height="820" />
       </div>
     </figure>
 

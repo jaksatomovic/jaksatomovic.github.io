@@ -1,6 +1,6 @@
 # jaksatomovic.github.io
 
-Personal site of Jakša Tomović: apps (TONKO, AirShare), embedded hardware (Keero Bot, Moto32), the Canarin Garage CX500 build, and a small blog.
+Personal site of Jakša Tomović: apps (TONKO, AirShare), embedded hardware (Moto32), the Canarin Garage CX500 build, and a small blog.
 
 Built with [Astro](https://astro.build) and Tailwind CSS, deployed to GitHub Pages on every push to `main`.
 
@@ -24,7 +24,7 @@ src/
 │   ├── layout/      Header (with theme toggle) and footer
 │   └── ui/          Icon, SectionHeading, ProjectCard, PhoneFrame
 ├── data/
-│   ├── projects.ts  The five featured projects, text per locale
+│   ├── projects.ts  Featured projects, text per locale
 │   ├── tonko.ts     TONKO case-study content per locale
 │   └── blog.ts      Blog posts and categories, text per locale
 ├── i18n/

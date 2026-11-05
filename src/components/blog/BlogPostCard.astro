@@ -26,14 +26,14 @@ const category = getCategoryById(post.category, locale);
   data-reveal
   data-reveal-delay={delay}
 >
-  <div class:list={["overflow-hidden bg-raised", featured ? "aspect-[16/10] lg:aspect-auto lg:min-h-[24rem]" : "aspect-[16/10]"]}>
+  <div class:list={["overflow-hidden", post.imageFit === "contain" ? "bg-black" : "bg-raised", featured ? "aspect-[16/10] lg:aspect-auto lg:min-h-[24rem]" : "aspect-[16/10]"]}>
     <img
       src={post.image}
       alt={post.imageAlt}
       loading={featured ? "eager" : "lazy"}
       width="900"
       height="560"
-      class="h-full w-full object-cover transition duration-700 ease-premium group-hover:scale-[1.03]"
+      class:list={["h-full w-full transition duration-700 ease-premium group-hover:scale-[1.03]", post.imageFit === "contain" ? "object-contain p-6" : "object-cover"]}
     />
   </div>
   <div class:list={["flex flex-1 flex-col", featured ? "p-7 sm:p-10" : "p-6 sm:p-7"]}>

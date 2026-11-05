@@ -13,7 +13,7 @@ const p = (path: string) => localePath(path, locale);
 const posts = getPostsByCategory("hardware", locale).slice(0, 2);
 ---
 
-<BaseLayout title={t.metaTitle} description={t.metaDescription} image="/images/keero-hero.jpg">
+<BaseLayout title={t.metaTitle} description={t.metaDescription} image="/images/moto32-board.png">
   <section class="container-site pt-12 sm:pt-20">
     <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
     <ul class="mt-10 grid gap-5 md:grid-cols-3">
@@ -24,50 +24,6 @@ const posts = getPostsByCategory("hardware", locale).slice(0, 2);
         </li>
       ))}
     </ul>
-  </section>
-
-  <!-- Keero -->
-  <section id="keero" class="container-site scroll-mt-24 pt-24 sm:pt-32">
-    <div class="surface overflow-hidden" data-reveal>
-      <div class="grid lg:grid-cols-[1fr_1fr]">
-        <div class="relative min-h-[18rem] overflow-hidden bg-white">
-          <img src="/images/keero-hero.jpg" alt="Keero Bot" class="absolute inset-0 h-full w-full object-contain p-8" width="1200" height="1194" loading="eager" />
-        </div>
-        <div class="p-8 sm:p-12">
-          <div class="flex items-center justify-between gap-3">
-            <span class="eyebrow">{t.keeroEyebrow}</span>
-            <span class="chip">{t.keeroStatus}</span>
-          </div>
-          <h2 class="mt-5 text-display-md font-semibold text-ink">Keero Bot</h2>
-          <p class="mt-4 text-base text-muted">{t.keeroBody}</p>
-          <dl class="mt-8 grid gap-4 sm:grid-cols-2">
-            {t.keeroSpecs.map(([k, v]) => (
-              <div class="border-t border-line/10 pt-3">
-                <dt class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted">{k}</dt>
-                <dd class="mt-1 text-sm text-ink">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="https://github.com/keero-io" target="_blank" rel="noopener noreferrer" class="btn-primary">
-              {t.keeroGithub}
-              <Icon name="external" class="h-4 w-4" />
-            </a>
-            <a href={p("/blog/why-keero-bot-is-an-ai-esp32-device")} class="btn-secondary">{t.keeroWhy}</a>
-          </div>
-        </div>
-      </div>
-      <div class="grid gap-px border-t border-line/10 bg-line/10 md:grid-cols-[1fr_1fr]">
-        <figure class="bg-surface p-6 sm:p-8">
-          <img src="/images/keero-tracks.jpg" alt="Keero Bot" class="w-full rounded-2xl object-cover" width="1200" height="794" loading="lazy" />
-          <figcaption class="mt-3 text-sm text-muted">{t.keeroTracksCaption}</figcaption>
-        </figure>
-        <div class="flex flex-col justify-center bg-surface p-6 sm:p-8">
-          <p class="eyebrow">{t.keeroWhyEyebrow}</p>
-          <p class="mt-4 text-lg font-medium text-ink">{t.keeroWhyBody}</p>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- Moto32 -->
@@ -97,8 +53,8 @@ const posts = getPostsByCategory("hardware", locale).slice(0, 2);
             <a href={p("/canarin-garage")} class="btn-secondary">{t.moto32OnBike}</a>
           </div>
         </div>
-        <div class="order-1 relative min-h-[18rem] bg-[linear-gradient(135deg,#0e1512,#131a16)] lg:order-2">
-          <img src="/images/moto32-board.svg" alt="Moto32" class="absolute inset-0 h-full w-full object-cover" width="600" height="400" loading="lazy" />
+        <div class="order-1 relative min-h-[18rem] bg-black lg:order-2">
+          <img src="/images/moto32-board.png" alt={t.moto32ImageAlt} class="absolute inset-0 h-full w-full object-contain p-6 sm:p-8" width="2160" height="1982" loading="eager" />
         </div>
       </div>
     </div>

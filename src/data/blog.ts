@@ -21,6 +21,7 @@ export type BlogPost = {
   publishedAt: string;
   readTime: string;
   image: string;
+  imageFit?: "cover" | "contain";
   imageAlt: string;
   tags: string[];
   body: string[];
@@ -33,12 +34,12 @@ type PostBase = Omit<BlogPost, keyof PostText> & { text: Record<Locale, PostText
 const categoryText: Record<Locale, Record<BlogCategoryId, Omit<BlogCategory, "id" | "href">>> = {
   en: {
     apps: { label: "Apps", eyebrow: "Product notes", description: "Shipping notes, interface decisions and lessons from TONKO, AirShare and other focused products." },
-    hardware: { label: "Hardware", eyebrow: "Bench notes", description: "Moto32, Keero Bot, ESP32 systems, PCB decisions, firmware architecture and bench notes." },
+    hardware: { label: "Hardware", eyebrow: "Bench notes", description: "Moto32, ESP32 systems, PCB decisions, firmware architecture and bench notes." },
     garage: { label: "Garage", eyebrow: "Build log", description: "CX500 build logs, fabrication notes, parts choices and road-and-track motorcycle work." },
   },
   hr: {
     apps: { label: "Aplikacije", eyebrow: "Zapisi o aplikacijama", description: "Bilješke o objavama, odlukama o sučelju i lekcijama iz TONKA, AirSharea i drugih proizvoda." },
-    hardware: { label: "Hardver", eyebrow: "Zapisi s klupe", description: "Moto32, Keero Bot, ESP32 sustavi, PCB odluke, arhitektura firmwarea i bilješke s klupe." },
+    hardware: { label: "Hardver", eyebrow: "Zapisi s klupe", description: "Moto32, ESP32 sustavi, PCB odluke, arhitektura firmwarea i bilješke s klupe." },
     garage: { label: "Garaža", eyebrow: "Dnevnik gradnje", description: "Dnevnik gradnje CX500, bilješke o izradi, izbor dijelova i rad na motociklu za cestu i stazu." },
   },
 };
@@ -272,73 +273,11 @@ const posts: PostBase[] = [
     },
   },
   {
-    slug: "why-keero-bot-is-an-ai-esp32-device",
-    category: "hardware",
-    publishedAt: "2026-05-06",
-    image: "/images/character.png",
-    tags: ["Keero Bot", "ESP32-S3", "AI Device", "Firmware"],
-    text: {
-      en: {
-        title: "Why Keero Bot Is An AI ESP32 Device",
-        excerpt:
-          "Keero Bot is a modular ESP32-S3 AI device, not just a robotics shell: audio, behavior, firmware, modules, and interaction design are treated as one product.",
-        readTime: "4 min read",
-        imageAlt: "Keero Bot character-style product visual",
-        body: [
-          "Keero Bot is best described as an AI ESP32 device because the hardware and behavior model are designed together. It is not only a board, not only a robot, and not only a voice demo.",
-          "The useful part is the system: local audio paths, expressive state logic, firmware architecture, and module expansion that can keep growing without turning into a tangled prototype.",
-        ],
-        sections: [
-          {
-            heading: "Why ESP32-S3",
-            body: [
-              "ESP32-S3 gives the platform a practical base for embedded interaction work: enough compute for responsive device behavior, a familiar firmware ecosystem, and room for audio and peripheral expansion.",
-              "That makes it a good core for a product that needs to feel alive but still be understandable on the bench.",
-            ],
-          },
-          {
-            heading: "The Product Layer",
-            body: [
-              "Keero Bot is shaped around repeatable modules: audio, sensing, display paths, camera support, motion ideas, docks, and future expansion.",
-              "The goal is not to make a flashy one-off demo. The goal is to make a small AI hardware platform that can be iterated, documented, and actually used.",
-            ],
-          },
-        ],
-      },
-      hr: {
-        title: "Zašto je Keero Bot AI ESP32 uređaj",
-        excerpt:
-          "Keero Bot je modularni ESP32-S3 AI uređaj, ne samo robotska ljuska: audio, ponašanje, firmware, moduli i dizajn interakcije tretiraju se kao jedan proizvod.",
-        readTime: "4 min čitanja",
-        imageAlt: "Vizual Keero Bota u stilu lika",
-        body: [
-          "Keero Bot najbolje je opisati kao AI ESP32 uređaj jer se hardver i model ponašanja projektiraju zajedno. Nije samo pločica, nije samo robot i nije samo glasovni demo.",
-          "Koristan dio je sustav: lokalni audio putevi, izražajna logika stanja, arhitektura firmwarea i moduli koji mogu rasti bez da se pretvore u zapetljani prototip.",
-        ],
-        sections: [
-          {
-            heading: "Zašto ESP32-S3",
-            body: [
-              "ESP32-S3 daje platformi praktičnu bazu za ugradbenu interakciju: dovoljno računalne snage za responzivno ponašanje uređaja, poznat firmware ekosustav i prostor za audio i periferije.",
-              "To ga čini dobrom jezgrom za proizvod koji treba djelovati živo, a ostati razumljiv na klupi.",
-            ],
-          },
-          {
-            heading: "Sloj proizvoda",
-            body: [
-              "Keero Bot oblikovan je oko ponovljivih modula: audio, senzori, display, podrška za kameru, ideje za pokret, dockovi i buduća proširenja.",
-              "Cilj nije napraviti blještavi jednokratni demo. Cilj je napraviti malu AI hardversku platformu koja se može iterirati, dokumentirati i stvarno koristiti.",
-            ],
-          },
-        ],
-      },
-    },
-  },
-  {
     slug: "moto32-hardware-platform-notes",
     category: "hardware",
     publishedAt: "2026-05-06",
-    image: "/images/moto32-board.svg",
+    image: "/images/moto32-board.png",
+    imageFit: "contain",
     tags: ["Moto32", "ESP32-S3", "Motorcycle Electronics", "PCB"],
     text: {
       en: {
@@ -346,7 +285,7 @@ const posts: PostBase[] = [
         excerpt:
           "Moto32 is the motorcycle electronics bench project: ESP32-S3 control, protected outputs, USB-C programming, and a cleaner path for custom bike wiring.",
         readTime: "3 min read",
-        imageAlt: "Stylised illustration of the Moto32 control board",
+        imageAlt: "3D render of the Moto32 control board",
         body: [
           "Moto32 exists because custom motorcycle wiring should be cleaner, more understandable, and easier to service than a pile of relays hidden under the seat.",
           "The project explores an ESP32-S3-based motorcycle control unit with protected outputs, USB-C programming, and documentation that makes the hardware easier to inspect and reproduce.",
@@ -362,7 +301,7 @@ const posts: PostBase[] = [
           {
             heading: "Where It Fits",
             body: [
-              "Moto32 sits next to the wider garage work as a hardware learning ground. It is the motorcycle control side of the same embedded systems obsession behind Keero Bot.",
+              "Moto32 sits next to the wider garage work as a hardware learning ground, connecting embedded systems development with practical motorcycle electronics.",
             ],
           },
         ],
@@ -372,7 +311,7 @@ const posts: PostBase[] = [
         excerpt:
           "Moto32 je projekt elektronike za motocikle: ESP32-S3 upravljanje, zaštićeni izlazi, USB-C programiranje i čišći put za custom instalaciju na motociklu.",
         readTime: "3 min čitanja",
-        imageAlt: "Stilizirana ilustracija Moto32 upravljačke pločice",
+        imageAlt: "3D prikaz Moto32 upravljačke pločice",
         body: [
           "Moto32 postoji jer custom instalacija na motociklu treba biti čišća, razumljivija i lakša za servis od hrpe releja skrivenih ispod sjedala.",
           "Projekt istražuje upravljačku jedinicu za motocikle na bazi ESP32-S3 sa zaštićenim izlazima, USB-C programiranjem i dokumentacijom koja hardver čini lakšim za pregled i reprodukciju.",
@@ -388,7 +327,7 @@ const posts: PostBase[] = [
           {
             heading: "Gdje pripada",
             body: [
-              "Moto32 stoji uz širi rad u garaži kao poligon za učenje hardvera. To je motociklistička upravljačka strana iste opsjednutosti ugradbenim sustavima koja stoji iza Keero Bota.",
+              "Moto32 stoji uz širi rad u garaži kao poligon za učenje hardvera, povezujući razvoj ugradbenih sustava s praktičnom elektronikom za motocikle.",
             ],
           },
         ],
